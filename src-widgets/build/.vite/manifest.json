@@ -31,8 +31,20 @@
     "file": "assets/preload-helper-C1FmrZbK.js",
     "name": "preload-helper"
   },
+  "src/AnAusSchalter.jsx": {
+    "file": "assets/AnAusSchalter-CCvq_2mh.js",
+    "name": "AnAusSchalter",
+    "src": "src/AnAusSchalter.jsx",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-BLf5YBG7.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-ufieXutZ.js",
+      "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
+    ]
+  },
   "src/FensterNormal.jsx": {
-    "file": "assets/FensterNormal-D7M8Frvo.js",
+    "file": "assets/FensterNormal-BZJmrdyO.js",
     "name": "FensterNormal",
     "src": "src/FensterNormal.jsx",
     "isEntry": true,
@@ -67,7 +79,7 @@
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-B7OMwfJs.js",
+    "file": "assets/virtualExposes-Lm_ktf8Q.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,
@@ -77,6 +89,7 @@
     ],
     "dynamicImports": [
       "src/FensterNormal.jsx",
+      "src/AnAusSchalter.jsx",
       "src/translations.js"
     ]
   },

@@ -14,6 +14,7 @@ const config = {
             filename: 'customWidgets.js',
             exposes: {
                 './FensterNormal': './src/FensterNormal',
+                './AnAusSchalter':   './src/AnAusSchalter',
                 './translations': './src/translations',
             },
             remotes: {},

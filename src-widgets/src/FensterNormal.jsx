@@ -115,9 +115,10 @@ class FensterNormal extends window.visRxWidget {
             id: 'tplTechnicFensterNormal',
             visSet: 'vis-2-widgets-technic',
             visSetLabel: 'Technic Widgets',
-            visSetColor: '#2ecfbf',
             visName: 'Fenster Normal',
             visWidgetLabel: 'Fenster Normal',
+            visSetColor:    '#2ecfbf',   // Gruppenfarbe (das Icon links)
+            visWidgetColor: '#0d1820',   // Kachelfarbe des einzelnen Widgets ← NEU
             visDefaultStyle: { width: 120, height: 160 },
             vis2: true,
             visAttrs: [
@@ -127,7 +128,7 @@ class FensterNormal extends window.visRxWidget {
                     fields: [
                         { name: 'name', label: 'Name', type: 'text', default: '' },
                         { name: 'showName', label: 'Name anzeigen', type: 'checkbox', default: false },
-                        { name: 'nameColor', label: 'Name Farbe', type: 'color', default: '#c8e6e3' },
+                        { name: 'nameColor', label: 'Name Farbe', type: 'color', default: '#cf6c10' },
                         { name: 'nameFontSize', label: 'Name Schriftgröße (px)', type: 'number', default: 12 },
                         { name: 'nameBold', label: 'Name Fett', type: 'checkbox', default: false },
                         {
@@ -136,7 +137,7 @@ class FensterNormal extends window.visRxWidget {
                             default: 'links',
                         },
                         { name: 'showRahmen', label: 'Rahmen anzeigen', type: 'checkbox', default: true },
-                        { name: 'rahmenfarbe', label: 'Rahmenfarbe', type: 'color', default: '#2ecfbf' },
+                        { name: 'rahmenfarbe', label: 'Rahmenfarbe', type: 'color', default: '#13c540' },
                     ],
                 },
                 {

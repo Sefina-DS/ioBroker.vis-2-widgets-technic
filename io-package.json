@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "vis-2-widgets-technic",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "news": {
+            "0.1.2": {
+                "en": "AnAusSchalter widget with SVG icons and freely configurable colors",
+                "de": "AnAusSchalter Widget mit SVG Icons und frei konfigurierbaren Farben"
+            },
             "0.1.1": {
                 "en": "FensterNormal widget with SVG transparency and context menu",
                 "de": "FensterNormal Widget mit SVG Transparenz und Kontextmenü"
@@ -12,17 +16,26 @@
                 "de": "Erstveröffentlichung"
             }
         },
-        "title": "Technic VIS 2 Widgets",
+        "title": "Vis 2 - Technik Widgets",
         "titleLang": {
-            "en": "Technic VIS 2 Widgets",
-            "de": "Technic VIS 2 Widgets"
+            "en": "Vis 2 - Technic Widgets",
+            "de": "Vis 2 - Technik Widgets"
         },
         "desc": {
-            "en": "Fenster & Rollo widget for ioBroker VIS 2",
-            "de": "Fenster & Rollo Widget für ioBroker VIS 2"
+            "en": "Technic widgets for ioBroker VIS 2 - Window, Shutter and Switch controls",
+            "de": "Technik Widgets für ioBroker VIS 2 - Fenster, Rollo und Schalter"
         },
-        "authors": ["Sefina-DS"],
-        "keywords": ["iobroker", "vis", "vis-2", "rollo", "fenster", "shutter"],
+        "authors": [
+            "Sefina-DS"
+        ],
+        "keywords": [
+            "iobroker",
+            "vis",
+            "vis-2",
+            "rollo",
+            "fenster",
+            "shutter"
+        ],
         "license": "MIT",
         "type": "visualization-widgets",
         "main": "",
@@ -30,19 +43,24 @@
         "singleton": true,
         "onlyWWW": true,
         "nogit": true,
-        "restartAdapters": ["vis-2"],
+        "restartAdapters": [
+            "vis-2"
+        ],
         "platform": "Javascript/Node.js",
         "readme": "https://github.com/Sefina-DS/iobroker.vis-2-widgets-technic/blob/main/README.md",
         "loglevel": "info",
         "supportCustoms": false,
-        "adminUI": {"config": "none"},
+        "adminUI": {
+            "config": "none"
+        },
         "visWidgets": {
             "vis2TechnicWidgets": {
                 "name": "vis2TechnicWidgets",
                 "url": "vis-2-widgets-technic/customWidgets.js",
                 "bundlerType": "module",
                 "components": [
-                    "FensterNormal"
+                    "FensterNormal",
+                    "AnAusSchalter"
                 ]
             }
         }
