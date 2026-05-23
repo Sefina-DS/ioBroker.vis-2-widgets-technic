@@ -43,6 +43,18 @@
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
     ]
   },
+  "src/BeleuchtungDimmer.jsx": {
+    "file": "assets/BeleuchtungDimmer-3Knw1su-.js",
+    "name": "BeleuchtungDimmer",
+    "src": "src/BeleuchtungDimmer.jsx",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-BLf5YBG7.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-ufieXutZ.js",
+      "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
+    ]
+  },
   "src/FensterNormal.jsx": {
     "file": "assets/FensterNormal-BZJmrdyO.js",
     "name": "FensterNormal",
@@ -79,7 +91,7 @@
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-Lm_ktf8Q.js",
+    "file": "assets/virtualExposes-hYAcYi_z.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,
@@ -90,6 +102,7 @@
     "dynamicImports": [
       "src/FensterNormal.jsx",
       "src/AnAusSchalter.jsx",
+      "src/BeleuchtungDimmer.jsx",
       "src/translations.js"
     ]
   },

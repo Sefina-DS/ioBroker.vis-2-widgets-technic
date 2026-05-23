@@ -15,6 +15,7 @@ const config = {
             exposes: {
                 './FensterNormal': './src/FensterNormal',
                 './AnAusSchalter':   './src/AnAusSchalter',
+                './BeleuchtungDimmer': './src/BeleuchtungDimmer',
                 './translations': './src/translations',
             },
             remotes: {},
