@@ -1,107 +1,64 @@
-# iobroker.vis-2-widgets-technic
+# ioBroker VIS 2 Technic Widgets
 
-**Fenster & Rollo Widget für ioBroker VIS 2**
+[![NPM version](https://img.shields.io/npm/v/iobroker.vis-2-widgets-technic.svg)](https://www.npmjs.com/package/iobroker.vis-2-widgets-technic)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
----
+A collection of smart home widgets for ioBroker VIS 2 with a consistent dark teal design language.
 
-## Schnellstart
+## Widgets
 
-### Installation (einmalig)
+### FensterNormal
+Window and roller blind widget with SVG rendering, context menu, position slider and Auto/Manual toggle.
 
-```bash
-# In ioBroker Admin → Adapter → Von GitHub installieren
-https://github.com/Sefina-DS/iobroker.vis-2-widgets-technic
+### AnAusSchalter
+On/off switch widget with selectable SVG icons and configurable on/off colors.
 
-# Dateien in VIS 2 DB hochladen (einmalig nach Installation)
-cd /opt/iobroker/node_modules/iobroker.vis-2-widgets-technic
-bash deploy.sh
-```
+### BeleuchtungDimmer
+270° arc dimmer with draggable knob, dynamic lamp rays, power button and room name label.
 
----
+### FBH_Regler
+Underfloor heating circuit widget with half-circle dial, target/actual temperature display, valve status and InfluxDB history overlay.
 
-## Entwicklungs-Workflow
+## Requirements
 
-### Änderung machen → testen
+- ioBroker js-controller >= 5.0.19
+- ioBroker VIS 2 >= 2.0.0
+- Node.js >= 20
 
-```bash
-# 1. Widget-Code bearbeiten
-nano src-widgets/src/DemoWidget.jsx
-
-# 2. Deploy (bauen + hochladen + VIS 2 neu starten)
-bash deploy.sh
-
-# 3. Browser hard refresh
-Ctrl+Shift+R
-```
-
-### Deploy-Optionen
+## Installation
 
 ```bash
-bash deploy.sh                # Vollständiger Deploy (Build + Upload + Neustart)
-bash deploy.sh --no-build     # Nur Upload + Neustart (wenn Build schon aktuell)
-bash deploy.sh --no-restart   # Nur Build + Upload (kein VIS 2 Neustart)
+iobroker url https://github.com/Sefina-DS/iobroker.vis-2-widgets-technic
+iobroker add vis-2-widgets-technic
 ```
 
----
+After installation do a hard refresh in your browser (Ctrl+Shift+R).
 
-## Dateistruktur
+## Design
 
-```
-iobroker.vis-2-widgets-technic/
-├── io-package.json              ← ioBroker Adapter Manifest
-├── package.json
-├── deploy.sh                    ← Deploy Script für Entwicklung ⭐
-├── README.md
-├── src-widgets/                 ← React Quellcode
-│   ├── package.json
-│   ├── vite.config.ts
-│   └── src/
-│       ├── index.jsx            ← Widget-Registrierung
-│       ├── DemoWidget.jsx       ← Haupt-Widget
-│       ├── translations.js
-│       └── i18n/               ← Übersetzungen
-│           ├── de.json
-│           ├── en.json
-│           └── ...
-└── widgets/                     ← Fertige Build-Dateien (für GitHub)
-    └── vis-2-widgets-technic/
-        └── customWidgets.js
-```
+All widgets use a consistent color palette:
 
----
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Teal | `#2ecfbf` | Active / ON state |
+| Secondary | `#5f8f8a` | Inactive / OFF state |
+| Background | `#0d1820` | Widget background |
+| Text | `#c8e6e3` | Labels and text |
 
-## Wie funktioniert der Deploy?
+## Changelog
 
-ioBroker VIS 2 serviert Widget-Dateien aus der **ioBroker Dateidatenbank** unter dem Namespace `vis-2/widgets/`. Das `deploy.sh` Script:
+### 0.1.3 (2026-06-18)
+- Added BeleuchtungDimmer widget
 
-1. **Baut** den React-Code mit Vite (`npm run build`)
-2. **Löscht** alte Dateien aus der DB (`vis-2/widgets/vis-2-widgets-technic/`)
-3. **Lädt** neue Dateien hoch (`iobroker file write` → `vis-2/widgets/...`)
-4. **Startet** VIS 2 neu damit der neue Code geladen wird
+### 0.1.2 (2026-05-01)
+- AnAusSchalter widget with SVG icons and freely configurable colors
 
-> **Wichtig:** `iobroker upload vis-2-widgets-technic` reicht **nicht** — die Dateien müssen explizit in den `vis-2` Namespace hochgeladen werden!
+### 0.1.1 (2026-04-01)
+- FensterNormal widget with SVG transparency and context menu
 
----
+### 0.1.0 (2026-03-01)
+- Initial release
 
-## Widget in VIS 2 nutzen
+## License
 
-1. VIS 2 Editor öffnen
-2. Im Widget-Panel: **vis_2_widgets_template** → Widget reinziehen
-3. Rechts im Eigenschaften-Panel konfigurieren
-
----
-
-## Auf GitHub pushen
-
-```bash
-# Nach einer fertigen Änderung:
-git add .
-git commit -m "Beschreibung der Änderung"
-git push
-```
-
----
-
-## Lizenz
-
-MIT © Sefina-DS
+MIT License – Copyright (c) 2026 Sefina-DS

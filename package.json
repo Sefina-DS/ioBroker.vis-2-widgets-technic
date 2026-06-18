@@ -1,10 +1,34 @@
 {
   "name": "iobroker.vis-2-widgets-technic",
   "version": "0.1.3",
-  "description": "Fenster & Rollo widgets for ioBroker VIS 2",
+  "description": "Technic widgets for ioBroker VIS 2 - Window, Shutter, Switch and Dimmer controls",
   "author": "Sefina-DS",
   "license": "MIT",
   "main": "widgets/vis-2-widgets-technic/customWidgets.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sefina-DS/iobroker.vis-2-widgets-technic"
+  },
+  "bugs": {
+    "url": "https://github.com/Sefina-DS/iobroker.vis-2-widgets-technic/issues"
+  },
+  "homepage": "https://github.com/Sefina-DS/iobroker.vis-2-widgets-technic#readme",
+  "keywords": [
+    "iobroker",
+    "vis-2",
+    "widgets",
+    "visualization",
+    "smarthome",
+    "fenster",
+    "rollo",
+    "shutter"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "admin/",
     "widgets/",
