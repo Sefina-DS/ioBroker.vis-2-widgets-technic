@@ -5,58 +5,6 @@
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
         "version": "0.1.4",
         "news": {
-            "0.1.3": {
-                "en": "Added BeleuchtungDimmer widget",
-                "de": "BeleuchtungDimmer Widget hinzugefügt",
-                "ru": "Добавлен виджет BeleuchtungDimmer",
-                "pt": "Widget BeleuchtungDimmer adicionado",
-                "nl": "BeleuchtungDimmer widget toegevoegd",
-                "fr": "Widget BeleuchtungDimmer ajouté",
-                "it": "Widget BeleuchtungDimmer aggiunto",
-                "es": "Widget BeleuchtungDimmer añadido",
-                "pl": "Dodano widget BeleuchtungDimmer",
-                "uk": "Додано віджет BeleuchtungDimmer",
-                "zh-cn": "添加了BeleuchtungDimmer小部件"
-            },
-            "0.1.2": {
-                "en": "AnAusSchalter widget with SVG icons and freely configurable colors",
-                "de": "AnAusSchalter Widget mit SVG Icons und frei konfigurierbaren Farben",
-                "ru": "Виджет AnAusSchalter с SVG иконками и настраиваемыми цветами",
-                "pt": "Widget AnAusSchalter com ícones SVG e cores configuráveis",
-                "nl": "AnAusSchalter widget met SVG-pictogrammen en vrij configureerbare kleuren",
-                "fr": "Widget AnAusSchalter avec icônes SVG et couleurs configurables",
-                "it": "Widget AnAusSchalter con icone SVG e colori configurabili",
-                "es": "Widget AnAusSchalter con iconos SVG y colores configurables",
-                "pl": "Widget AnAusSchalter z ikonami SVG i konfigurowalnymi kolorami",
-                "uk": "Віджет AnAusSchalter з SVG іконками та налаштовуваними кольорами",
-                "zh-cn": "带有SVG图标和可配置颜色的AnAusSchalter小部件"
-            },
-            "0.1.1": {
-                "en": "FensterNormal widget with SVG transparency and context menu",
-                "de": "FensterNormal Widget mit SVG Transparenz und Kontextmenü",
-                "ru": "Виджет FensterNormal с прозрачностью SVG и контекстным меню",
-                "pt": "Widget FensterNormal com transparência SVG e menu de contexto",
-                "nl": "FensterNormal widget met SVG-transparantie en contextmenu",
-                "fr": "Widget FensterNormal avec transparence SVG et menu contextuel",
-                "it": "Widget FensterNormal con trasparenza SVG e menu contestuale",
-                "es": "Widget FensterNormal con transparencia SVG y menú contextual",
-                "pl": "Widget FensterNormal z przezroczystością SVG i menu kontekstowym",
-                "uk": "Віджет FensterNormal з прозорістю SVG та контекстним меню",
-                "zh-cn": "带SVG透明度和上下文菜单的FensterNormal小部件"
-            },
-            "0.1.0": {
-                "en": "Initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Первоначальный выпуск",
-                "pt": "Lançamento inicial",
-                "nl": "Eerste release",
-                "fr": "Version initiale",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "uk": "Початковий випуск",
-                "zh-cn": "初始版本"
-            },
             "0.1.4": {
                 "en": "Initial npm release",
                 "de": "Erstveröffentlichung auf npm",
