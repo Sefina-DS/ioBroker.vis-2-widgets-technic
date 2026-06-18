@@ -3,21 +3,17 @@
 [![NPM version](https://img.shields.io/npm/v/iobroker.vis-2-widgets-technic.svg)](https://www.npmjs.com/package/iobroker.vis-2-widgets-technic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-A collection of smart home widgets for ioBroker VIS 2 with a consistent dark teal design language.
+Technic widgets for ioBroker VIS 2 with a consistent dark teal design language for smart home visualization.
 
 ## Widgets
 
-### FensterNormal
-Window and roller blind widget with SVG rendering, context menu, position slider and Auto/Manual toggle.
+**FensterNormal** – Window and roller blind widget with SVG rendering, context menu, position slider and Auto/Manual toggle.
 
-### AnAusSchalter
-On/off switch widget with selectable SVG icons and configurable on/off colors.
+**AnAusSchalter** – On/off switch widget with selectable SVG icons and configurable on/off colors.
 
-### BeleuchtungDimmer
-270° arc dimmer with draggable knob, dynamic lamp rays, power button and room name label.
+**BeleuchtungDimmer** – 270° arc dimmer with draggable knob, dynamic lamp rays, power button and room name label.
 
-### FBH_Regler
-Underfloor heating circuit widget with half-circle dial, target/actual temperature display, valve status and InfluxDB history overlay.
+**FBH_Regler** – Underfloor heating circuit widget with half-circle dial, target/actual temperature display, valve status and InfluxDB history overlay.
 
 ## Requirements
 
@@ -27,8 +23,10 @@ Underfloor heating circuit widget with half-circle dial, target/actual temperatu
 
 ## Installation
 
-```bash
-iobroker url https://github.com/Sefina-DS/iobroker.vis-2-widgets-technic
+Install via ioBroker Admin interface or use the ioBroker CLI:
+
+```
+iobroker url https://github.com/Sefina-DS/ioBroker.vis-2-widgets-technic
 iobroker add vis-2-widgets-technic
 ```
 
@@ -38,12 +36,10 @@ After installation do a hard refresh in your browser (Ctrl+Shift+R).
 
 All widgets use a consistent color palette:
 
-| Color | Hex | Usage |
-|-------|-----|-------|
-| Teal | `#2ecfbf` | Active / ON state |
-| Secondary | `#5f8f8a` | Inactive / OFF state |
-| Background | `#0d1820` | Widget background |
-| Text | `#c8e6e3` | Labels and text |
+- Teal `#2ecfbf` – Active / ON state
+- Secondary `#5f8f8a` – Inactive / OFF state
+- Background `#0d1820` – Widget background
+- Text `#c8e6e3` – Labels and text
 
 ## Changelog
 
@@ -62,3 +58,5 @@ All widgets use a consistent color palette:
 ## License
 
 MIT License – Copyright (c) 2026 Sefina-DS
+
+See [LICENSE](LICENSE) for full text.

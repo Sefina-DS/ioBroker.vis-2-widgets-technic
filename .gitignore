@@ -1,4 +1,6 @@
+node_modules/
 src-widgets/node_modules/
 src-widgets/build/
-node_modules/
+.commitinfo
 *.log
+.DS_Store
