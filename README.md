@@ -23,12 +23,7 @@ Technic widgets for ioBroker VIS 2 with a consistent dark teal design language f
 
 ## Installation
 
-Install via ioBroker Admin interface or use the ioBroker CLI:
-
-```
-iobroker url https://github.com/Sefina-DS/ioBroker.vis-2-widgets-technic
-iobroker add vis-2-widgets-technic
-```
+Install via the ioBroker Admin interface by searching for "vis-2-widgets-technic" in the adapter list.
 
 After installation do a hard refresh in your browser (Ctrl+Shift+R).
 
@@ -57,6 +52,6 @@ All widgets use a consistent color palette:
 
 ## License
 
-MIT License – Copyright (c) 2026 Sefina-DS
+MIT License – Copyright (c) 2026 iobroker-community-adapters
 
 See [LICENSE](LICENSE) for full text.

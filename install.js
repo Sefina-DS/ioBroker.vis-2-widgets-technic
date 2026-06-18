@@ -65,18 +65,10 @@ if (!instanceCheck || instanceCheck.includes('not found')) {
 // ── 3. VIS 2 + Web neu starten ────────────────────────────
 console.log('▶ Starte VIS 2 und Web neu...');
 run('iobroker restart vis-2', true);
-
-const restartTimer = setTimeout(() => {
-    run('iobroker restart web', true);
-    console.log('✓ Adapter neugestartet\n');
-    console.log('════════════════════════════════════════════');
-    console.log('✅ Installation abgeschlossen!');
-    console.log('   → Browser hard refresh: Ctrl+Shift+R');
-    console.log('════════════════════════════════════════════\n');
-}, 3000);
-
-// clearTimeout damit Repochecker nicht meckert
-if (typeof restartTimer !== 'undefined') {
-    // Timer läuft durch – clearTimeout nicht nötig aber Checker zufrieden
-    void restartTimer;
-}
+// Kurz warten dann web neu starten
+run('sleep 3 && iobroker restart web', true);
+console.log('✓ Adapter neugestartet\n');
+console.log('════════════════════════════════════════════');
+console.log('✅ Installation abgeschlossen!');
+console.log('   → Browser hard refresh: Ctrl+Shift+R');
+console.log('════════════════════════════════════════════\n');

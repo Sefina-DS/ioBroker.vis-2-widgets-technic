@@ -99,11 +99,11 @@
         ],
         "licenseInformation": {
             "license": "MIT",
-            "url": "https://github.com/Sefina-DS/ioBroker.vis-2-widgets-technic/blob/main/LICENSE"
+            "type": "free",
+            "link": "https://github.com/Sefina-DS/ioBroker.vis-2-widgets-technic/blob/main/LICENSE"
         },
         "type": "visualization-widgets",
         "tier": 3,
-        "i18n": false,
         "main": "",
         "mode": "none",
         "singleton": true,
@@ -134,7 +134,7 @@
                 "name": "vis2TechnicWidgets",
                 "url": "vis-2-widgets-technic/customWidgets.js",
                 "bundlerType": "module",
-                "i18n": false,
+                "i18n": true,
                 "components": [
                     "FensterNormal",
                     "AnAusSchalter",
