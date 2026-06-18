@@ -3,7 +3,7 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.3",
+        "version": "0.1.4",
         "news": {
             "0.1.3": {
                 "en": "Added BeleuchtungDimmer widget",
@@ -56,6 +56,19 @@
                 "pl": "Pierwsze wydanie",
                 "uk": "Початковий випуск",
                 "zh-cn": "初始版本"
+            },
+            "0.1.4": {
+                "en": "Initial npm release",
+                "de": "Erstveröffentlichung auf npm",
+                "ru": "Initial npm release",
+                "pt": "Initial npm release",
+                "nl": "Initial npm release",
+                "fr": "Initial npm release",
+                "it": "Initial npm release",
+                "es": "Initial npm release",
+                "pl": "Initial npm release",
+                "uk": "Initial npm release",
+                "zh-cn": "Initial npm release"
             }
         },
         "titleLang": {

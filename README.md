@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.4 (2026-06-18)
+- Initial npm release
+
 ### 0.1.3 (2026-06-18)
 - Added BeleuchtungDimmer widget
 
