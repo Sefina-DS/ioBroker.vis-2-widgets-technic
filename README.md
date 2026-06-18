@@ -52,6 +52,7 @@ All widgets use a consistent color palette:
 
 ## License
 
-MIT License – Copyright (c) 2026 iobroker-community-adapters
+MIT License
+Copyright (c) 2026 iobroker-community-adapters
 
 See [LICENSE](LICENSE) for full text.
