@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.11 (2026-06-19)
+- fix: remove process.env/exit for compact mode compliance
+
 ### 0.1.10 (2026-06-19)
 - fix: correct web restart command chaining in install.js
 

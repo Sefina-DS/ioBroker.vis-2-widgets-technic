@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.10",
+        "version": "0.1.11",
         "news": {
-            "0.1.4": {
-                "en": "Initial npm release",
-                "de": "Erstveröffentlichung auf npm",
-                "ru": "Initial npm release",
-                "pt": "Initial npm release",
-                "nl": "Initial npm release",
-                "fr": "Initial npm release",
-                "it": "Initial npm release",
-                "es": "Initial npm release",
-                "pl": "Initial npm release",
-                "uk": "Initial npm release",
-                "zh-cn": "Initial npm release"
-            },
             "0.1.5": {
                 "en": "fix: robust install.js with retry and file verification for fresh installs",
                 "de": "Fix: robuste Installation mit Wiederholungsversuchen und Datei-Verifikation",
@@ -95,6 +82,19 @@
                 "pl": "fix: correct web restart command chaining in install.js",
                 "uk": "fix: correct web restart command chaining in install.js",
                 "zh-cn": "fix: correct web restart command chaining in install.js"
+            },
+            "0.1.11": {
+                "en": "fix: remove process.env/exit for compact mode compliance",
+                "de": "Fix: compact-mode-Kompatibilität in install.js",
+                "ru": "fix: remove process.env/exit for compact mode compliance",
+                "pt": "fix: remove process.env/exit for compact mode compliance",
+                "nl": "fix: remove process.env/exit for compact mode compliance",
+                "fr": "fix: remove process.env/exit for compact mode compliance",
+                "it": "fix: remove process.env/exit for compact mode compliance",
+                "es": "fix: remove process.env/exit for compact mode compliance",
+                "pl": "fix: remove process.env/exit for compact mode compliance",
+                "uk": "fix: remove process.env/exit for compact mode compliance",
+                "zh-cn": "fix: remove process.env/exit for compact mode compliance"
             }
         },
         "titleLang": {
@@ -139,7 +139,7 @@
         "licenseInformation": {
             "license": "MIT",
             "type": "free",
-            "link": "https://github.com/Sefina-DS/ioBroker.vis-2-widgets-technic/blob/main/LICENSE"
+            "link": "https://spdx.org/licenses/MIT.html"
         },
         "type": "visualization-widgets",
         "tier": 3,
