@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.12",
+        "version": "0.1.13",
         "news": {
-            "0.1.6": {
-                "en": "fix: persistent logging in install.js for debugging",
-                "de": "Fix: persistentes Logging in install.js",
-                "ru": "fix: persistent logging in install.js for debugging",
-                "pt": "fix: persistent logging in install.js for debugging",
-                "nl": "fix: persistent logging in install.js for debugging",
-                "fr": "fix: persistent logging in install.js for debugging",
-                "it": "fix: persistent logging in install.js for debugging",
-                "es": "fix: persistent logging in install.js for debugging",
-                "pl": "fix: persistent logging in install.js for debugging",
-                "uk": "fix: persistent logging in install.js for debugging",
-                "zh-cn": "fix: persistent logging in install.js for debugging"
-            },
             "0.1.7": {
                 "en": "fix: persistent logging in install.js for debugging",
                 "de": "Fix: persistentes Logging in install.js",
@@ -95,6 +82,19 @@
                 "pl": "fix: enable npm provenance via GitHub Actions, remove debug script",
                 "uk": "fix: enable npm provenance via GitHub Actions, remove debug script",
                 "zh-cn": "fix: enable npm provenance via GitHub Actions, remove debug script"
+            },
+            "0.1.13": {
+                "en": "fix: workflow permissions and provenance flag",
+                "de": "Fix: Workflow-Berechtigungen und Provenance-Flag",
+                "ru": "fix: workflow permissions and provenance flag",
+                "pt": "fix: workflow permissions and provenance flag",
+                "nl": "fix: workflow permissions and provenance flag",
+                "fr": "fix: workflow permissions and provenance flag",
+                "it": "fix: workflow permissions and provenance flag",
+                "es": "fix: workflow permissions and provenance flag",
+                "pl": "fix: workflow permissions and provenance flag",
+                "uk": "fix: workflow permissions and provenance flag",
+                "zh-cn": "fix: workflow permissions and provenance flag"
             }
         },
         "titleLang": {
