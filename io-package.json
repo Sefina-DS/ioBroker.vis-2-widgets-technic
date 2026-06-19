@@ -3,7 +3,7 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.9",
+        "version": "0.1.10",
         "news": {
             "0.1.4": {
                 "en": "Initial npm release",
@@ -82,6 +82,19 @@
                 "pl": "fix: call iobroker.js directly to bypass broken wrapper recursion",
                 "uk": "fix: call iobroker.js directly to bypass broken wrapper recursion",
                 "zh-cn": "fix: call iobroker.js directly to bypass broken wrapper recursion"
+            },
+            "0.1.10": {
+                "en": "fix: correct web restart command chaining in install.js",
+                "de": "Fix: korrekte Befehlsverkettung für Web-Neustart",
+                "ru": "fix: correct web restart command chaining in install.js",
+                "pt": "fix: correct web restart command chaining in install.js",
+                "nl": "fix: correct web restart command chaining in install.js",
+                "fr": "fix: correct web restart command chaining in install.js",
+                "it": "fix: correct web restart command chaining in install.js",
+                "es": "fix: correct web restart command chaining in install.js",
+                "pl": "fix: correct web restart command chaining in install.js",
+                "uk": "fix: correct web restart command chaining in install.js",
+                "zh-cn": "fix: correct web restart command chaining in install.js"
             }
         },
         "titleLang": {

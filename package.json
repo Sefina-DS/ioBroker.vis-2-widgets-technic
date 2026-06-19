@@ -1,6 +1,6 @@
 {
   "name": "iobroker.vis-2-widgets-technic",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Technic widgets for ioBroker VIS 2 - Window, Shutter, Switch and Dimmer controls",
   "author": "Sefina-DS",
   "license": "MIT",
