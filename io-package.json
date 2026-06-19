@@ -3,7 +3,7 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.7",
+        "version": "0.1.8",
         "news": {
             "0.1.4": {
                 "en": "Initial npm release",
@@ -56,6 +56,19 @@
                 "pl": "fix: persistent logging in install.js for debugging",
                 "uk": "fix: persistent logging in install.js for debugging",
                 "zh-cn": "fix: persistent logging in install.js for debugging"
+            },
+            "0.1.8": {
+                "en": "fix: capture real stderr in install.js for debugging",
+                "de": "Fix: echte stderr-Erfassung in install.js",
+                "ru": "fix: capture real stderr in install.js for debugging",
+                "pt": "fix: capture real stderr in install.js for debugging",
+                "nl": "fix: capture real stderr in install.js for debugging",
+                "fr": "fix: capture real stderr in install.js for debugging",
+                "it": "fix: capture real stderr in install.js for debugging",
+                "es": "fix: capture real stderr in install.js for debugging",
+                "pl": "fix: capture real stderr in install.js for debugging",
+                "uk": "fix: capture real stderr in install.js for debugging",
+                "zh-cn": "fix: capture real stderr in install.js for debugging"
             }
         },
         "titleLang": {
