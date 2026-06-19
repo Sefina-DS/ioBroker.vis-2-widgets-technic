@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.11",
+        "version": "0.1.12",
         "news": {
-            "0.1.5": {
-                "en": "fix: robust install.js with retry and file verification for fresh installs",
-                "de": "Fix: robuste Installation mit Wiederholungsversuchen und Datei-Verifikation",
-                "ru": "fix: robust install.js with retry and file verification for fresh installs",
-                "pt": "fix: robust install.js with retry and file verification for fresh installs",
-                "nl": "fix: robust install.js with retry and file verification for fresh installs",
-                "fr": "fix: robust install.js with retry and file verification for fresh installs",
-                "it": "fix: robust install.js with retry and file verification for fresh installs",
-                "es": "fix: robust install.js with retry and file verification for fresh installs",
-                "pl": "fix: robust install.js with retry and file verification for fresh installs",
-                "uk": "fix: robust install.js with retry and file verification for fresh installs",
-                "zh-cn": "fix: robust install.js with retry and file verification for fresh installs"
-            },
             "0.1.6": {
                 "en": "fix: persistent logging in install.js for debugging",
                 "de": "Fix: persistentes Logging in install.js",
@@ -95,6 +82,19 @@
                 "pl": "fix: remove process.env/exit for compact mode compliance",
                 "uk": "fix: remove process.env/exit for compact mode compliance",
                 "zh-cn": "fix: remove process.env/exit for compact mode compliance"
+            },
+            "0.1.12": {
+                "en": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "de": "Fix: npm Provenance über GitHub Actions, Debug-Script entfernt",
+                "ru": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "pt": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "nl": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "fr": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "it": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "es": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "pl": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "uk": "fix: enable npm provenance via GitHub Actions, remove debug script",
+                "zh-cn": "fix: enable npm provenance via GitHub Actions, remove debug script"
             }
         },
         "titleLang": {

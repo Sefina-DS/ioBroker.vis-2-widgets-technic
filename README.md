@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.12 (2026-06-19)
+- fix: enable npm provenance via GitHub Actions, remove debug script
+
 ### 0.1.11 (2026-06-19)
 - fix: remove process.env/exit for compact mode compliance
 
