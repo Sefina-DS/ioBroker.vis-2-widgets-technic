@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.6 (2026-06-19)
+- fix: persistent logging in install.js for debugging
+
 ### 0.1.5 (2026-06-19)
 - fix: robust install.js with retry and file verification for fresh installs
 

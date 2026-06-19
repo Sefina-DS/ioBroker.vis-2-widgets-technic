@@ -3,7 +3,7 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.5",
+        "version": "0.1.6",
         "news": {
             "0.1.4": {
                 "en": "Initial npm release",
@@ -30,6 +30,19 @@
                 "pl": "fix: robust install.js with retry and file verification for fresh installs",
                 "uk": "fix: robust install.js with retry and file verification for fresh installs",
                 "zh-cn": "fix: robust install.js with retry and file verification for fresh installs"
+            },
+            "0.1.6": {
+                "en": "fix: persistent logging in install.js for debugging",
+                "de": "Fix: persistentes Logging in install.js",
+                "ru": "fix: persistent logging in install.js for debugging",
+                "pt": "fix: persistent logging in install.js for debugging",
+                "nl": "fix: persistent logging in install.js for debugging",
+                "fr": "fix: persistent logging in install.js for debugging",
+                "it": "fix: persistent logging in install.js for debugging",
+                "es": "fix: persistent logging in install.js for debugging",
+                "pl": "fix: persistent logging in install.js for debugging",
+                "uk": "fix: persistent logging in install.js for debugging",
+                "zh-cn": "fix: persistent logging in install.js for debugging"
             }
         },
         "titleLang": {
