@@ -3,7 +3,7 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.4",
+        "version": "0.1.5",
         "news": {
             "0.1.4": {
                 "en": "Initial npm release",
@@ -17,6 +17,19 @@
                 "pl": "Initial npm release",
                 "uk": "Initial npm release",
                 "zh-cn": "Initial npm release"
+            },
+            "0.1.5": {
+                "en": "fix: robust install.js with retry and file verification for fresh installs",
+                "de": "Fix: robuste Installation mit Wiederholungsversuchen und Datei-Verifikation",
+                "ru": "fix: robust install.js with retry and file verification for fresh installs",
+                "pt": "fix: robust install.js with retry and file verification for fresh installs",
+                "nl": "fix: robust install.js with retry and file verification for fresh installs",
+                "fr": "fix: robust install.js with retry and file verification for fresh installs",
+                "it": "fix: robust install.js with retry and file verification for fresh installs",
+                "es": "fix: robust install.js with retry and file verification for fresh installs",
+                "pl": "fix: robust install.js with retry and file verification for fresh installs",
+                "uk": "fix: robust install.js with retry and file verification for fresh installs",
+                "zh-cn": "fix: robust install.js with retry and file verification for fresh installs"
             }
         },
         "titleLang": {
