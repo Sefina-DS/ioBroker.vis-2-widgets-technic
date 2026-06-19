@@ -3,7 +3,7 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.8",
+        "version": "0.1.9",
         "news": {
             "0.1.4": {
                 "en": "Initial npm release",
@@ -69,6 +69,19 @@
                 "pl": "fix: capture real stderr in install.js for debugging",
                 "uk": "fix: capture real stderr in install.js for debugging",
                 "zh-cn": "fix: capture real stderr in install.js for debugging"
+            },
+            "0.1.9": {
+                "en": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "de": "Fix: direkter Aufruf von iobroker.js statt fehlerhaftem Wrapper",
+                "ru": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "pt": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "nl": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "fr": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "it": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "es": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "pl": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "uk": "fix: call iobroker.js directly to bypass broken wrapper recursion",
+                "zh-cn": "fix: call iobroker.js directly to bypass broken wrapper recursion"
             }
         },
         "titleLang": {

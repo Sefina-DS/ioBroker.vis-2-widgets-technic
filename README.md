@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.9 (2026-06-19)
+- fix: call iobroker.js directly to bypass broken wrapper recursion
+
 ### 0.1.8 (2026-06-19)
 - fix: capture real stderr in install.js for debugging
 
