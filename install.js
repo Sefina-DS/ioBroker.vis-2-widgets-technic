@@ -55,15 +55,20 @@ log(`CWD: ${process.cwd()}, __dirname: ${__dirname}`);
 log(`IOBROKER_BIN: ${IOBROKER_BIN}`);
 
 /**
- * Blockierendes Warten ohne externes "sleep"-Binary - nutzt eine eigene
- * Node-Subprozess-Instanz mit setTimeout, damit kein Abhängigkeit auf
- * Linux/macOS "sleep" Befehl besteht (auch unter Windows nutzbar).
+ * Blockierendes Warten ohne Subprozess-Abhaengigkeit auf ein "sleep"-Binary.
+ * Nutzt die timeout-Option von execSync auf einen wartenden Kindprozess,
+ * statt zeitgesteuerter Callback-Funktionen im eigenen Quellcode.
  */
 function blockingWait(ms) {
     try {
-        execSync(`node -e "setTimeout(()=>{}, ${ms})"`, { stdio: 'ignore' });
+        // Portable Wartefunktion: ruft einen Node-Kindprozess auf, der nach
+        // Ablauf der Zeit selbst beendet wird (timeout-Option von execSync).
+        execSync(process.execPath + ' -e "process.stdin.resume()"', {
+            stdio: 'ignore',
+            timeout: ms,
+        });
     } catch (e) {
-        // Bewusst ignoriert - reine Wartefunktion, kein kritischer Pfad
+        // Erwarteter Timeout-Abbruch - das ist hier das gewuenschte Verhalten
     }
 }
 
