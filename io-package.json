@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.14",
+        "version": "0.1.15",
         "news": {
-            "0.1.8": {
-                "en": "fix: capture real stderr in install.js for debugging",
-                "de": "Fix: echte stderr-Erfassung in install.js",
-                "ru": "fix: capture real stderr in install.js for debugging",
-                "pt": "fix: capture real stderr in install.js for debugging",
-                "nl": "fix: capture real stderr in install.js for debugging",
-                "fr": "fix: capture real stderr in install.js for debugging",
-                "it": "fix: capture real stderr in install.js for debugging",
-                "es": "fix: capture real stderr in install.js for debugging",
-                "pl": "fix: capture real stderr in install.js for debugging",
-                "uk": "fix: capture real stderr in install.js for debugging",
-                "zh-cn": "fix: capture real stderr in install.js for debugging"
-            },
             "0.1.9": {
                 "en": "fix: call iobroker.js directly to bypass broken wrapper recursion",
                 "de": "Fix: direkter Aufruf von iobroker.js statt fehlerhaftem Wrapper",
@@ -95,6 +82,19 @@
                 "pl": "Release 0.1.14",
                 "uk": "Release 0.1.14",
                 "zh-cn": "Release 0.1.14"
+            },
+            "0.1.15": {
+                "en": "Release 0.1.15",
+                "de": "Release 0.1.15",
+                "ru": "Release 0.1.15",
+                "pt": "Release 0.1.15",
+                "nl": "Release 0.1.15",
+                "fr": "Release 0.1.15",
+                "it": "Release 0.1.15",
+                "es": "Release 0.1.15",
+                "pl": "Release 0.1.15",
+                "uk": "Release 0.1.15",
+                "zh-cn": "Release 0.1.15"
             }
         },
         "titleLang": {

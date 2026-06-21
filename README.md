@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.15 (2026-06-21)
+- Release 0.1.15
+
 ### 0.1.14 (2026-06-21)
 - Release 0.1.14
 
