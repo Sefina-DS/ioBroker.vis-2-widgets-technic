@@ -126,13 +126,14 @@ class FensterWand extends window.visRxWidget {
                     name: 'common',
                     label: 'Allgemein',
                     fields: [
-                        { name: 'name', label: 'Überschrift', type: 'text', default: '' },
+                        { name: 'ueberschrift', label: 'Überschrift', type: 'text', default: '' },
                         { name: 'showName', label: 'Überschrift anzeigen', type: 'checkbox', default: false },
                         {
                             name: 'namePosition', label: 'Überschrift Position', type: 'select',
                             options: [{ value: 'top', label: 'Oben' }, { value: 'bottom', label: 'Unten' }],
                             default: 'bottom',
                         },
+                        { name: 'iconScale', label: 'Icon Größe (%)', type: 'number', default: 80 },
                         {
                             name: 'griff', label: 'Griff', type: 'select',
                             options: [{ value: 'links', label: 'Links' }, { value: 'rechts', label: 'Rechts' }],
@@ -183,6 +184,17 @@ class FensterWand extends window.visRxWidget {
     onRxDataChanged()  { this.propertiesUpdate(); }
     onRxStyleChanged() {}
     onStateUpdated()   {}
+
+    _getIconSize() {
+        const pad = 4, gap = 3;
+        const w   = parseInt(this.state.rxStyle?.width)  || 120;
+        const h   = parseInt(this.state.rxStyle?.height) || 160;
+        const { showName, ueberschrift } = this.state.rxData;
+        const fs  = parseInt(this.state.rxStyle?.['font-size'] ?? this.state.rxStyle?.fontSize) || 12;
+        const nameH = (showName && ueberschrift) ? Math.ceil(fs * 1.4) + gap : 0;
+        const scale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
+        return Math.max(20, Math.round(Math.min(w - pad * 2, h - pad * 2 - nameH) * scale / 100));
+    }
 
     _getRolloVal() {
         const oid = this.state.rxData.oid_rollo;
@@ -272,10 +284,11 @@ class FensterWand extends window.visRxWidget {
         setTimeout(() => this._drawSVG(), 0);
 
         const rxData       = this.state.rxData;
-        const showName     = rxData.showName && rxData.name;
+        const showName     = rxData.showName && rxData.ueberschrift;
         const namePosition = rxData.namePosition || 'bottom';
         const hasModus     = !!rxData.oid_modus;
         const hasRollo = !!rxData.oid_rollo;
+        const iconPx = this._getIconSize();
         const modus    = this._getModusVal();
         const rolloVal = this._getRolloVal();
         const rahmenf  = rxData.iconFarbe || '#13c540';
@@ -297,21 +310,23 @@ class FensterWand extends window.visRxWidget {
                         textOverflow: 'ellipsis',
                         whiteSpace:   'nowrap',
                     }}>
-                        {rxData.name}
+                        {rxData.ueberschrift}
                     </div>
                 )}
 
                 {/* SVG Fenster */}
                 <div
-                    style={{ flex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: (hasRollo || hasModus) && !this.props.editMode ? 'pointer' : 'default' }}
+                    style={{ flex: 1, minHeight: 0, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: (hasRollo || hasModus) && !this.props.editMode ? 'pointer' : 'default' }}
                     onClick={this._onSvgClick}
                 >
-                    <svg
-                        ref={this.svgRef}
-                        viewBox={VIEWBOX}
-                        style={{ width: '100%', height: '100%', overflow: 'visible' }}
-                        preserveAspectRatio="xMidYMid meet"
-                    />
+                    <div style={{ width: iconPx, height: iconPx }}>
+                        <svg
+                            ref={this.svgRef}
+                            viewBox={VIEWBOX}
+                            style={{ width: '100%', height: '100%', overflow: 'hidden' }}
+                            preserveAspectRatio="xMidYMid meet"
+                        />
+                    </div>
                 </div>
 
                 {/* Name unten */}
@@ -327,7 +342,7 @@ class FensterWand extends window.visRxWidget {
                         textOverflow: 'ellipsis',
                         whiteSpace:   'nowrap',
                     }}>
-                        {rxData.name}
+                        {rxData.ueberschrift}
                     </div>
                 )}
 

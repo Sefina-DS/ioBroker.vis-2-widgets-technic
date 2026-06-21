@@ -1,8 +1,10 @@
 import FensterWand from './FensterWand.jsx';
-import AnAusSchalter from './AnAusSchalter.jsx';
+import SchalterBoolean from './SchalterBoolean.jsx';
+import ReglerLicht from './ReglerLicht.jsx';
 
 if (!window.visWidgets) {
     window.visWidgets = {};
 }
 window.visWidgets.FensterWand = FensterWand;
-window.visWidgets.AnAusSchalter = AnAusSchalter;
+window.visWidgets.SchalterBoolean = SchalterBoolean;
+window.visWidgets.ReglerLicht = ReglerLicht;

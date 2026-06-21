@@ -86,17 +86,17 @@ function buildSVGContent(pct, isOn, colorOn, colorOff, colorBg, sz) {
 // ═══════════════════════════════════════════════════════
 //  WIDGET KLASSE
 // ═══════════════════════════════════════════════════════
-class BeleuchtungDimmer extends window.visRxWidget {
+class ReglerLicht extends window.visRxWidget {
 
     static getWidgetInfo() {
         return {
-            id: 'tplTechnicBeleuchtungDimmer',
+            id: 'tplTechnicReglerLicht',
             visSet:          'vis-2-widgets-technic',
             visSetLabel:     'Technic Widgets',
             visSetColor:     '#2ecfbf',
             visWidgetColor:  '#0d1820',
-            visName:         'Beleuchtung Dimmer',
-            visWidgetLabel:  'Beleuchtung Dimmer',
+            visName:         'Regler - Licht',
+            visWidgetLabel:  'Regler - Licht',
             visDefaultStyle: { width: 160, height: 200 },
             vis2: true,
             visPrev: 'widgets/vis-2-widgets-technic/img/prev-beleuchtung-dimmer.png',
@@ -105,7 +105,7 @@ class BeleuchtungDimmer extends window.visRxWidget {
                     name: 'common',
                     label: 'Allgemein',
                     fields: [
-                        { name: 'name',     label: 'Überschrift',   type: 'text',     default: 'Licht' },
+                        { name: 'ueberschrift', label: 'Überschrift', type: 'text',     default: 'Licht' },
                         { name: 'showName', label: 'Überschrift anzeigen', type: 'checkbox', default: true },
                         {
                             name: 'namePosition', label: 'Überschrift Position', type: 'select',
@@ -140,11 +140,12 @@ class BeleuchtungDimmer extends window.visRxWidget {
         };
     }
 
-    getWidgetInfo() { return BeleuchtungDimmer.getWidgetInfo(); }
+    getWidgetInfo() { return ReglerLicht.getWidgetInfo(); }
 
     constructor(props) {
         super(props);
         this.state = { ...this.state, dragPct: null };
+        this._svgRef = React.createRef();
     }
 
     propertiesUpdate() {}
@@ -168,12 +169,15 @@ class BeleuchtungDimmer extends window.visRxWidget {
         return Math.max(0, Math.min(100, Math.round(Number(val))));
     }
 
-    _getSz() {
-        const w     = parseInt(this.state.rxStyle?.width)  || 160;
-        const h     = parseInt(this.state.rxStyle?.height) || 200;
-        const min   = Math.min(w, h);
+    _getIconSize() {
+        const pad = 4, gap = 4;
+        const w   = parseInt(this.state.rxStyle?.width)  || 160;
+        const h   = parseInt(this.state.rxStyle?.height) || 200;
+        const { showName, ueberschrift } = this.state.rxData;
+        const fs  = parseInt(this.state.rxStyle?.['font-size'] ?? this.state.rxStyle?.fontSize) || 12;
+        const nameH = (showName && ueberschrift) ? Math.ceil(fs * 1.4) + gap : 0;
         const scale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
-        return Math.round(min * scale / 100);
+        return Math.max(20, Math.round(Math.min(w - pad * 2, h - pad * 2 - nameH) * scale / 100));
     }
 
     _setPower(on) {
@@ -229,10 +233,16 @@ class BeleuchtungDimmer extends window.visRxWidget {
     }
 
     _relCoords(e, sz) {
-        const rect = e.currentTarget.getBoundingClientRect();
+        const svgEl = this._svgRef?.current;
+        if (!svgEl) return { mx: sz / 2, my: sz / 2 };
+        const rect  = svgEl.getBoundingClientRect();
+        // "xMidYMid meet": Content skaliert auf min(w/sz, h/sz), zentriert
+        const scale = Math.min(rect.width / sz, rect.height / sz);
+        const ox    = (rect.width  - sz * scale) / 2;
+        const oy    = (rect.height - sz * scale) / 2;
         return {
-            mx: (e.clientX - rect.left) * (sz / rect.width),
-            my: (e.clientY - rect.top)  * (sz / rect.height),
+            mx: (e.clientX - rect.left - ox) / scale,
+            my: (e.clientY - rect.top  - oy) / scale,
         };
     }
 
@@ -270,7 +280,7 @@ class BeleuchtungDimmer extends window.visRxWidget {
         super.renderWidgetBody(props);
 
         const {
-            name         = 'Licht',
+            ueberschrift = 'Licht',
             showName     = true,
             namePosition = 'bottom',
             colorAN      = '#2ecfbf',
@@ -278,13 +288,14 @@ class BeleuchtungDimmer extends window.visRxWidget {
             colorBg      = '#0d1820',
         } = this.state.rxData;
 
-        const isOn = this._isOn();
-        const pct  = this._getBrightness();
-        const sz   = this._getSz();
+        const isOn      = this._isOn();
+        const pct       = this._getBrightness();
+        const sz        = this._getIconSize();
+        const iconScale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
 
         const svgContent = buildSVGContent(pct, isOn, colorAN, colorAUS, colorBg, sz);
 
-        const nameEl = showName && name ? (
+        const nameEl = showName && ueberschrift ? (
             <div style={{
                 color:        this.state.rxStyle?.color || '#c8e6e3',
                 fontSize:     this.state.rxStyle?.['font-size'] || this.state.rxStyle?.fontSize || 12,
@@ -298,7 +309,7 @@ class BeleuchtungDimmer extends window.visRxWidget {
                 whiteSpace:   'nowrap',
                 flexShrink:   0,
             }}>
-                {name}
+                {ueberschrift}
             </div>
         ) : null;
 
@@ -322,14 +333,16 @@ class BeleuchtungDimmer extends window.visRxWidget {
                 {namePosition === 'top' && nameEl}
 
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>
-                    <svg
-                        width={sz}
-                        height={sz}
-                        viewBox={`0 0 ${sz} ${sz}`}
-                        preserveAspectRatio="xMidYMid meet"
-                        style={{ display: 'block', flexShrink: 0 }}
-                        dangerouslySetInnerHTML={{ __html: svgContent }}
-                    />
+                    <div style={{ width: `${iconScale}%`, height: `${iconScale}%` }}>
+                        <svg
+                            ref={this._svgRef}
+                            width="100%" height="100%"
+                            viewBox={`0 0 ${sz} ${sz}`}
+                            preserveAspectRatio="xMidYMid meet"
+                            style={{ display: 'block' }}
+                            dangerouslySetInnerHTML={{ __html: svgContent }}
+                        />
+                    </div>
                 </div>
 
                 {(namePosition === 'bottom' || !namePosition) && nameEl}
@@ -338,4 +351,4 @@ class BeleuchtungDimmer extends window.visRxWidget {
     }
 }
 
-export default BeleuchtungDimmer;
+export default ReglerLicht;

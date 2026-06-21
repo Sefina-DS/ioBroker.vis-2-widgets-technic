@@ -456,17 +456,17 @@ const ICON_OPTIONS = [
 // ═══════════════════════════════════════════════════════
 //  WIDGET
 // ═══════════════════════════════════════════════════════
-class AnAusSchalter extends window.visRxWidget {
+class SchalterBoolean extends window.visRxWidget {
 
     static getWidgetInfo() {
         return {
-            id: 'tplTechnicAnAusSchalter',
+            id: 'tplTechnicSchalterBoolean',
             visSet:          'vis-2-widgets-technic',
             visSetLabel:     'Technic Widgets',
-            visSetColor:    '#2ecfbf',   // Gruppenfarbe (das Icon links)
-            visWidgetColor: '#0d1820',   // Kachelfarbe des einzelnen Widgets ← NEU
-            visName:         'AN/AUS Schalter',
-            visWidgetLabel:  'AN/AUS Schalter',
+            visSetColor:    '#2ecfbf',
+            visWidgetColor: '#0d1820',
+            visName:         'Schalter - Boolean',
+            visWidgetLabel:  'Schalter - Boolean',
             visDefaultStyle: { width: 120, height: 160 },
             vis2: true,
             visPrev: 'widgets/vis-2-widgets-technic/img/prev-an-aus-schalter.png',
@@ -475,7 +475,7 @@ class AnAusSchalter extends window.visRxWidget {
                     name: 'common',
                     label: 'Allgemein',
                     fields: [
-                        { name: 'name',     label: 'Überschrift',   type: 'text',     default: 'Gerät' },
+                        { name: 'ueberschrift', label: 'Überschrift', type: 'text',     default: 'Gerät' },
                         { name: 'showName', label: 'Überschrift anzeigen', type: 'checkbox', default: true },
                         {
                             name: 'namePosition', label: 'Überschrift Position', type: 'select',
@@ -511,7 +511,7 @@ class AnAusSchalter extends window.visRxWidget {
                             options: ICON_OPTIONS,
                             default: 'Knopf-AN',
                         },
-                        { name: 'iconSize', label: 'Icon Größe (px)', type: 'number', default: 60 },
+                        { name: 'iconScale', label: 'Icon Größe (%)', type: 'number', default: 80 },
                         { name: 'colorAN',  label: 'Farbe AN',        type: 'color',  default: '#2dd4b0' },
                         { name: 'colorAUS', label: 'Farbe AUS',       type: 'color',  default: '#5f8f8a' },
                     ],
@@ -520,7 +520,7 @@ class AnAusSchalter extends window.visRxWidget {
         };
     }
 
-    getWidgetInfo() { return AnAusSchalter.getWidgetInfo(); }
+    getWidgetInfo() { return SchalterBoolean.getWidgetInfo(); }
 
     constructor(props) {
         super(props);
@@ -530,6 +530,17 @@ class AnAusSchalter extends window.visRxWidget {
     onRxDataChanged()  { this.propertiesUpdate(); }
     onRxStyleChanged() {}
     onStateUpdated()   {}
+
+    _getIconSize() {
+        const pad = 4, gap = 4;
+        const w   = parseInt(this.state.rxStyle?.width)  || 120;
+        const h   = parseInt(this.state.rxStyle?.height) || 160;
+        const { showName, ueberschrift } = this.state.rxData;
+        const fs  = parseInt(this.state.rxStyle?.['font-size'] ?? this.state.rxStyle?.fontSize) || 12;
+        const nameH = (showName && ueberschrift) ? Math.ceil(fs * 1.4) + gap : 0;
+        const scale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
+        return Math.max(20, Math.round(Math.min(w - pad * 2, h - pad * 2 - nameH) * scale / 100));
+    }
 
     // ── Zustand lesen ──────────────────────────────────
     _getState() {
@@ -549,7 +560,7 @@ class AnAusSchalter extends window.visRxWidget {
     }
 
     // ── SVG rendern ────────────────────────────────────
-    _renderIcon(iconKey, colorAN, colorAUS, iconSize) {
+    _renderIcon(iconKey, colorAN, colorAUS) {
         const ausKey = AUS_ICON[iconKey] || iconKey;
         const isOn   = this._getState();
         const key    = isOn ? iconKey : ausKey;
@@ -563,13 +574,12 @@ class AnAusSchalter extends window.visRxWidget {
             .replaceAll('__CAN__',  cAN)
             .replaceAll('__CAUS__', cAUS);
 
-        const sz = iconSize || 60;
         return (
             <svg
-                width={sz} height={sz}
+                width="100%" height="100%"
                 viewBox={`0 0 ${ic.w} ${ic.h}`}
                 preserveAspectRatio="xMidYMid meet"
-                style={{ display: 'block', flexShrink: 0 }}
+                style={{ display: 'block' }}
                 dangerouslySetInnerHTML={{ __html: svgContent }}
             />
         );
@@ -579,16 +589,16 @@ class AnAusSchalter extends window.visRxWidget {
         super.renderWidgetBody(props);
 
         const {
-            name         = 'Gerät',
+            ueberschrift = 'Gerät',
             showName     = true,
             namePosition = 'bottom',
             iconKey      = 'Knopf-AN',
-            iconSize     = 60,
             colorAN      = '#2dd4b0',
             colorAUS     = '#5f8f8a',
         } = this.state.rxData;
+        const iconScale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
 
-        const nameEl = showName && name ? (
+        const nameEl = showName && ueberschrift ? (
             <div style={{
                 color:        this.state.rxStyle?.color || '#c8e6e3',
                 fontSize:     this.state.rxStyle?.['font-size'] || this.state.rxStyle?.fontSize || 12,
@@ -602,7 +612,7 @@ class AnAusSchalter extends window.visRxWidget {
                 whiteSpace:   'nowrap',
                 flexShrink:   0,
             }}>
-                {name}
+                {ueberschrift}
             </div>
         ) : null;
 
@@ -625,7 +635,9 @@ class AnAusSchalter extends window.visRxWidget {
 
                 {/* Icon */}
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>
-                    {this._renderIcon(iconKey, colorAN || '#2dd4b0', colorAUS || '#5f8f8a', iconSize)}
+                    <div style={{ width: `${iconScale}%`, height: `${iconScale}%` }}>
+                        {this._renderIcon(iconKey, colorAN || '#2dd4b0', colorAUS || '#5f8f8a')}
+                    </div>
                 </div>
 
                 {/* Name unten */}
@@ -635,4 +647,4 @@ class AnAusSchalter extends window.visRxWidget {
     }
 }
 
-export default AnAusSchalter;
+export default SchalterBoolean;

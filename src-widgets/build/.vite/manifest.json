@@ -31,34 +31,34 @@
     "file": "assets/preload-helper-C1FmrZbK.js",
     "name": "preload-helper"
   },
-  "src/AnAusSchalter.jsx": {
-    "file": "assets/AnAusSchalter-BuOePhxg.js",
-    "name": "AnAusSchalter",
-    "src": "src/AnAusSchalter.jsx",
-    "isEntry": true,
-    "isDynamicEntry": true,
-    "imports": [
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-BLf5YBG7.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-ufieXutZ.js",
-      "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
-    ]
-  },
-  "src/BeleuchtungDimmer.jsx": {
-    "file": "assets/BeleuchtungDimmer-BXhA3h2J.js",
-    "name": "BeleuchtungDimmer",
-    "src": "src/BeleuchtungDimmer.jsx",
-    "isEntry": true,
-    "isDynamicEntry": true,
-    "imports": [
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-BLf5YBG7.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-ufieXutZ.js",
-      "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
-    ]
-  },
   "src/FensterWand.jsx": {
-    "file": "assets/FensterWand-Ckgju3dd.js",
+    "file": "assets/FensterWand-D8XNwo4q.js",
     "name": "FensterWand",
     "src": "src/FensterWand.jsx",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-BLf5YBG7.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-ufieXutZ.js",
+      "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
+    ]
+  },
+  "src/ReglerLicht.jsx": {
+    "file": "assets/ReglerLicht-BmN1QtBR.js",
+    "name": "ReglerLicht",
+    "src": "src/ReglerLicht.jsx",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-BLf5YBG7.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-ufieXutZ.js",
+      "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
+    ]
+  },
+  "src/SchalterBoolean.jsx": {
+    "file": "assets/SchalterBoolean-UlSiN-qq.js",
+    "name": "SchalterBoolean",
+    "src": "src/SchalterBoolean.jsx",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
@@ -91,7 +91,7 @@
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-DdpUM2Z9.js",
+    "file": "assets/virtualExposes-C9LVjvYk.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,
@@ -101,8 +101,8 @@
     ],
     "dynamicImports": [
       "src/FensterWand.jsx",
-      "src/AnAusSchalter.jsx",
-      "src/BeleuchtungDimmer.jsx",
+      "src/SchalterBoolean.jsx",
+      "src/ReglerLicht.jsx",
       "src/translations.js"
     ]
   },
