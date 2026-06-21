@@ -32,7 +32,7 @@
     "name": "preload-helper"
   },
   "src/AnAusSchalter.jsx": {
-    "file": "assets/AnAusSchalter-CCvq_2mh.js",
+    "file": "assets/AnAusSchalter-BuOePhxg.js",
     "name": "AnAusSchalter",
     "src": "src/AnAusSchalter.jsx",
     "isEntry": true,
@@ -44,7 +44,7 @@
     ]
   },
   "src/BeleuchtungDimmer.jsx": {
-    "file": "assets/BeleuchtungDimmer-3Knw1su-.js",
+    "file": "assets/BeleuchtungDimmer-BXhA3h2J.js",
     "name": "BeleuchtungDimmer",
     "src": "src/BeleuchtungDimmer.jsx",
     "isEntry": true,
@@ -55,10 +55,10 @@
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CRYeTk7O.js"
     ]
   },
-  "src/FensterNormal.jsx": {
-    "file": "assets/FensterNormal-BZJmrdyO.js",
-    "name": "FensterNormal",
-    "src": "src/FensterNormal.jsx",
+  "src/FensterWand.jsx": {
+    "file": "assets/FensterWand-Ckgju3dd.js",
+    "name": "FensterWand",
+    "src": "src/FensterWand.jsx",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
@@ -91,7 +91,7 @@
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-hYAcYi_z.js",
+    "file": "assets/virtualExposes-DdpUM2Z9.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,
@@ -100,7 +100,7 @@
       "_preload-helper-C1FmrZbK.js"
     ],
     "dynamicImports": [
-      "src/FensterNormal.jsx",
+      "src/FensterWand.jsx",
       "src/AnAusSchalter.jsx",
       "src/BeleuchtungDimmer.jsx",
       "src/translations.js"

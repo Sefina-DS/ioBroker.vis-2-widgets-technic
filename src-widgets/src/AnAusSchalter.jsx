@@ -475,13 +475,10 @@ class AnAusSchalter extends window.visRxWidget {
                     name: 'common',
                     label: 'Allgemein',
                     fields: [
-                        { name: 'name',         label: 'Name',              type: 'text',     default: 'Gerät' },
-                        { name: 'showName',     label: 'Name anzeigen',     type: 'checkbox', default: true },
-                        { name: 'nameColor',    label: 'Name Farbe',        type: 'color',    default: '#c8e6e3' },
-                        { name: 'nameFontSize', label: 'Name Schriftgröße (px)', type: 'number', default: 12 },
-                        { name: 'nameBold',     label: 'Name Fett',         type: 'checkbox', default: false },
+                        { name: 'name',     label: 'Überschrift',   type: 'text',     default: 'Gerät' },
+                        { name: 'showName', label: 'Überschrift anzeigen', type: 'checkbox', default: true },
                         {
-                            name: 'namePosition', label: 'Name Position', type: 'select',
+                            name: 'namePosition', label: 'Überschrift Position', type: 'select',
                             options: [
                                 { value: 'top',    label: 'Oben' },
                                 { value: 'bottom', label: 'Unten' },
@@ -589,16 +586,13 @@ class AnAusSchalter extends window.visRxWidget {
             iconSize     = 60,
             colorAN      = '#2dd4b0',
             colorAUS     = '#5f8f8a',
-            nameColor    = '#c8e6e3',
-            nameFontSize = 12,
-            nameBold     = false,
         } = this.state.rxData;
 
         const nameEl = showName && name ? (
             <div style={{
-                color:        nameColor    || '#c8e6e3',
-                fontSize:     `${nameFontSize || 12}px`,
-                fontWeight:   nameBold ? 700 : 400,
+                color:        this.state.rxStyle?.color || '#c8e6e3',
+                fontSize:     this.state.rxStyle?.['font-size'] || this.state.rxStyle?.fontSize || 12,
+                fontWeight:   this.state.rxStyle?.['font-weight'] || this.state.rxStyle?.fontWeight || 400,
                 textAlign:    'center',
                 lineHeight:   1.2,
                 wordBreak:    'break-word',

@@ -13,7 +13,7 @@ const config = {
             name: 'vis2TechnicWidgets',
             filename: 'customWidgets.js',
             exposes: {
-                './FensterNormal': './src/FensterNormal',
+                './FensterWand': './src/FensterWand',
                 './AnAusSchalter':   './src/AnAusSchalter',
                 './BeleuchtungDimmer': './src/BeleuchtungDimmer',
                 './translations': './src/translations',

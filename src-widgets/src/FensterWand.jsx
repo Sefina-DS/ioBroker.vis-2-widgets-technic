@@ -108,15 +108,15 @@ const VIEWBOX = '0 0 200 220';
 // ═══════════════════════════════════════════════════════
 //  WIDGET
 // ═══════════════════════════════════════════════════════
-class FensterNormal extends window.visRxWidget {
+class FensterWand extends window.visRxWidget {
 
     static getWidgetInfo() {
         return {
-            id: 'tplTechnicFensterNormal',
+            id: 'tplTechnicFensterWand',
             visSet: 'vis-2-widgets-technic',
             visSetLabel: 'Technic Widgets',
-            visName: 'Fenster Normal',
-            visWidgetLabel: 'Fenster Normal',
+            visName: 'Fenster - Wand',
+            visWidgetLabel: 'Fenster - Wand',
             visSetColor:    '#2ecfbf',   // Gruppenfarbe (das Icon links)
             visWidgetColor: '#0d1820',   // Kachelfarbe des einzelnen Widgets ← NEU
             visDefaultStyle: { width: 120, height: 160 },
@@ -126,18 +126,19 @@ class FensterNormal extends window.visRxWidget {
                     name: 'common',
                     label: 'Allgemein',
                     fields: [
-                        { name: 'name', label: 'Name', type: 'text', default: '' },
-                        { name: 'showName', label: 'Name anzeigen', type: 'checkbox', default: false },
-                        { name: 'nameColor', label: 'Name Farbe', type: 'color', default: '#cf6c10' },
-                        { name: 'nameFontSize', label: 'Name Schriftgröße (px)', type: 'number', default: 12 },
-                        { name: 'nameBold', label: 'Name Fett', type: 'checkbox', default: false },
+                        { name: 'name', label: 'Überschrift', type: 'text', default: '' },
+                        { name: 'showName', label: 'Überschrift anzeigen', type: 'checkbox', default: false },
+                        {
+                            name: 'namePosition', label: 'Überschrift Position', type: 'select',
+                            options: [{ value: 'top', label: 'Oben' }, { value: 'bottom', label: 'Unten' }],
+                            default: 'bottom',
+                        },
                         {
                             name: 'griff', label: 'Griff', type: 'select',
                             options: [{ value: 'links', label: 'Links' }, { value: 'rechts', label: 'Rechts' }],
                             default: 'links',
                         },
-                        { name: 'showRahmen', label: 'Rahmen anzeigen', type: 'checkbox', default: true },
-                        { name: 'rahmenfarbe', label: 'Rahmenfarbe', type: 'color', default: '#13c540' },
+                        { name: 'iconFarbe', label: 'Icon Farbe', type: 'color', default: '#13c540' },
                     ],
                 },
                 {
@@ -157,7 +158,7 @@ class FensterNormal extends window.visRxWidget {
         };
     }
 
-    getWidgetInfo() { return FensterNormal.getWidgetInfo(); }
+    getWidgetInfo() { return FensterWand.getWidgetInfo(); }
 
     constructor(props) {
         super(props);
@@ -237,8 +238,7 @@ class FensterNormal extends window.visRxWidget {
         const griff   = rxData.griff || 'links';
         const offen   = this._getKontaktVal();
         const pct     = this._getRolloVal();
-        const rahmen  = rxData.showRahmen !== false;
-        const rahmenf = rahmen ? (rxData.rahmenfarbe || '#2ecfbf') : 'transparent';
+        const rahmenf = rxData.iconFarbe || '#13c540';
         const typ     = griff === 'links' ? (offen ? 'LA' : 'LZ') : (offen ? 'RA' : 'RZ');
         const modus   = this._getModusVal();
         const hasModus = !!rxData.oid_modus;
@@ -271,30 +271,31 @@ class FensterNormal extends window.visRxWidget {
         super.renderWidgetBody(props);
         setTimeout(() => this._drawSVG(), 0);
 
-        const rxData   = this.state.rxData;
-        const showName = rxData.showName && rxData.name;
-        const hasModus = !!rxData.oid_modus;
+        const rxData       = this.state.rxData;
+        const showName     = rxData.showName && rxData.name;
+        const namePosition = rxData.namePosition || 'bottom';
+        const hasModus     = !!rxData.oid_modus;
         const hasRollo = !!rxData.oid_rollo;
         const modus    = this._getModusVal();
         const rolloVal = this._getRolloVal();
-        const rahmenf  = rxData.rahmenfarbe || '#2ecfbf';
+        const rahmenf  = rxData.iconFarbe || '#13c540';
         const { menuOpen, menuX, menuY } = this.state;
 
         return (
             <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', boxSizing: 'border-box', padding: 4 }}>
 
-                {/* Name */}
-                {showName && (
+                {/* Name oben */}
+                {namePosition === 'top' && showName && (
                     <div style={{
-                        fontSize: rxData.nameFontSize || 12,
-                        color: rxData.nameColor || '#c8e6e3',
-                        fontWeight: rxData.nameBold ? 700 : 400,
+                        fontSize:     this.state.rxStyle?.['font-size'] || this.state.rxStyle?.fontSize || 12,
+                        color:        this.state.rxStyle?.color || '#c8e6e3',
+                        fontWeight:   this.state.rxStyle?.['font-weight'] || this.state.rxStyle?.fontWeight || 400,
                         marginBottom: 3,
-                        textAlign: 'center',
-                        width: '100%',
-                        overflow: 'hidden',
+                        textAlign:    'center',
+                        width:        '100%',
+                        overflow:     'hidden',
                         textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                        whiteSpace:   'nowrap',
                     }}>
                         {rxData.name}
                     </div>
@@ -312,6 +313,23 @@ class FensterNormal extends window.visRxWidget {
                         preserveAspectRatio="xMidYMid meet"
                     />
                 </div>
+
+                {/* Name unten */}
+                {(namePosition === 'bottom' || !namePosition) && showName && (
+                    <div style={{
+                        fontSize:     this.state.rxStyle?.['font-size'] || this.state.rxStyle?.fontSize || 12,
+                        color:        this.state.rxStyle?.color || '#c8e6e3',
+                        fontWeight:   this.state.rxStyle?.['font-weight'] || this.state.rxStyle?.fontWeight || 400,
+                        marginTop:    3,
+                        textAlign:    'center',
+                        width:        '100%',
+                        overflow:     'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace:   'nowrap',
+                    }}>
+                        {rxData.name}
+                    </div>
+                )}
 
                 {/* Kontextmenü */}
                 {menuOpen && (
@@ -396,4 +414,4 @@ class FensterNormal extends window.visRxWidget {
     }
 }
 
-export default FensterNormal;
+export default FensterWand;

@@ -175,7 +175,7 @@
                 "bundlerType": "module",
                 "i18n": true,
                 "components": [
-                    "FensterNormal",
+                    "FensterWand",
                     "AnAusSchalter",
                     "BeleuchtungDimmer"
                 ]
