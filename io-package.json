@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.13",
+        "version": "0.1.14",
         "news": {
-            "0.1.7": {
-                "en": "fix: persistent logging in install.js for debugging",
-                "de": "Fix: persistentes Logging in install.js",
-                "ru": "fix: persistent logging in install.js for debugging",
-                "pt": "fix: persistent logging in install.js for debugging",
-                "nl": "fix: persistent logging in install.js for debugging",
-                "fr": "fix: persistent logging in install.js for debugging",
-                "it": "fix: persistent logging in install.js for debugging",
-                "es": "fix: persistent logging in install.js for debugging",
-                "pl": "fix: persistent logging in install.js for debugging",
-                "uk": "fix: persistent logging in install.js for debugging",
-                "zh-cn": "fix: persistent logging in install.js for debugging"
-            },
             "0.1.8": {
                 "en": "fix: capture real stderr in install.js for debugging",
                 "de": "Fix: echte stderr-Erfassung in install.js",
@@ -95,6 +82,19 @@
                 "pl": "fix: workflow permissions and provenance flag",
                 "uk": "fix: workflow permissions and provenance flag",
                 "zh-cn": "fix: workflow permissions and provenance flag"
+            },
+            "0.1.14": {
+                "en": "Release 0.1.14",
+                "de": "Release 0.1.14",
+                "ru": "Release 0.1.14",
+                "pt": "Release 0.1.14",
+                "nl": "Release 0.1.14",
+                "fr": "Release 0.1.14",
+                "it": "Release 0.1.14",
+                "es": "Release 0.1.14",
+                "pl": "Release 0.1.14",
+                "uk": "Release 0.1.14",
+                "zh-cn": "Release 0.1.14"
             }
         },
         "titleLang": {
@@ -176,8 +176,8 @@
                 "i18n": true,
                 "components": [
                     "FensterWand",
-                    "AnAusSchalter",
-                    "BeleuchtungDimmer"
+                    "SchalterBoolean",
+                    "ReglerLicht"
                 ]
             }
         }
