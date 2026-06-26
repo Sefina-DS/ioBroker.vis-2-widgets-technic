@@ -32,7 +32,7 @@
     "name": "preload-helper"
   },
   "src/FensterWand.jsx": {
-    "file": "assets/FensterWand-LbJ4g3OA.js",
+    "file": "assets/FensterWand-DJ2g4n--.js",
     "name": "FensterWand",
     "src": "src/FensterWand.jsx",
     "isEntry": true,
@@ -91,7 +91,7 @@
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-CW6LhN_K.js",
+    "file": "assets/virtualExposes-Cn7RUeYE.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,

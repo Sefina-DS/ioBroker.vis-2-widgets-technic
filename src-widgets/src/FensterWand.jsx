@@ -366,19 +366,19 @@ class FensterWand extends window.visRxWidget {
                     >
                         {hasRollo && (<>
                             <div
-                                style={{ padding: '8px 16px', fontSize: 13, color: rolloVal === 0 ? rahmenf : '#c8e6e3', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, fontWeight: rolloVal === 0 ? 600 : 400 }}
+                                style={{ padding: '8px 16px', fontSize: 13, color: rolloVal === 100 ? rahmenf : '#c8e6e3', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, fontWeight: rolloVal === 100 ? 600 : 400 }}
                                 onMouseEnter={e => e.currentTarget.style.background = '#1e2a2a'}
                                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                                onClick={() => { this._setRollo(0); this.setState({ menuOpen: false }); }}
+                                onClick={() => { this._setRollo(100); this.setState({ menuOpen: false }); }}
                             >
                                 <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="7,1 13,11 1,11" fill={rahmenf}/></svg>
                                 Open
                             </div>
                             <div
-                                style={{ padding: '8px 16px', fontSize: 13, color: rolloVal === 100 ? rahmenf : '#c8e6e3', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, fontWeight: rolloVal === 100 ? 600 : 400 }}
+                                style={{ padding: '8px 16px', fontSize: 13, color: rolloVal === 0 ? rahmenf : '#c8e6e3', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, fontWeight: rolloVal === 0 ? 600 : 400 }}
                                 onMouseEnter={e => e.currentTarget.style.background = '#1e2a2a'}
                                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                                onClick={() => { this._setRollo(100); this.setState({ menuOpen: false }); }}
+                                onClick={() => { this._setRollo(0); this.setState({ menuOpen: false }); }}
                             >
                                 <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="7,13 13,3 1,3" fill={rahmenf}/></svg>
                                 Close
@@ -397,8 +397,20 @@ class FensterWand extends window.visRxWidget {
                                     onChange={e => this._setRollo(parseInt(e.target.value))}
                                 />
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
-                                    <span style={{ fontSize: 10, color: '#5a7a78' }}>Open</span>
                                     <span style={{ fontSize: 10, color: '#5a7a78' }}>Close</span>
+                                    <span style={{ fontSize: 10, color: '#5a7a78' }}>Open</span>
+                                </div>
+                                <div style={{ display: 'flex', gap: 4, marginTop: 6 }}>
+                                    {[0, 25, 50, 75, 100].map(v => (
+                                        <button key={v} onClick={() => this._setRollo(v)}
+                                            style={{
+                                                flex: 1, padding: '3px 0', fontSize: 10, cursor: 'pointer',
+                                                background: rolloVal === v ? rahmenf : '#1e2a2a',
+                                                color: rolloVal === v ? '#0d1820' : '#c8e6e3',
+                                                border: `1px solid ${rahmenf}55`, borderRadius: 4,
+                                            }}
+                                        >{v}%</button>
+                                    ))}
                                 </div>
                             </div>
                         </>)}
