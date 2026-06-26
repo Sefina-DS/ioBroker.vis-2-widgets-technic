@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.15",
+        "version": "0.1.16",
         "news": {
-            "0.1.9": {
-                "en": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "de": "Fix: direkter Aufruf von iobroker.js statt fehlerhaftem Wrapper",
-                "ru": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "pt": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "nl": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "fr": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "it": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "es": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "pl": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "uk": "fix: call iobroker.js directly to bypass broken wrapper recursion",
-                "zh-cn": "fix: call iobroker.js directly to bypass broken wrapper recursion"
-            },
             "0.1.10": {
                 "en": "fix: correct web restart command chaining in install.js",
                 "de": "Fix: korrekte Befehlsverkettung für Web-Neustart",
@@ -95,6 +82,19 @@
                 "pl": "Release 0.1.15",
                 "uk": "Release 0.1.15",
                 "zh-cn": "Release 0.1.15"
+            },
+            "0.1.16": {
+                "en": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "de": "Widget-Namen und Labels auf Englisch übersetzt, Rollo Auf/Zu-Logik korrigiert, Schnellauswahl-Buttons (0/25/50/75/100%) hinzugefügt",
+                "ru": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "pt": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "nl": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "fr": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "it": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "es": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "pl": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "uk": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
+                "zh-cn": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)"
             }
         },
         "titleLang": {

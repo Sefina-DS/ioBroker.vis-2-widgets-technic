@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.16 (2026-06-26)
+- Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)
+
 ### 0.1.15 (2026-06-21)
 - Release 0.1.15
 
