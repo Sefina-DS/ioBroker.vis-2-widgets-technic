@@ -435,21 +435,21 @@ const AUS_ICON = {
 };
 
 const ICON_OPTIONS = [
-    { value: 'Auswahl-AN',            label: 'Auswahl (Checkbox)' },
-    { value: 'Desktop-PC-AN',         label: 'Desktop-PC' },
-    { value: 'Knopf-AN',              label: 'Knopf (Power)' },
-    { value: 'Lampe-Bett-AN',         label: 'Lampe Bett' },
-    { value: 'Lampe-Hängend-AN',      label: 'Lampe Hängend' },
-    { value: 'Lampe-Hängend-Rund-AN', label: 'Lampe Hängend Rund' },
-    { value: 'Lampe-Schreibtisch-AN', label: 'Lampe Schreibtisch' },
-    { value: 'Lampe-Spots-AN',        label: 'Lampe Spots' },
-    { value: 'Lampe-Stripe-RGB-AN',   label: 'Lampe Stripe RGB' },
-    { value: 'Lampe-Tisch-AN',        label: 'Lampe Tisch' },
+    { value: 'Auswahl-AN',            label: 'Selection (Checkbox)' },
+    { value: 'Desktop-PC-AN',         label: 'Desktop PC' },
+    { value: 'Knopf-AN',              label: 'Button (Power)' },
+    { value: 'Lampe-Bett-AN',         label: 'Bed Lamp' },
+    { value: 'Lampe-Hängend-AN',      label: 'Hanging Lamp' },
+    { value: 'Lampe-Hängend-Rund-AN', label: 'Hanging Lamp Round' },
+    { value: 'Lampe-Schreibtisch-AN', label: 'Desk Lamp' },
+    { value: 'Lampe-Spots-AN',        label: 'Spot Lights' },
+    { value: 'Lampe-Stripe-RGB-AN',   label: 'LED Strip RGB' },
+    { value: 'Lampe-Tisch-AN',        label: 'Table Lamp' },
     { value: 'Link-AN',               label: 'Link' },
-    { value: 'Lüfter-WC-AN',          label: 'Lüfter WC' },
-    { value: 'Schluessel-AN',         label: 'Schlüssel' },
+    { value: 'Lüfter-WC-AN',          label: 'WC Fan' },
+    { value: 'Schluessel-AN',         label: 'Key' },
     { value: 'Smartphone-AN',         label: 'Smartphone' },
-    { value: 'Steckdose-AN',          label: 'Steckdose' },
+    { value: 'Steckdose-AN',          label: 'Socket' },
     { value: 'TV-AN',                 label: 'TV' },
 ];
 
@@ -465,23 +465,23 @@ class SchalterBoolean extends window.visRxWidget {
             visSetLabel:     'Technic Widgets',
             visSetColor:    '#2ecfbf',
             visWidgetColor: '#0d1820',
-            visName:         'Schalter - Boolean',
-            visWidgetLabel:  'Schalter - Boolean',
+            visName:         'Switch - Boolean',
+            visWidgetLabel:  'Switch - Boolean',
             visDefaultStyle: { width: 120, height: 160 },
             vis2: true,
             visPrev: 'widgets/vis-2-widgets-technic/img/prev-an-aus-schalter.png',
             visAttrs: [
                 {
                     name: 'common',
-                    label: 'Allgemein',
+                    label: 'General',
                     fields: [
-                        { name: 'ueberschrift', label: 'Überschrift', type: 'text',     default: 'Gerät' },
-                        { name: 'showName', label: 'Überschrift anzeigen', type: 'checkbox', default: true },
+                        { name: 'ueberschrift', label: 'Heading', type: 'text',     default: 'Gerät' },
+                        { name: 'showName', label: 'Show Heading', type: 'checkbox', default: true },
                         {
-                            name: 'namePosition', label: 'Überschrift Position', type: 'select',
+                            name: 'namePosition', label: 'Heading Position', type: 'select',
                             options: [
-                                { value: 'top',    label: 'Oben' },
-                                { value: 'bottom', label: 'Unten' },
+                                { value: 'top',    label: 'Top' },
+                                { value: 'bottom', label: 'Bottom' },
                             ],
                             default: 'bottom',
                         },
@@ -489,11 +489,11 @@ class SchalterBoolean extends window.visRxWidget {
                 },
                 {
                     name: 'ids',
-                    label: 'Datenpunkte',
+                    label: 'Data Points',
                     fields: [
-                        { name: 'oid',       label: 'Datenpunkt (AN/AUS)', type: 'id',     default: '' },
+                        { name: 'oid',       label: 'Data point (ON/OFF)', type: 'id',     default: '' },
                         {
-                            name: 'valueType', label: 'Wert-Typ', type: 'select',
+                            name: 'valueType', label: 'Value type', type: 'select',
                             options: [
                                 { value: 'bool',   label: 'true / false' },
                                 { value: 'number', label: '1 / 0' },
@@ -507,13 +507,13 @@ class SchalterBoolean extends window.visRxWidget {
                     label: 'Icon',
                     fields: [
                         {
-                            name: 'iconKey', label: 'Icon auswählen', type: 'select',
+                            name: 'iconKey', label: 'Select icon', type: 'select',
                             options: ICON_OPTIONS,
                             default: 'Knopf-AN',
                         },
-                        { name: 'iconScale', label: 'Icon Größe (%)', type: 'number', default: 80 },
-                        { name: 'colorAN',  label: 'Farbe AN',        type: 'color',  default: '#2dd4b0' },
-                        { name: 'colorAUS', label: 'Farbe AUS',       type: 'color',  default: '#5f8f8a' },
+                        { name: 'iconScale', label: 'Icon Size (%)', type: 'number', default: 80 },
+                        { name: 'colorAN',  label: 'Color ON',        type: 'color',  default: '#2dd4b0' },
+                        { name: 'colorAUS', label: 'Color OFF',       type: 'color',  default: '#5f8f8a' },
                     ],
                 },
             ],

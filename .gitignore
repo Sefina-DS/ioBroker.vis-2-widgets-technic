@@ -3,4 +3,4 @@ src-widgets/node_modules/
 src-widgets/build/
 .commitinfo
 *.log
-.DS_Store
+.DS_StoreioBroker.repositories/

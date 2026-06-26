@@ -115,8 +115,8 @@ class FensterWand extends window.visRxWidget {
             id: 'tplTechnicFensterWand',
             visSet: 'vis-2-widgets-technic',
             visSetLabel: 'Technic Widgets',
-            visName: 'Fenster - Wand',
-            visWidgetLabel: 'Fenster - Wand',
+            visName: 'Window - Wall',
+            visWidgetLabel: 'Window - Wall',
             visSetColor:    '#2ecfbf',   // Gruppenfarbe (das Icon links)
             visWidgetColor: '#0d1820',   // Kachelfarbe des einzelnen Widgets ← NEU
             visDefaultStyle: { width: 120, height: 160 },
@@ -124,34 +124,34 @@ class FensterWand extends window.visRxWidget {
             visAttrs: [
                 {
                     name: 'common',
-                    label: 'Allgemein',
+                    label: 'General',
                     fields: [
-                        { name: 'ueberschrift', label: 'Überschrift', type: 'text', default: '' },
-                        { name: 'showName', label: 'Überschrift anzeigen', type: 'checkbox', default: false },
+                        { name: 'ueberschrift', label: 'Heading', type: 'text', default: '' },
+                        { name: 'showName', label: 'Show Heading', type: 'checkbox', default: false },
                         {
-                            name: 'namePosition', label: 'Überschrift Position', type: 'select',
-                            options: [{ value: 'top', label: 'Oben' }, { value: 'bottom', label: 'Unten' }],
+                            name: 'namePosition', label: 'Heading Position', type: 'select',
+                            options: [{ value: 'top', label: 'Top' }, { value: 'bottom', label: 'Bottom' }],
                             default: 'bottom',
                         },
-                        { name: 'iconScale', label: 'Icon Größe (%)', type: 'number', default: 80 },
+                        { name: 'iconScale', label: 'Icon Size (%)', type: 'number', default: 80 },
                         {
-                            name: 'griff', label: 'Griff', type: 'select',
-                            options: [{ value: 'links', label: 'Links' }, { value: 'rechts', label: 'Rechts' }],
+                            name: 'griff', label: 'Handle', type: 'select',
+                            options: [{ value: 'links', label: 'Left' }, { value: 'rechts', label: 'Right' }],
                             default: 'links',
                         },
-                        { name: 'iconFarbe', label: 'Icon Farbe', type: 'color', default: '#13c540' },
+                        { name: 'iconFarbe', label: 'Icon Color', type: 'color', default: '#13c540' },
                     ],
                 },
                 {
                     name: 'ids',
-                    label: 'Datenpunkte',
+                    label: 'Data Points',
                     fields: [
-                        { name: 'oid_kontakt', label: 'Öffnungskontakt (bool)', type: 'id', default: '' },
-                        { name: 'oid_kontakt_inv', label: 'Kontakt invertieren', type: 'checkbox', default: false },
-                        { name: 'oid_rollo', label: 'Rollo-Position (0–100)', type: 'id', default: '' },
-                        { name: 'oid_rollo_inv', label: 'Rollo invertieren', type: 'checkbox', default: false },
-                        { name: 'oid_modus', label: 'Modus (false=Auto / true=Hand)', type: 'id', default: '' },
-                        { name: 'oid_modus_inv', label: 'Modus invertieren', type: 'checkbox', default: false },
+                        { name: 'oid_kontakt', label: 'Open contact (bool)', type: 'id', default: '' },
+                        { name: 'oid_kontakt_inv', label: 'Invert contact', type: 'checkbox', default: false },
+                        { name: 'oid_rollo', label: 'Blind position (0–100)', type: 'id', default: '' },
+                        { name: 'oid_rollo_inv', label: 'Invert blind', type: 'checkbox', default: false },
+                        { name: 'oid_modus', label: 'Mode (false=Auto / true=Manual)', type: 'id', default: '' },
+                        { name: 'oid_modus_inv', label: 'Invert mode', type: 'checkbox', default: false },
                     ],
                 },
             ],
@@ -372,7 +372,7 @@ class FensterWand extends window.visRxWidget {
                                 onClick={() => { this._setRollo(0); this.setState({ menuOpen: false }); }}
                             >
                                 <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="7,1 13,11 1,11" fill={rahmenf}/></svg>
-                                Auf
+                                Open
                             </div>
                             <div
                                 style={{ padding: '8px 16px', fontSize: 13, color: rolloVal === 100 ? rahmenf : '#c8e6e3', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, fontWeight: rolloVal === 100 ? 600 : 400 }}
@@ -381,7 +381,7 @@ class FensterWand extends window.visRxWidget {
                                 onClick={() => { this._setRollo(100); this.setState({ menuOpen: false }); }}
                             >
                                 <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="7,13 13,3 1,3" fill={rahmenf}/></svg>
-                                Runter
+                                Close
                             </div>
 
                             <div style={{ height: 1, background: `${rahmenf}33`, margin: '4px 10px' }} />
@@ -397,8 +397,8 @@ class FensterWand extends window.visRxWidget {
                                     onChange={e => this._setRollo(parseInt(e.target.value))}
                                 />
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
-                                    <span style={{ fontSize: 10, color: '#5a7a78' }}>Auf</span>
-                                    <span style={{ fontSize: 10, color: '#5a7a78' }}>Zu</span>
+                                    <span style={{ fontSize: 10, color: '#5a7a78' }}>Open</span>
+                                    <span style={{ fontSize: 10, color: '#5a7a78' }}>Close</span>
                                 </div>
                             </div>
                         </>)}
@@ -406,7 +406,7 @@ class FensterWand extends window.visRxWidget {
                         {hasModus && (<>
                             {hasRollo && <div style={{ height: 1, background: `${rahmenf}33`, margin: '4px 10px' }} />}
                             <div style={{ padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                                <span style={{ fontSize: 12, color: modus === false ? rahmenf : '#5a7a78', fontWeight: modus === false ? 600 : 400 }}>Automatik</span>
+                                <span style={{ fontSize: 12, color: modus === false ? rahmenf : '#5a7a78', fontWeight: modus === false ? 600 : 400 }}>Auto</span>
                                 <div
                                     onClick={() => this._setModus(!modus)}
                                     style={{ width: 44, height: 24, borderRadius: 12, background: '#1e2a2a', border: `1.5px solid ${rahmenf}`, position: 'relative', cursor: 'pointer', flexShrink: 0 }}
@@ -419,7 +419,7 @@ class FensterWand extends window.visRxWidget {
                                         transition: 'left 0.2s',
                                     }} />
                                 </div>
-                                <span style={{ fontSize: 12, color: modus === true ? rahmenf : '#5a7a78', fontWeight: modus === true ? 600 : 400 }}>Hand</span>
+                                <span style={{ fontSize: 12, color: modus === true ? rahmenf : '#5a7a78', fontWeight: modus === true ? 600 : 400 }}>Manual</span>
                             </div>
                         </>)}
                     </div>
