@@ -7,17 +7,15 @@ Technic widgets for ioBroker VIS 2 with a consistent dark teal design language f
 
 ## Widgets
 
-**FensterNormal** – Window and roller blind widget with SVG rendering, context menu, position slider and Auto/Manual toggle.
+**Window - Wall** – Window and roller blind control with SVG visualization, Auto/Manual mode toggle, position slider, context menu and quick-set buttons (0 / 25 / 50 / 75 / 100%).
 
-**AnAusSchalter** – On/off switch widget with selectable SVG icons and configurable on/off colors.
+**Switch - Boolean** – On/off switch with selectable SVG icons and configurable on/off colors.
 
-**BeleuchtungDimmer** – 270° arc dimmer with draggable knob, dynamic lamp rays, power button and room name label.
-
-**FBH_Regler** – Underfloor heating circuit widget with half-circle dial, target/actual temperature display, valve status and InfluxDB history overlay.
+**Dimmer - Light** – 270° arc dimmer with draggable knob, dynamic lamp ray animation, power toggle and brightness percentage display.
 
 ## Requirements
 
-- ioBroker js-controller >= 5.0.19
+- ioBroker js-controller >= 6.0.11
 - ioBroker VIS 2 >= 2.0.0
 - Node.js >= 20
 
@@ -37,6 +35,9 @@ All widgets use a consistent color palette:
 - Text `#c8e6e3` – Labels and text
 
 ## Changelog
+
+### 0.1.17 (2026-06-27)
+- Release 0.1.17
 
 ### 0.1.16 (2026-06-26)
 - Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)

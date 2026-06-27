@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.16",
+        "version": "0.1.17",
         "news": {
-            "0.1.10": {
-                "en": "fix: correct web restart command chaining in install.js",
-                "de": "Fix: korrekte Befehlsverkettung für Web-Neustart",
-                "ru": "fix: correct web restart command chaining in install.js",
-                "pt": "fix: correct web restart command chaining in install.js",
-                "nl": "fix: correct web restart command chaining in install.js",
-                "fr": "fix: correct web restart command chaining in install.js",
-                "it": "fix: correct web restart command chaining in install.js",
-                "es": "fix: correct web restart command chaining in install.js",
-                "pl": "fix: correct web restart command chaining in install.js",
-                "uk": "fix: correct web restart command chaining in install.js",
-                "zh-cn": "fix: correct web restart command chaining in install.js"
-            },
             "0.1.11": {
                 "en": "fix: remove process.env/exit for compact mode compliance",
                 "de": "Fix: compact-mode-Kompatibilität in install.js",
@@ -95,6 +82,19 @@
                 "pl": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
                 "uk": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
                 "zh-cn": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)"
+            },
+            "0.1.17": {
+                "en": "Release 0.1.17",
+                "de": "Release 0.1.17",
+                "ru": "Release 0.1.17",
+                "pt": "Release 0.1.17",
+                "nl": "Release 0.1.17",
+                "fr": "Release 0.1.17",
+                "it": "Release 0.1.17",
+                "es": "Release 0.1.17",
+                "pl": "Release 0.1.17",
+                "uk": "Release 0.1.17",
+                "zh-cn": "Release 0.1.17"
             }
         },
         "titleLang": {
@@ -173,7 +173,7 @@
                 "name": "vis2TechnicWidgets",
                 "url": "vis-2-widgets-technic/customWidgets.js",
                 "bundlerType": "module",
-                "i18n": true,
+                "i18n": "component",
                 "components": [
                     "FensterWand",
                     "SchalterBoolean",

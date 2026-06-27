@@ -1,6 +1,6 @@
 {
   "name": "iobroker.vis-2-widgets-technic",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Technic widgets for ioBroker VIS 2 - Window, Shutter, Switch and Dimmer controls",
   "author": "Sefina-DS",
   "license": "MIT",
@@ -33,14 +33,12 @@
     "admin/",
     "widgets/",
     "io-package.json",
-    "install.js",
     "LICENSE"
   ],
   "scripts": {
     "build": "node tasks",
     "build-only": "node tasks --build",
-    "copy-files": "node tasks --copy-files",
-    "postinstall": "node install.js"
+    "copy-files": "node tasks --copy-files"
   },
   "dependencies": {},
   "devDependencies": {
