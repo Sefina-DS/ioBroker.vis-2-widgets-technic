@@ -1,4 +1,17 @@
 import React from 'react';
+import { I18n } from '@iobroker/adapter-react-v5';
+import translations from './translations.js';
+
+window.__TECHNIC_TRANSLATIONS_CONTENT__ = JSON.stringify(translations);
+window.__TECHNIC_I18N_INSTANCE__ = I18n;
+
+try {
+    I18n.extendTranslations(translations);
+    window.__TECHNIC_I18N_RESULT__ = 'called, de.heading after call: ' +
+        (I18n.translations && I18n.translations.de ? I18n.translations.de.heading : 'NO_TRANSLATIONS_OBJECT');
+} catch (e) {
+    window.__TECHNIC_I18N_RESULT__ = 'ERROR: ' + e.message;
+}
 
 // ═══════════════════════════════════════════════════════
 //  SVG ICON DATA (echte Traces aus PNG-Vorlagen)
@@ -435,7 +448,7 @@ const AUS_ICON = {
 };
 
 const ICON_OPTIONS = [
-    { value: 'Auswahl-AN',            label: 'Selection (Checkbox)' },
+    { value: 'Auswahl-AN',            label: 'icon_selection' },
     { value: 'Desktop-PC-AN',         label: 'Desktop PC' },
     { value: 'Knopf-AN',              label: 'Button (Power)' },
     { value: 'Lampe-Bett-AN',         label: 'Bed Lamp' },
@@ -473,15 +486,15 @@ class SchalterBoolean extends window.visRxWidget {
             visAttrs: [
                 {
                     name: 'common',
-                    label: 'General',
+                    label: 'general',
                     fields: [
-                        { name: 'ueberschrift', label: 'Heading', type: 'text',     default: 'Gerät' },
-                        { name: 'showName', label: 'Show Heading', type: 'checkbox', default: true },
+                        { name: 'ueberschrift', label: 'heading', type: 'text',     default: 'Device' },
+                        { name: 'showName', label: 'show_heading', type: 'checkbox', default: true },
                         {
-                            name: 'namePosition', label: 'Heading Position', type: 'select',
+                            name: 'namePosition', label: 'heading_position', type: 'select',
                             options: [
-                                { value: 'top',    label: 'Top' },
-                                { value: 'bottom', label: 'Bottom' },
+                                { value: 'top',    label: 'pos_top' },
+                                { value: 'bottom', label: 'pos_bottom' },
                             ],
                             default: 'bottom',
                         },
@@ -489,14 +502,14 @@ class SchalterBoolean extends window.visRxWidget {
                 },
                 {
                     name: 'ids',
-                    label: 'Data Points',
+                    label: 'data_points',
                     fields: [
-                        { name: 'oid',       label: 'Data point (ON/OFF)', type: 'id',     default: '' },
+                        { name: 'oid',       label: 'oid_onoff', type: 'id',     default: '' },
                         {
-                            name: 'valueType', label: 'Value type', type: 'select',
+                            name: 'valueType', label: 'value_type', type: 'select',
                             options: [
-                                { value: 'bool',   label: 'true / false' },
-                                { value: 'number', label: '1 / 0' },
+                                { value: 'bool',   label: 'vtype_bool' },
+                                { value: 'number', label: 'vtype_num' },
                             ],
                             default: 'bool',
                         },
@@ -504,16 +517,16 @@ class SchalterBoolean extends window.visRxWidget {
                 },
                 {
                     name: 'icon',
-                    label: 'Icon',
+                    label: 'icon_group',
                     fields: [
                         {
-                            name: 'iconKey', label: 'Select icon', type: 'select',
+                            name: 'iconKey', label: 'select_icon', type: 'select',
                             options: ICON_OPTIONS,
                             default: 'Knopf-AN',
                         },
-                        { name: 'iconScale', label: 'Icon Size (%)', type: 'number', default: 80 },
-                        { name: 'colorAN',  label: 'Color ON',        type: 'color',  default: '#2dd4b0' },
-                        { name: 'colorAUS', label: 'Color OFF',       type: 'color',  default: '#5f8f8a' },
+                        { name: 'iconScale', label: 'icon_size_pct', type: 'number', default: 80 },
+                        { name: 'colorAN',  label: 'color_on',        type: 'color',  default: '#2dd4b0' },
+                        { name: 'colorAUS', label: 'color_off',       type: 'color',  default: '#5f8f8a' },
                     ],
                 },
             ],
@@ -589,7 +602,7 @@ class SchalterBoolean extends window.visRxWidget {
         super.renderWidgetBody(props);
 
         const {
-            ueberschrift = 'Gerät',
+            ueberschrift = 'Device',
             showName     = true,
             namePosition = 'bottom',
             iconKey      = 'Knopf-AN',

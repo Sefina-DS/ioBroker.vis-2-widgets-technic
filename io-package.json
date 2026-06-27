@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.17",
+        "version": "0.1.18",
         "news": {
-            "0.1.11": {
-                "en": "fix: remove process.env/exit for compact mode compliance",
-                "de": "Fix: compact-mode-Kompatibilität in install.js",
-                "ru": "fix: remove process.env/exit for compact mode compliance",
-                "pt": "fix: remove process.env/exit for compact mode compliance",
-                "nl": "fix: remove process.env/exit for compact mode compliance",
-                "fr": "fix: remove process.env/exit for compact mode compliance",
-                "it": "fix: remove process.env/exit for compact mode compliance",
-                "es": "fix: remove process.env/exit for compact mode compliance",
-                "pl": "fix: remove process.env/exit for compact mode compliance",
-                "uk": "fix: remove process.env/exit for compact mode compliance",
-                "zh-cn": "fix: remove process.env/exit for compact mode compliance"
-            },
             "0.1.12": {
                 "en": "fix: enable npm provenance via GitHub Actions, remove debug script",
                 "de": "Fix: npm Provenance über GitHub Actions, Debug-Script entfernt",
@@ -95,6 +82,19 @@
                 "pl": "Release 0.1.17",
                 "uk": "Release 0.1.17",
                 "zh-cn": "Release 0.1.17"
+            },
+            "0.1.18": {
+                "en": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "de": "Postinstall-Script entfernt, i18n-Übersetzungen korrigiert (component-Modus), Demo-Widget und Template-Keys entfernt",
+                "ru": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "pt": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "nl": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "fr": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "it": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "es": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "pl": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "uk": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
+                "zh-cn": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys"
             }
         },
         "titleLang": {

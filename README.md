@@ -36,6 +36,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.18 (2026-06-27)
+- Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys
+
 ### 0.1.17 (2026-06-27)
 - Release 0.1.17
 

@@ -1,4 +1,17 @@
 import React from 'react';
+import { I18n } from '@iobroker/adapter-react-v5';
+import translations from './translations.js';
+
+window.__TECHNIC_TRANSLATIONS_CONTENT__ = JSON.stringify(translations);
+window.__TECHNIC_I18N_INSTANCE__ = I18n;
+
+try {
+    I18n.extendTranslations(translations);
+    window.__TECHNIC_I18N_RESULT__ = 'called, de.heading after call: ' +
+        (I18n.translations && I18n.translations.de ? I18n.translations.de.heading : 'NO_TRANSLATIONS_OBJECT');
+} catch (e) {
+    window.__TECHNIC_I18N_RESULT__ = 'ERROR: ' + e.message;
+}
 
 // ═══════════════════════════════════════════════════════
 //  SVG HILFSFUNKTIONEN
@@ -124,34 +137,34 @@ class FensterWand extends window.visRxWidget {
             visAttrs: [
                 {
                     name: 'common',
-                    label: 'General',
+                    label: 'general',
                     fields: [
-                        { name: 'ueberschrift', label: 'Heading', type: 'text', default: '' },
-                        { name: 'showName', label: 'Show Heading', type: 'checkbox', default: false },
+                        { name: 'ueberschrift', label: 'heading', type: 'text', default: '' },
+                        { name: 'showName', label: 'show_heading', type: 'checkbox', default: false },
                         {
-                            name: 'namePosition', label: 'Heading Position', type: 'select',
-                            options: [{ value: 'top', label: 'Top' }, { value: 'bottom', label: 'Bottom' }],
+                            name: 'namePosition', label: 'heading_position', type: 'select',
+                            options: [{ value: 'top', label: 'pos_top' }, { value: 'bottom', label: 'pos_bottom' }],
                             default: 'bottom',
                         },
-                        { name: 'iconScale', label: 'Icon Size (%)', type: 'number', default: 80 },
+                        { name: 'iconScale', label: 'icon_size_pct', type: 'number', default: 80 },
                         {
-                            name: 'griff', label: 'Handle', type: 'select',
-                            options: [{ value: 'links', label: 'Left' }, { value: 'rechts', label: 'Right' }],
+                            name: 'griff', label: 'handle', type: 'select',
+                            options: [{ value: 'links', label: 'handle_left' }, { value: 'rechts', label: 'handle_right' }],
                             default: 'links',
                         },
-                        { name: 'iconFarbe', label: 'Icon Color', type: 'color', default: '#13c540' },
+                        { name: 'iconFarbe', label: 'icon_color', type: 'color', default: '#13c540' },
                     ],
                 },
                 {
                     name: 'ids',
-                    label: 'Data Points',
+                    label: 'data_points',
                     fields: [
-                        { name: 'oid_kontakt', label: 'Open contact (bool)', type: 'id', default: '' },
-                        { name: 'oid_kontakt_inv', label: 'Invert contact', type: 'checkbox', default: false },
-                        { name: 'oid_rollo', label: 'Blind position (0–100)', type: 'id', default: '' },
-                        { name: 'oid_rollo_inv', label: 'Invert blind', type: 'checkbox', default: false },
-                        { name: 'oid_modus', label: 'Mode (false=Auto / true=Manual)', type: 'id', default: '' },
-                        { name: 'oid_modus_inv', label: 'Invert mode', type: 'checkbox', default: false },
+                        { name: 'oid_kontakt', label: 'oid_contact', type: 'id', default: '' },
+                        { name: 'oid_kontakt_inv', label: 'invert_contact', type: 'checkbox', default: false },
+                        { name: 'oid_rollo', label: 'oid_blind_pos', type: 'id', default: '' },
+                        { name: 'oid_rollo_inv', label: 'invert_blind', type: 'checkbox', default: false },
+                        { name: 'oid_modus', label: 'oid_mode', type: 'id', default: '' },
+                        { name: 'oid_modus_inv', label: 'invert_mode', type: 'checkbox', default: false },
                     ],
                 },
             ],

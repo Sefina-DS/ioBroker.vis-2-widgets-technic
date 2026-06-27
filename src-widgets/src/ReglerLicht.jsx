@@ -1,4 +1,17 @@
 import React from 'react';
+import { I18n } from '@iobroker/adapter-react-v5';
+import translations from './translations.js';
+
+window.__TECHNIC_TRANSLATIONS_CONTENT__ = JSON.stringify(translations);
+window.__TECHNIC_I18N_INSTANCE__ = I18n;
+
+try {
+    I18n.extendTranslations(translations);
+    window.__TECHNIC_I18N_RESULT__ = 'called, de.heading after call: ' +
+        (I18n.translations && I18n.translations.de ? I18n.translations.de.heading : 'NO_TRANSLATIONS_OBJECT');
+} catch (e) {
+    window.__TECHNIC_I18N_RESULT__ = 'ERROR: ' + e.message;
+}
 
 function describeArc(cx, cy, r, startDeg, endDeg) {
     const toRad = d => d * Math.PI / 180;
@@ -103,37 +116,37 @@ class ReglerLicht extends window.visRxWidget {
             visAttrs: [
                 {
                     name: 'common',
-                    label: 'General',
+                    label: 'general',
                     fields: [
-                        { name: 'ueberschrift', label: 'Heading', type: 'text',     default: 'Licht' },
-                        { name: 'showName', label: 'Show Heading', type: 'checkbox', default: true },
+                        { name: 'ueberschrift', label: 'heading', type: 'text',     default: 'Light' },
+                        { name: 'showName', label: 'show_heading', type: 'checkbox', default: true },
                         {
-                            name: 'namePosition', label: 'Heading Position', type: 'select',
+                            name: 'namePosition', label: 'heading_position', type: 'select',
                             options: [
-                                { value: 'top',    label: 'Top' },
-                                { value: 'bottom', label: 'Bottom' },
+                                { value: 'top',    label: 'pos_top' },
+                                { value: 'bottom', label: 'pos_bottom' },
                             ],
                             default: 'bottom',
                         },
-                        { name: 'iconScale', label: 'Icon Size (%)', type: 'number', default: 80 },
+                        { name: 'iconScale', label: 'icon_size_pct', type: 'number', default: 80 },
                     ],
                 },
                 {
                     name: 'ids',
-                    label: 'Data Points',
+                    label: 'data_points',
                     fields: [
-                        { name: 'oid_power',         label: 'On/Off (boolean)',                  type: 'id' },
-                        { name: 'oid_dimmer',         label: 'Brightness (0–100)',                type: 'id' },
-                        { name: 'linkPowerDimmer',    label: 'Link On/Off with brightness',       type: 'checkbox', default: true },
+                        { name: 'oid_power',         label: 'oid_power',           type: 'id' },
+                        { name: 'oid_dimmer',         label: 'oid_brightness',      type: 'id' },
+                        { name: 'linkPowerDimmer',    label: 'link_power_dimmer',   type: 'checkbox', default: true },
                     ],
                 },
                 {
                     name: 'colors',
-                    label: 'Colors',
+                    label: 'colors_group',
                     fields: [
-                        { name: 'colorAN',  label: 'Color ON',          type: 'color', default: '#2ecfbf' },
-                        { name: 'colorAUS', label: 'Color OFF',         type: 'color', default: '#5f8f8a' },
-                        { name: 'colorBg',  label: 'Knob background',   type: 'color', default: '#0d1820' },
+                        { name: 'colorAN',  label: 'color_on',    type: 'color', default: '#2ecfbf' },
+                        { name: 'colorAUS', label: 'color_off',   type: 'color', default: '#5f8f8a' },
+                        { name: 'colorBg',  label: 'knob_bg',     type: 'color', default: '#0d1820' },
                     ],
                 },
             ],
@@ -280,7 +293,7 @@ class ReglerLicht extends window.visRxWidget {
         super.renderWidgetBody(props);
 
         const {
-            ueberschrift = 'Licht',
+            ueberschrift = 'Light',
             showName     = true,
             namePosition = 'bottom',
             colorAN      = '#2ecfbf',

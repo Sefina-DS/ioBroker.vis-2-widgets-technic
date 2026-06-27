@@ -25,10 +25,23 @@ function copyImgFolder() {
     }
 }
 
+function copyI18nFolder() {
+    const src = path.join(__dirname, 'src-widgets', 'src', 'i18n');
+    const dst = path.join(__dirname, 'widgets', 'vis-2-widgets-technic', 'i18n');
+    if (!fs.existsSync(src)) return;
+    if (!fs.existsSync(dst)) fs.mkdirSync(dst, { recursive: true });
+    for (const file of fs.readdirSync(src)) {
+        if (!file.endsWith('.json')) continue;
+        fs.copyFileSync(path.join(src, file), path.join(dst, file));
+        console.log(`[i18n] Copied ${file}`);
+    }
+}
+
 if (process.argv.includes('--copy-files')) {
     // Nur kopieren, nicht bauen
     copyAllFiles();
     copyImgFolder();
+    copyI18nFolder();
 } else {
     // widgets/ leeren
     deleteFoldersRecursive('widgets');
@@ -42,5 +55,7 @@ if (process.argv.includes('--copy-files')) {
     copyAllFiles();
     // img/ Ordner mitkopieren
     copyImgFolder();
+    // i18n/ Ordner mitkopieren
+    copyI18nFolder();
     console.log('Done!');
 }
