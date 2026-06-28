@@ -3,21 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.19",
+        "version": "0.1.20",
         "news": {
-            "0.1.13": {
-                "en": "fix: workflow permissions and provenance flag",
-                "de": "Fix: Workflow-Berechtigungen und Provenance-Flag",
-                "ru": "Исправления и улучшения",
-                "pt": "Correções e melhorias",
-                "nl": "Fixes en verbeteringen",
-                "fr": "Corrections et améliorations",
-                "it": "Correzioni e miglioramenti",
-                "es": "Correcciones y mejoras",
-                "pl": "Poprawki i usprawnienia",
-                "uk": "Виправлення та покращення",
-                "zh-cn": "修复和改进"
-            },
             "0.1.14": {
                 "en": "Release 0.1.14",
                 "de": "Fehlerbehebungen und Verbesserungen",
@@ -86,6 +73,19 @@
             "0.1.19": {
                 "en": "fix: remove duplicate English news translations flagged by repochecker",
                 "de": "Fix: doppelte englische News-Übersetzungen entfernt",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
+            },
+            "0.1.20": {
+                "en": "fix: complete translations for all news entries",
+                "de": "Fix: vollständige Übersetzungen für alle News-Einträge",
                 "ru": "Исправления и улучшения",
                 "pt": "Correções e melhorias",
                 "nl": "Fixes en verbeteringen",

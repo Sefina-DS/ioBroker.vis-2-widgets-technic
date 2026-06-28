@@ -36,6 +36,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.20 (2026-06-28)
+- fix: complete translations for all news entries
+
 ### 0.1.19 (2026-06-28)
 - fix: remove duplicate English news translations flagged by repochecker
 
