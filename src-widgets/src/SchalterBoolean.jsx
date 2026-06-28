@@ -2,16 +2,7 @@ import React from 'react';
 import { I18n } from '@iobroker/adapter-react-v5';
 import translations from './translations.js';
 
-window.__TECHNIC_TRANSLATIONS_CONTENT__ = JSON.stringify(translations);
-window.__TECHNIC_I18N_INSTANCE__ = I18n;
-
-try {
-    I18n.extendTranslations(translations);
-    window.__TECHNIC_I18N_RESULT__ = 'called, de.heading after call: ' +
-        (I18n.translations && I18n.translations.de ? I18n.translations.de.heading : 'NO_TRANSLATIONS_OBJECT');
-} catch (e) {
-    window.__TECHNIC_I18N_RESULT__ = 'ERROR: ' + e.message;
-}
+I18n.extendTranslations(translations);
 
 // ═══════════════════════════════════════════════════════
 //  SVG ICON DATA (echte Traces aus PNG-Vorlagen)

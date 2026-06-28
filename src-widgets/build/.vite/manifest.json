@@ -43,7 +43,7 @@
     "name": "preload-helper"
   },
   "src/FensterWand.jsx": {
-    "file": "assets/FensterWand-CPeVTYG4.js",
+    "file": "assets/FensterWand-Dz8ZTK65.js",
     "name": "FensterWand",
     "src": "src/FensterWand.jsx",
     "isEntry": true,
@@ -58,7 +58,7 @@
     ]
   },
   "src/ReglerLicht.jsx": {
-    "file": "assets/ReglerLicht-CPuRDSAp.js",
+    "file": "assets/ReglerLicht-BDqjWLDT.js",
     "name": "ReglerLicht",
     "src": "src/ReglerLicht.jsx",
     "isEntry": true,
@@ -73,7 +73,7 @@
     ]
   },
   "src/SchalterBoolean.jsx": {
-    "file": "assets/SchalterBoolean-CBriCfzd.js",
+    "file": "assets/SchalterBoolean-DEg05OAf.js",
     "name": "SchalterBoolean",
     "src": "src/SchalterBoolean.jsx",
     "isEntry": true,
@@ -119,7 +119,7 @@
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-CDP6UjiY.js",
+    "file": "assets/virtualExposes-CBrxs4O7.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,
