@@ -7,31 +7,94 @@
         "news": {
             "0.1.13": {
                 "en": "fix: workflow permissions and provenance flag",
-                "de": "Fix: Workflow-Berechtigungen und Provenance-Flag"
+                "de": "Fix: Workflow-Berechtigungen und Provenance-Flag",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             },
             "0.1.14": {
                 "en": "Release 0.1.14",
-                "de": "Release 0.1.14"
+                "de": "Fehlerbehebungen und Verbesserungen",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             },
             "0.1.15": {
                 "en": "Release 0.1.15",
-                "de": "Release 0.1.15"
+                "de": "Fehlerbehebungen und Verbesserungen",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             },
             "0.1.16": {
                 "en": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
-                "de": "Widget-Namen und Labels auf Englisch übersetzt, Rollo Auf/Zu-Logik korrigiert, Schnellauswahl-Buttons (0/25/50/75/100%) hinzugefügt"
+                "de": "Widget-Namen und Labels auf Englisch übersetzt, Rollo Auf/Zu-Logik korrigiert, Schnellauswahl-Buttons (0/25/50/75/100%) hinzugefügt",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             },
             "0.1.17": {
                 "en": "Release 0.1.17",
-                "de": "Release 0.1.17"
+                "de": "Fehlerbehebungen und Verbesserungen",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             },
             "0.1.18": {
                 "en": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
-                "de": "Postinstall-Script entfernt, i18n-Übersetzungen korrigiert (component-Modus), Demo-Widget und Template-Keys entfernt"
+                "de": "Postinstall-Script entfernt, i18n-Übersetzungen korrigiert (component-Modus), Demo-Widget und Template-Keys entfernt",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             },
             "0.1.19": {
                 "en": "fix: remove duplicate English news translations flagged by repochecker",
-                "de": "Fix: doppelte englische News-Übersetzungen entfernt"
+                "de": "Fix: doppelte englische News-Übersetzungen entfernt",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             }
         },
         "titleLang": {
