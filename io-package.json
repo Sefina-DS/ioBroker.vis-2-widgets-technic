@@ -3,12 +3,8 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.18",
+        "version": "0.1.19",
         "news": {
-            "0.1.12": {
-                "en": "fix: enable npm provenance via GitHub Actions, remove debug script",
-                "de": "Fix: npm Provenance über GitHub Actions, Debug-Script entfernt"
-            },
             "0.1.13": {
                 "en": "fix: workflow permissions and provenance flag",
                 "de": "Fix: Workflow-Berechtigungen und Provenance-Flag"
@@ -32,6 +28,10 @@
             "0.1.18": {
                 "en": "Remove postinstall script, fix i18n translations (component mode), remove demo widget and template keys",
                 "de": "Postinstall-Script entfernt, i18n-Übersetzungen korrigiert (component-Modus), Demo-Widget und Template-Keys entfernt"
+            },
+            "0.1.19": {
+                "en": "fix: remove duplicate English news translations flagged by repochecker",
+                "de": "Fix: doppelte englische News-Übersetzungen entfernt"
             }
         },
         "titleLang": {
