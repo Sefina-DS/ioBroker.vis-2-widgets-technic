@@ -3,8 +3,8 @@
     "file": "assets/__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
     "name": "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy"
   },
-  "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js": {
-    "file": "assets/_virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
+  "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js": {
+    "file": "assets/_virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
     "name": "_virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs",
     "isDynamicEntry": true,
     "imports": [
@@ -43,7 +43,7 @@
     "name": "preload-helper"
   },
   "src/FensterWand.jsx": {
-    "file": "assets/FensterWand-Dz8ZTK65.js",
+    "file": "assets/FensterWand-jytlZqWP.js",
     "name": "FensterWand",
     "src": "src/FensterWand.jsx",
     "isEntry": true,
@@ -51,14 +51,14 @@
     "imports": [
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
       "src/translations.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js"
     ]
   },
   "src/ReglerLicht.jsx": {
-    "file": "assets/ReglerLicht-BDqjWLDT.js",
+    "file": "assets/ReglerLicht-z2voT-Vz.js",
     "name": "ReglerLicht",
     "src": "src/ReglerLicht.jsx",
     "isEntry": true,
@@ -66,14 +66,14 @@
     "imports": [
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
       "src/translations.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js"
     ]
   },
   "src/SchalterBoolean.jsx": {
-    "file": "assets/SchalterBoolean-DEg05OAf.js",
+    "file": "assets/SchalterBoolean-Bczl6pug.js",
     "name": "SchalterBoolean",
     "src": "src/SchalterBoolean.jsx",
     "isEntry": true,
@@ -81,20 +81,20 @@
     "imports": [
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
       "src/translations.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js"
     ]
   },
   "src/translations.js": {
-    "file": "assets/translations-gudmXPYl.js",
+    "file": "assets/translations-fZjoWnHq.js",
     "name": "translations",
     "src": "src/translations.js",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
@@ -115,11 +115,11 @@
       "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js"
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js"
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-CBrxs4O7.js",
+    "file": "assets/virtualExposes-DPpshQfm.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,
@@ -135,7 +135,7 @@
     ]
   },
   "virtual:mf-localSharedImportMap:__mfe_internal__vis2TechnicWidgets": {
-    "file": "assets/_virtual_mf-localSharedImportMap___mfe_internal__vis2TechnicWidgets-InZVFV16.js",
+    "file": "assets/_virtual_mf-localSharedImportMap___mfe_internal__vis2TechnicWidgets-BGuj4xgV.js",
     "name": "_virtual_mf-localSharedImportMap___mfe_internal__vis2TechnicWidgets",
     "src": "virtual:mf-localSharedImportMap:__mfe_internal__vis2TechnicWidgets",
     "isDynamicEntry": true,
@@ -144,7 +144,7 @@
       "virtual:mf-REMOTE_ENTRY_ID:__mfe_internal__vis2TechnicWidgets__customWidgets_js"
     ],
     "dynamicImports": [
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js"
