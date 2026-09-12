@@ -36,6 +36,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+- (iobroker-bot) Adapter requires node.js >= 22 now.
+
 ### 0.1.20 (2026-06-28)
 - fix: complete translations for all news entries
 
