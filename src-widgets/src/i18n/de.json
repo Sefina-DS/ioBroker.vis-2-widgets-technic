@@ -34,5 +34,13 @@
   "room_name": "Raumname",
   "name_color": "Namensfarbe",
   "name_font_size": "Namens-Schriftgröße",
-  "name_bold": "Name fett"
+  "name_bold": "Name fett",
+  "name_align": "Name horizontale Ausrichtung",
+  "name_valign": "Name vertikale Ausrichtung",
+  "align_left": "Links",
+  "align_center": "Zentriert",
+  "align_right": "Rechts",
+  "valign_top": "Oben",
+  "valign_middle": "Mitte",
+  "valign_bottom": "Unten"
 }

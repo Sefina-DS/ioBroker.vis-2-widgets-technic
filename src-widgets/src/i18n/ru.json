@@ -34,5 +34,13 @@
   "room_name": "Название комнаты",
   "name_color": "Цвет названия",
   "name_font_size": "Размер шрифта названия",
-  "name_bold": "Название жирным"
+  "name_bold": "Название жирным",
+  "name_align": "Горизонтальное выравнивание названия",
+  "name_valign": "Вертикальное выравнивание названия",
+  "align_left": "Слева",
+  "align_center": "По центру",
+  "align_right": "Справа",
+  "valign_top": "Сверху",
+  "valign_middle": "По центру",
+  "valign_bottom": "Снизу"
 }

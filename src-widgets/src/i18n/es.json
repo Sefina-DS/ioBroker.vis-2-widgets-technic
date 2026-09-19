@@ -34,5 +34,13 @@
   "room_name": "Nombre de la habitación",
   "name_color": "Color del nombre",
   "name_font_size": "Tamaño de fuente del nombre",
-  "name_bold": "Nombre en negrita"
+  "name_bold": "Nombre en negrita",
+  "name_align": "Alineación horizontal del nombre",
+  "name_valign": "Alineación vertical del nombre",
+  "align_left": "Izquierda",
+  "align_center": "Centro",
+  "align_right": "Derecha",
+  "valign_top": "Arriba",
+  "valign_middle": "Medio",
+  "valign_bottom": "Abajo"
 }

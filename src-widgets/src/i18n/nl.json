@@ -34,5 +34,13 @@
   "room_name": "Kamernaam",
   "name_color": "Naamkleur",
   "name_font_size": "Lettergrootte naam",
-  "name_bold": "Naam vet"
+  "name_bold": "Naam vet",
+  "name_align": "Horizontale uitlijning naam",
+  "name_valign": "Verticale uitlijning naam",
+  "align_left": "Links",
+  "align_center": "Gecentreerd",
+  "align_right": "Rechts",
+  "valign_top": "Boven",
+  "valign_middle": "Midden",
+  "valign_bottom": "Onder"
 }
