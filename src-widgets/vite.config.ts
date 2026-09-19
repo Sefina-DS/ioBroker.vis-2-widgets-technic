@@ -16,6 +16,7 @@ const config = {
                 './FensterWand':     './src/FensterWand',
                 './SchalterBoolean': './src/SchalterBoolean',
                 './ReglerLicht':     './src/ReglerLicht',
+                './RaumKachel':      './src/RaumKachel',
                 './translations':    './src/translations',
             },
             remotes: {},
