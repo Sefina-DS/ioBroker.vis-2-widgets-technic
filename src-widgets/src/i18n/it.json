@@ -30,5 +30,9 @@
   "oid_power": "On/Off (booleano)",
   "oid_brightness": "Luminosità (0–100)",
   "link_power_dimmer": "Collega On/Off alla luminosità",
-  "knob_bg": "Sfondo manopola"
+  "knob_bg": "Sfondo manopola",
+  "room_name": "Nome della stanza",
+  "name_color": "Colore del nome",
+  "name_font_size": "Dimensione carattere nome",
+  "name_bold": "Nome in grassetto"
 }

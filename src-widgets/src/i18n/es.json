@@ -30,5 +30,9 @@
   "oid_power": "On/Off (booleano)",
   "oid_brightness": "Brillo (0–100)",
   "link_power_dimmer": "Vincular On/Off con el brillo",
-  "knob_bg": "Fondo del botón"
+  "knob_bg": "Fondo del botón",
+  "room_name": "Nombre de la habitación",
+  "name_color": "Color del nombre",
+  "name_font_size": "Tamaño de fuente del nombre",
+  "name_bold": "Nombre en negrita"
 }
