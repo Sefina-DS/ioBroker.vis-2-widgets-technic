@@ -24,7 +24,7 @@ class RaumKachel extends window.visRxWidget {
                     name: 'common',
                     label: 'general',
                     fields: [
-                        { name: 'name', label: 'room_name', type: 'text', default: '' },
+                        { name: 'roomName', label: 'room_name', type: 'text', default: '' },
                         { name: 'nameColor', label: 'name_color', type: 'color', default: '#e8f4f3' },
                         { name: 'nameFontSize', label: 'name_font_size', type: 'number', default: 14 },
                         { name: 'nameBold', label: 'name_bold', type: 'checkbox', default: false },
@@ -465,7 +465,7 @@ class RaumKachel extends window.visRxWidget {
         super.renderWidgetBody(props);
 
         const {
-            name = '',
+            roomName = '',
             nameColor = '#e8f4f3',
             nameFontSize = 14,
             nameBold = false,
@@ -522,7 +522,7 @@ class RaumKachel extends window.visRxWidget {
                             maxWidth: '100%',
                         }}
                     >
-                        {name}
+                        {roomName}
                     </div>
                 </div>
                 {rowCount > 0 && (
