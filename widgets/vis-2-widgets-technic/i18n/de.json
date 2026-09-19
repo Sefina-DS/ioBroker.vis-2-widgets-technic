@@ -67,5 +67,17 @@
   "padding_right": "Innenabstand rechts",
   "padding_bottom": "Innenabstand unten",
   "padding_left": "Innenabstand links",
-  "row_label_color": "Farbe Zeilenbezeichnung"
+  "row_label_color": "Farbe Zeilenbezeichnung",
+  "click_group": "Klickverhalten / Popup",
+  "click_mode": "Klickmodus",
+  "click_mode_popup": "Popup",
+  "click_mode_switch_view": "View wechseln",
+  "target_view": "Ziel-View",
+  "popup_width": "Popup-Breite",
+  "popup_height": "Popup-Höhe",
+  "popup_offset_x": "Popup-Versatz X (leer = zentriert)",
+  "popup_offset_y": "Popup-Versatz Y (leer = zentriert)",
+  "close_on_outside_click": "Bei Klick außerhalb schließen",
+  "show_close_button": "Schließen-Button anzeigen",
+  "auto_close_seconds": "Automatisch schließen (Sekunden, 0 = aus)"
 }

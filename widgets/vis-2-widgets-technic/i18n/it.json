@@ -67,5 +67,17 @@
   "padding_right": "Spaziatura interna destra",
   "padding_bottom": "Spaziatura interna inferiore",
   "padding_left": "Spaziatura interna sinistra",
-  "row_label_color": "Colore etichetta riga"
+  "row_label_color": "Colore etichetta riga",
+  "click_group": "Comportamento al clic / Popup",
+  "click_mode": "Modalità clic",
+  "click_mode_popup": "Popup",
+  "click_mode_switch_view": "Cambia vista",
+  "target_view": "Vista di destinazione",
+  "popup_width": "Larghezza popup",
+  "popup_height": "Altezza popup",
+  "popup_offset_x": "Offset X popup (vuoto = centrato)",
+  "popup_offset_y": "Offset Y popup (vuoto = centrato)",
+  "close_on_outside_click": "Chiudi al clic esterno",
+  "show_close_button": "Mostra pulsante di chiusura",
+  "auto_close_seconds": "Chiusura automatica (secondi, 0 = disattivato)"
 }

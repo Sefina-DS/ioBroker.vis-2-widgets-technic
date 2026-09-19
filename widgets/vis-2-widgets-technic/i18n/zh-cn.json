@@ -67,5 +67,17 @@
   "padding_right": "右内边距",
   "padding_bottom": "下内边距",
   "padding_left": "左内边距",
-  "row_label_color": "行标签颜色"
+  "row_label_color": "行标签颜色",
+  "click_group": "点击行为 / 弹出窗口",
+  "click_mode": "点击模式",
+  "click_mode_popup": "弹出窗口",
+  "click_mode_switch_view": "切换视图",
+  "target_view": "目标视图",
+  "popup_width": "弹出窗口宽度",
+  "popup_height": "弹出窗口高度",
+  "popup_offset_x": "弹出窗口 X 偏移（留空=居中）",
+  "popup_offset_y": "弹出窗口 Y 偏移（留空=居中）",
+  "close_on_outside_click": "点击外部时关闭",
+  "show_close_button": "显示关闭按钮",
+  "auto_close_seconds": "自动关闭（秒，0=禁用）"
 }
