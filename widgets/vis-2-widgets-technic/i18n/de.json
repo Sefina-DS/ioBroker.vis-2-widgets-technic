@@ -66,5 +66,6 @@
   "padding_top": "Innenabstand oben",
   "padding_right": "Innenabstand rechts",
   "padding_bottom": "Innenabstand unten",
-  "padding_left": "Innenabstand links"
+  "padding_left": "Innenabstand links",
+  "row_label_color": "Farbe Zeilenbezeichnung"
 }

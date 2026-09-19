@@ -66,5 +66,6 @@
   "padding_top": "Wewnętrzny odstęp góra",
   "padding_right": "Wewnętrzny odstęp prawo",
   "padding_bottom": "Wewnętrzny odstęp dół",
-  "padding_left": "Wewnętrzny odstęp lewo"
+  "padding_left": "Wewnętrzny odstęp lewo",
+  "row_label_color": "Kolor etykiety wiersza"
 }
