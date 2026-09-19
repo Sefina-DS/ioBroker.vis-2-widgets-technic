@@ -4,3 +4,44 @@ src-widgets/build/
 .commitinfo
 *.log
 .DS_StoreioBroker.repositories/
+
+# No dot-directories except github/vscode
+.*/
+!.vscode/
+!.github/
+
+*.code-workspace
+node_modules
+nbproject
+
+# npm package files
+iobroker.*.tgz
+
+Thumbs.db
+
+# i18n intermediate files
+admin/i18n/flat.txt
+admin/i18n/*/flat.txt
+.DS_Store
+
+# Local workflow scripts
+deploy.sh
+release.sh
+.npmrc
+.commitinfo
+DevScripts/
+# Lokale Arbeits- und Planungsdateien (nicht für das Repository)
+*_PLAN.md
+*_AUFTRAG.md
+*_INVENTAR.md
+*_Optimierung.md
+*_STATUS.md
+*_ANALYSE.md
+*_ARCHITEKTUR.md
+*_REPORT.md
+PROJEKTSTAND.md
+
+# Local research/probe scripts — never commit, may contain credentials
+scripts/
+*.pyc
+__pycache__/
