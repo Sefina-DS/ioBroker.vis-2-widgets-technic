@@ -42,5 +42,19 @@
   "align_right": "Droite",
   "valign_top": "Haut",
   "valign_middle": "Milieu",
-  "valign_bottom": "Bas"
+  "valign_bottom": "Bas",
+  "rows_group": "Lignes de statut",
+  "row_count": "Nombre de lignes",
+  "status_row": "Ligne de statut",
+  "row_oid": "Point de données",
+  "row_value_type": "Type de valeur",
+  "row_type_number": "Nombre",
+  "row_type_bool": "Booléen",
+  "row_unit": "Unité",
+  "row_decimals": "Décimales",
+  "row_number_color": "Couleur du nombre",
+  "row_true_text": "Texte si vrai",
+  "row_true_color": "Couleur si vrai",
+  "row_false_text": "Texte si faux",
+  "row_false_color": "Couleur si faux"
 }

@@ -42,5 +42,19 @@
   "align_right": "Праворуч",
   "valign_top": "Зверху",
   "valign_middle": "Посередині",
-  "valign_bottom": "Знизу"
+  "valign_bottom": "Знизу",
+  "rows_group": "Рядки статусу",
+  "row_count": "Кількість рядків",
+  "status_row": "Рядок статусу",
+  "row_oid": "Точка даних",
+  "row_value_type": "Тип значення",
+  "row_type_number": "Число",
+  "row_type_bool": "Логічне значення",
+  "row_unit": "Одиниця виміру",
+  "row_decimals": "Кількість знаків після коми",
+  "row_number_color": "Колір числа",
+  "row_true_text": "Текст при Істина",
+  "row_true_color": "Колір при Істина",
+  "row_false_text": "Текст при Хиба",
+  "row_false_color": "Колір при Хиба"
 }

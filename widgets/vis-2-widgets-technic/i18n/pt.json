@@ -42,5 +42,19 @@
   "align_right": "Direita",
   "valign_top": "Superior",
   "valign_middle": "Meio",
-  "valign_bottom": "Inferior"
+  "valign_bottom": "Inferior",
+  "rows_group": "Linhas de status",
+  "row_count": "Número de linhas",
+  "status_row": "Linha de status",
+  "row_oid": "Ponto de dados",
+  "row_value_type": "Tipo de valor",
+  "row_type_number": "Número",
+  "row_type_bool": "Booleano",
+  "row_unit": "Unidade",
+  "row_decimals": "Casas decimais",
+  "row_number_color": "Cor do número",
+  "row_true_text": "Texto quando verdadeiro",
+  "row_true_color": "Cor quando verdadeiro",
+  "row_false_text": "Texto quando falso",
+  "row_false_color": "Cor quando falso"
 }

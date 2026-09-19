@@ -42,5 +42,19 @@
   "align_right": "Right",
   "valign_top": "Top",
   "valign_middle": "Middle",
-  "valign_bottom": "Bottom"
+  "valign_bottom": "Bottom",
+  "rows_group": "Status Rows",
+  "row_count": "Number of Rows",
+  "status_row": "Status Row",
+  "row_oid": "Data point",
+  "row_value_type": "Value Type",
+  "row_type_number": "Number",
+  "row_type_bool": "Boolean",
+  "row_unit": "Unit",
+  "row_decimals": "Decimal Places",
+  "row_number_color": "Number Color",
+  "row_true_text": "Text when True",
+  "row_true_color": "Color when True",
+  "row_false_text": "Text when False",
+  "row_false_color": "Color when False"
 }

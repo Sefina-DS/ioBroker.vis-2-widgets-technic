@@ -42,5 +42,19 @@
   "align_right": "右",
   "valign_top": "顶部",
   "valign_middle": "居中",
-  "valign_bottom": "底部"
+  "valign_bottom": "底部",
+  "rows_group": "状态行",
+  "row_count": "行数",
+  "status_row": "状态行",
+  "row_oid": "数据点",
+  "row_value_type": "值类型",
+  "row_type_number": "数字",
+  "row_type_bool": "布尔值",
+  "row_unit": "单位",
+  "row_decimals": "小数位数",
+  "row_number_color": "数字颜色",
+  "row_true_text": "为真时的文本",
+  "row_true_color": "为真时的颜色",
+  "row_false_text": "为假时的文本",
+  "row_false_color": "为假时的颜色"
 }
