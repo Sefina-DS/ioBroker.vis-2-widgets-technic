@@ -58,6 +58,7 @@ class RaumKachel extends window.visRxWidget {
                     fields: [
                         { name: 'rowCount', label: 'row_count', type: 'number', min: 0, max: 10, default: 0 },
                         { name: 'rowFontSize', label: 'row_font_size', type: 'number', default: 13 },
+                        { name: 'rowLabelColor', label: 'row_label_color', type: 'color', default: '#c8e6e3' },
                     ],
                 },
                 {
@@ -212,7 +213,7 @@ class RaumKachel extends window.visRxWidget {
         return logic === 'or' ? results.some(Boolean) : results.every(Boolean);
     }
 
-    _renderRows(rowCount, rowFontSize) {
+    _renderRows(rowCount, rowFontSize, rowLabelColor) {
         const rows = [];
         for (let i = 1; i <= rowCount; i++) {
             const oid = this.state.rxData[`oid${i}`];
@@ -253,7 +254,7 @@ class RaumKachel extends window.visRxWidget {
                 >
                     <div
                         style={{
-                            color: '#c8e6e3',
+                            color: rowLabelColor,
                             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                             minWidth: 0, flex: '1 1 auto', textAlign: 'left',
                         }}
@@ -294,7 +295,8 @@ class RaumKachel extends window.visRxWidget {
         const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
         const rowFontSizeRaw = parseInt(this.state.rxData.rowFontSize, 10);
         const rowFontSize = Number.isNaN(rowFontSizeRaw) ? 13 : rowFontSizeRaw;
-        const rowEls = rowCount > 0 ? this._renderRows(rowCount, rowFontSize) : null;
+        const rowLabelColor = this.state.rxData.rowLabelColor || '#c8e6e3';
+        const rowEls = rowCount > 0 ? this._renderRows(rowCount, rowFontSize, rowLabelColor) : null;
 
         const justifyContent = { left: 'flex-start', center: 'center', right: 'flex-end' }[nameAlign] || 'flex-start';
         const alignItems = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[nameVerticalAlign] || 'flex-start';
