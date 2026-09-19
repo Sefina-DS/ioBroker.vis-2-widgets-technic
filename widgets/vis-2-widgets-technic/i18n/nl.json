@@ -62,5 +62,9 @@
   "row_oids_extra": "Extra datapunten (kommagescheiden)",
   "row_logic": "Logica",
   "logic_and": "EN",
-  "logic_or": "OF"
+  "logic_or": "OF",
+  "padding_top": "Binnenmarge boven",
+  "padding_right": "Binnenmarge rechts",
+  "padding_bottom": "Binnenmarge onder",
+  "padding_left": "Binnenmarge links"
 }

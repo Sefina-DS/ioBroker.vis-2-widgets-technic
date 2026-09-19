@@ -62,5 +62,9 @@
   "row_oids_extra": "Punti dati aggiuntivi (separati da virgola)",
   "row_logic": "Logica",
   "logic_and": "E",
-  "logic_or": "O"
+  "logic_or": "O",
+  "padding_top": "Spaziatura interna superiore",
+  "padding_right": "Spaziatura interna destra",
+  "padding_bottom": "Spaziatura interna inferiore",
+  "padding_left": "Spaziatura interna sinistra"
 }

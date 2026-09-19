@@ -62,5 +62,9 @@
   "row_oids_extra": "Weitere Datenpunkte (kommagetrennt)",
   "row_logic": "Verknüpfung",
   "logic_and": "UND",
-  "logic_or": "ODER"
+  "logic_or": "ODER",
+  "padding_top": "Innenabstand oben",
+  "padding_right": "Innenabstand rechts",
+  "padding_bottom": "Innenabstand unten",
+  "padding_left": "Innenabstand links"
 }

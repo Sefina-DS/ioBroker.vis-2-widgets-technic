@@ -62,5 +62,9 @@
   "row_oids_extra": "Points de données supplémentaires (séparés par des virgules)",
   "row_logic": "Logique",
   "logic_and": "ET",
-  "logic_or": "OU"
+  "logic_or": "OU",
+  "padding_top": "Marge intérieure haut",
+  "padding_right": "Marge intérieure droite",
+  "padding_bottom": "Marge intérieure bas",
+  "padding_left": "Marge intérieure gauche"
 }

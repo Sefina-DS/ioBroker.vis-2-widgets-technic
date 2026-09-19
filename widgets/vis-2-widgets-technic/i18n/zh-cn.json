@@ -62,5 +62,9 @@
   "row_oids_extra": "附加数据点（逗号分隔）",
   "row_logic": "逻辑",
   "logic_and": "与",
-  "logic_or": "或"
+  "logic_or": "或",
+  "padding_top": "上内边距",
+  "padding_right": "右内边距",
+  "padding_bottom": "下内边距",
+  "padding_left": "左内边距"
 }
