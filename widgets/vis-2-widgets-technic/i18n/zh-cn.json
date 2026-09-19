@@ -30,5 +30,9 @@
   "oid_power": "开/关 (布尔值)",
   "oid_brightness": "亮度 (0–100)",
   "link_power_dimmer": "将开/关与亮度关联",
-  "knob_bg": "旋钮背景"
+  "knob_bg": "旋钮背景",
+  "room_name": "房间名称",
+  "name_color": "名称颜色",
+  "name_font_size": "名称字体大小",
+  "name_bold": "名称加粗"
 }

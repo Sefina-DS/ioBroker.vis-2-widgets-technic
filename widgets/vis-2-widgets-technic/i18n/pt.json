@@ -30,5 +30,9 @@
   "oid_power": "Liga/Desliga (boolean)",
   "oid_brightness": "Brilho (0–100)",
   "link_power_dimmer": "Vincular liga/desliga com brilho",
-  "knob_bg": "Fundo do botão"
+  "knob_bg": "Fundo do botão",
+  "room_name": "Nome do compartimento",
+  "name_color": "Cor do nome",
+  "name_font_size": "Tamanho da fonte do nome",
+  "name_bold": "Nome em negrito"
 }

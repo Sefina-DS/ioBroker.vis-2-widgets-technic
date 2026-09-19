@@ -3,8 +3,8 @@
     "file": "assets/__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
     "name": "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy"
   },
-  "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js": {
-    "file": "assets/_virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
+  "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js": {
+    "file": "assets/_virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
     "name": "_virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs",
     "isDynamicEntry": true,
     "imports": [
@@ -43,7 +43,7 @@
     "name": "preload-helper"
   },
   "src/FensterWand.jsx": {
-    "file": "assets/FensterWand-jytlZqWP.js",
+    "file": "assets/FensterWand-6cS9AvAU.js",
     "name": "FensterWand",
     "src": "src/FensterWand.jsx",
     "isEntry": true,
@@ -51,14 +51,29 @@
     "imports": [
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
+      "src/translations.js",
+      "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js"
+    ]
+  },
+  "src/RaumKachel.jsx": {
+    "file": "assets/RaumKachel-BBLKowBg.js",
+    "name": "RaumKachel",
+    "src": "src/RaumKachel.jsx",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
       "src/translations.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js"
     ]
   },
   "src/ReglerLicht.jsx": {
-    "file": "assets/ReglerLicht-z2voT-Vz.js",
+    "file": "assets/ReglerLicht-Dmg1HbP7.js",
     "name": "ReglerLicht",
     "src": "src/ReglerLicht.jsx",
     "isEntry": true,
@@ -66,14 +81,14 @@
     "imports": [
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
       "src/translations.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js"
     ]
   },
   "src/SchalterBoolean.jsx": {
-    "file": "assets/SchalterBoolean-Bczl6pug.js",
+    "file": "assets/SchalterBoolean-C9PyQOza.js",
     "name": "SchalterBoolean",
     "src": "src/SchalterBoolean.jsx",
     "isEntry": true,
@@ -81,20 +96,20 @@
     "imports": [
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
       "src/translations.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js"
     ]
   },
   "src/translations.js": {
-    "file": "assets/translations-fZjoWnHq.js",
+    "file": "assets/translations-DioZIB59.js",
     "name": "translations",
     "src": "src/translations.js",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
       "___virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs_commonjs-proxy-CqB8nZ6g.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js",
@@ -115,11 +130,11 @@
       "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js",
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js"
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js"
     ]
   },
   "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js": {
-    "file": "assets/virtualExposes-DPpshQfm.js",
+    "file": "assets/virtualExposes-Ctps_hgG.js",
     "name": "virtualExposes",
     "src": "virtual:mf-exposes:__mfe_internal__vis2TechnicWidgets__customWidgets_js",
     "isEntry": true,
@@ -131,11 +146,12 @@
       "src/FensterWand.jsx",
       "src/SchalterBoolean.jsx",
       "src/ReglerLicht.jsx",
+      "src/RaumKachel.jsx",
       "src/translations.js"
     ]
   },
   "virtual:mf-localSharedImportMap:__mfe_internal__vis2TechnicWidgets": {
-    "file": "assets/_virtual_mf-localSharedImportMap___mfe_internal__vis2TechnicWidgets-BGuj4xgV.js",
+    "file": "assets/_virtual_mf-localSharedImportMap___mfe_internal__vis2TechnicWidgets-InZVFV16.js",
     "name": "_virtual_mf-localSharedImportMap___mfe_internal__vis2TechnicWidgets",
     "src": "virtual:mf-localSharedImportMap:__mfe_internal__vis2TechnicWidgets",
     "isDynamicEntry": true,
@@ -144,7 +160,7 @@
       "virtual:mf-REMOTE_ENTRY_ID:__mfe_internal__vis2TechnicWidgets__customWidgets_js"
     ],
     "dynamicImports": [
-      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-BAL2UWul.js",
+      "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare___mf_0_iobroker_mf_1_adapter_mf_2_react_mf_2_v5__loadShare__.mjs-CmPn4K9s.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react__loadShare__.mjs-DOClVnLV.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_2_dom__loadShare__.mjs-DxwI3ajv.js",
       "__virtual_mf___mfe_internal__vis2TechnicWidgets__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.mjs-B5pthbrh.js"

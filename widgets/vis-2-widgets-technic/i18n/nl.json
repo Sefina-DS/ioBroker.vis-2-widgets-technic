@@ -30,5 +30,9 @@
   "oid_power": "Aan/Uit (boolean)",
   "oid_brightness": "Helderheid (0–100)",
   "link_power_dimmer": "Aan/Uit koppelen aan helderheid",
-  "knob_bg": "Knopachtergrond"
+  "knob_bg": "Knopachtergrond",
+  "room_name": "Kamernaam",
+  "name_color": "Naamkleur",
+  "name_font_size": "Lettergrootte naam",
+  "name_bold": "Naam vet"
 }
