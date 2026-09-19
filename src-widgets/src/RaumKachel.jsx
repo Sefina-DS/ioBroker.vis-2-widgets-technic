@@ -428,14 +428,16 @@ class RaumKachel extends window.visRxWidget {
         const rows = [];
         for (let i = 1; i <= rowCount; i++) {
             const oid = this.state.rxData[`oid${i}`];
-            if (!oid) continue;
 
             const rowLabel = this.state.rxData[`rowLabel${i}`] || '';
             const valueType = this.state.rxData[`valueType${i}`] || 'number';
 
             let text;
             let color;
-            if (valueType === 'bool') {
+            if (!oid) {
+                text = '';
+                color = this.state.rxData[`numberColor${i}`] || '#c8e6e3';
+            } else if (valueType === 'bool') {
                 const oidsExtra = this.state.rxData[`oidsExtra${i}`];
                 const logic = this.state.rxData[`logic${i}`] || 'and';
                 const isTrue = this._isTrueCombined(oid, oidsExtra, logic);
@@ -461,6 +463,9 @@ class RaumKachel extends window.visRxWidget {
                         display: 'flex', flexDirection: 'row',
                         justifyContent: 'space-between', alignItems: 'baseline',
                         gap: 4, width: '100%', fontSize: `${rowFontSize}px`,
+                        // Leere Platzhalterzeile (kein oid) hat keinen Text -> ohne minHeight
+                        // kollabiert die Zeile auf 0px (kein Content, kein Baseline-Bezug).
+                        minHeight: `${Math.round(rowFontSize * 1.3)}px`,
                     }}
                 >
                     <div
