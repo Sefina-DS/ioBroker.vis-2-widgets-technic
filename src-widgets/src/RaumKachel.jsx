@@ -48,6 +48,58 @@ class RaumKachel extends window.visRxWidget {
                         },
                     ],
                 },
+                {
+                    name: 'rows',
+                    label: 'rows_group',
+                    fields: [
+                        { name: 'rowCount', label: 'row_count', type: 'number', min: 0, max: 10, default: 0 },
+                    ],
+                },
+                {
+                    name: 'row',
+                    label: 'status_row',
+                    indexFrom: 1,
+                    indexTo: 'rowCount',
+                    fields: [
+                        { name: 'oid', label: 'row_oid', type: 'id' },
+                        {
+                            name: 'valueType', label: 'row_value_type', type: 'select',
+                            options: [
+                                { value: 'number', label: 'row_type_number' },
+                                { value: 'bool',   label: 'row_type_bool' },
+                            ],
+                            default: 'number',
+                        },
+                        {
+                            name: 'unit', label: 'row_unit', type: 'text', default: '',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'number',
+                        },
+                        {
+                            name: 'decimals', label: 'row_decimals', type: 'number', default: 1,
+                            hidden: (data, index) => data[`valueType${index}`] !== 'number',
+                        },
+                        {
+                            name: 'numberColor', label: 'row_number_color', type: 'color', default: '#c8e6e3',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'number',
+                        },
+                        {
+                            name: 'trueText', label: 'row_true_text', type: 'text', default: '',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'bool',
+                        },
+                        {
+                            name: 'trueColor', label: 'row_true_color', type: 'color', default: '#c8e6e3',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'bool',
+                        },
+                        {
+                            name: 'falseText', label: 'row_false_text', type: 'text', default: '',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'bool',
+                        },
+                        {
+                            name: 'falseColor', label: 'row_false_color', type: 'color', default: '#c8e6e3',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'bool',
+                        },
+                    ],
+                },
             ],
         };
     }
@@ -63,6 +115,65 @@ class RaumKachel extends window.visRxWidget {
     onRxStyleChanged() {}
     onStateUpdated()   {}
 
+    // Boolean lesen (alle Varianten abdecken, LEARNINGS.md #21)
+    _isTrue(val) {
+        return val === true || val === 'true' || val === 1 || val === '1';
+    }
+
+    _formatNumber(val, decimals, unit) {
+        if (val === null || val === undefined || val === '') return '–';
+        const num = Number(val);
+        if (Number.isNaN(num)) return '–';
+        return `${num.toFixed(decimals)}${unit ? ` ${unit}` : ''}`;
+    }
+
+    _renderRows(rowCount) {
+        const rows = [];
+        for (let i = 1; i <= rowCount; i++) {
+            const oid = this.state.rxData[`oid${i}`];
+            if (!oid) continue;
+
+            const valueType = this.state.rxData[`valueType${i}`] || 'number';
+            const val = this.state.values[`${oid}.val`];
+
+            let text;
+            let color;
+            if (valueType === 'bool') {
+                const isTrue = this._isTrue(val);
+                text = isTrue
+                    ? (this.state.rxData[`trueText${i}`] || '')
+                    : (this.state.rxData[`falseText${i}`] || '');
+                color = isTrue
+                    ? (this.state.rxData[`trueColor${i}`] || '#c8e6e3')
+                    : (this.state.rxData[`falseColor${i}`] || '#c8e6e3');
+            } else {
+                const decimalsRaw = parseInt(this.state.rxData[`decimals${i}`], 10);
+                const decimals = Number.isNaN(decimalsRaw) ? 1 : decimalsRaw;
+                const unit = this.state.rxData[`unit${i}`] || '';
+                text = this._formatNumber(val, decimals, unit);
+                color = this.state.rxData[`numberColor${i}`] || '#c8e6e3';
+            }
+
+            rows.push(
+                <div
+                    key={i}
+                    style={{
+                        color,
+                        fontSize: 12,
+                        textAlign: 'center',
+                        width: '100%',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                    }}
+                >
+                    {text}
+                </div>,
+            );
+        }
+        return rows;
+    }
+
     renderWidgetBody(props) {
         super.renderWidgetBody(props);
 
@@ -75,6 +186,9 @@ class RaumKachel extends window.visRxWidget {
             nameVerticalAlign = 'top',
         } = this.state.rxData;
 
+        const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
+        const rowEls = rowCount > 0 ? this._renderRows(rowCount) : null;
+
         const justifyContent = { left: 'flex-start', center: 'center', right: 'flex-end' }[nameAlign] || 'flex-start';
         const alignItems = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[nameVerticalAlign] || 'flex-start';
 
@@ -82,27 +196,47 @@ class RaumKachel extends window.visRxWidget {
             <div
                 style={{
                     width: '100%', height: '100%',
-                    display: 'flex', flexDirection: 'row',
-                    justifyContent, alignItems,
-                    boxSizing: 'border-box', padding: 4,
+                    display: 'flex', flexDirection: 'column',
+                    boxSizing: 'border-box', padding: 4, gap: 2,
                     cursor: this.props.editMode ? 'default' : 'pointer',
                     userSelect: 'none',
                 }}
             >
                 <div
                     style={{
-                        color: nameColor,
-                        fontSize: `${nameFontSize}px`,
-                        fontWeight: nameBold ? 700 : 400,
-                        textAlign: nameAlign,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        maxWidth: '100%',
+                        display: 'flex', flexDirection: 'row',
+                        justifyContent, alignItems,
+                        flex: rowCount > 0 ? '0 0 auto' : 1,
+                        minHeight: 0,
                     }}
                 >
-                    {name}
+                    <div
+                        style={{
+                            color: nameColor,
+                            fontSize: `${nameFontSize}px`,
+                            fontWeight: nameBold ? 700 : 400,
+                            textAlign: nameAlign,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            maxWidth: '100%',
+                        }}
+                    >
+                        {name}
+                    </div>
                 </div>
+                {rowCount > 0 && (
+                    <div
+                        style={{
+                            display: 'flex', flexDirection: 'column',
+                            flex: 1, minHeight: 0,
+                            justifyContent: 'center', gap: 2,
+                            overflow: 'hidden',
+                        }}
+                    >
+                        {rowEls}
+                    </div>
+                )}
             </div>
         );
     }
