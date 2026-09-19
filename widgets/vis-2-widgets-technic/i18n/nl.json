@@ -56,5 +56,11 @@
   "row_true_text": "Tekst bij waar",
   "row_true_color": "Kleur bij waar",
   "row_false_text": "Tekst bij onwaar",
-  "row_false_color": "Kleur bij onwaar"
+  "row_false_color": "Kleur bij onwaar",
+  "row_label": "Rijlabel",
+  "row_font_size": "Lettergrootte regel",
+  "row_oids_extra": "Extra datapunten (kommagescheiden)",
+  "row_logic": "Logica",
+  "logic_and": "EN",
+  "logic_or": "OF"
 }

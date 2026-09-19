@@ -56,5 +56,11 @@
   "row_true_text": "Text bei Wahr",
   "row_true_color": "Farbe bei Wahr",
   "row_false_text": "Text bei Falsch",
-  "row_false_color": "Farbe bei Falsch"
+  "row_false_color": "Farbe bei Falsch",
+  "row_label": "Zeilenbezeichnung",
+  "row_font_size": "Zeilen-Schriftgröße",
+  "row_oids_extra": "Weitere Datenpunkte (kommagetrennt)",
+  "row_logic": "Verknüpfung",
+  "logic_and": "UND",
+  "logic_or": "ODER"
 }

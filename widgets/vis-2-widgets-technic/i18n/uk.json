@@ -56,5 +56,11 @@
   "row_true_text": "Текст при Істина",
   "row_true_color": "Колір при Істина",
   "row_false_text": "Текст при Хиба",
-  "row_false_color": "Колір при Хиба"
+  "row_false_color": "Колір при Хиба",
+  "row_label": "Мітка рядка",
+  "row_font_size": "Розмір шрифту рядка",
+  "row_oids_extra": "Додаткові точки даних (через кому)",
+  "row_logic": "Логіка",
+  "logic_and": "І",
+  "logic_or": "АБО"
 }

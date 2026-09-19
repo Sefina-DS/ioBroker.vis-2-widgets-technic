@@ -56,5 +56,11 @@
   "row_true_text": "Tekst gdy prawda",
   "row_true_color": "Kolor gdy prawda",
   "row_false_text": "Tekst gdy fałsz",
-  "row_false_color": "Kolor gdy fałsz"
+  "row_false_color": "Kolor gdy fałsz",
+  "row_label": "Etykieta wiersza",
+  "row_font_size": "Rozmiar czcionki wiersza",
+  "row_oids_extra": "Dodatkowe punkty danych (oddzielone przecinkami)",
+  "row_logic": "Logika",
+  "logic_and": "ORAZ",
+  "logic_or": "LUB"
 }
