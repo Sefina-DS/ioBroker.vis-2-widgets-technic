@@ -67,5 +67,17 @@
   "padding_right": "Binnenmarge rechts",
   "padding_bottom": "Binnenmarge onder",
   "padding_left": "Binnenmarge links",
-  "row_label_color": "Kleur rijlabel"
+  "row_label_color": "Kleur rijlabel",
+  "click_group": "Klikgedrag / Popup",
+  "click_mode": "Klikmodus",
+  "click_mode_popup": "Popup",
+  "click_mode_switch_view": "Weergave wisselen",
+  "target_view": "Doelweergave",
+  "popup_width": "Popup-breedte",
+  "popup_height": "Popup-hoogte",
+  "popup_offset_x": "Popup-verschuiving X (leeg = gecentreerd)",
+  "popup_offset_y": "Popup-verschuiving Y (leeg = gecentreerd)",
+  "close_on_outside_click": "Sluiten bij klik buiten",
+  "show_close_button": "Sluitknop weergeven",
+  "auto_close_seconds": "Automatisch sluiten (seconden, 0 = uit)"
 }

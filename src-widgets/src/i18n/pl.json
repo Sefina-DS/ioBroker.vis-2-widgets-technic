@@ -67,5 +67,17 @@
   "padding_right": "Wewnętrzny odstęp prawo",
   "padding_bottom": "Wewnętrzny odstęp dół",
   "padding_left": "Wewnętrzny odstęp lewo",
-  "row_label_color": "Kolor etykiety wiersza"
+  "row_label_color": "Kolor etykiety wiersza",
+  "click_group": "Zachowanie kliknięcia / Popup",
+  "click_mode": "Tryb kliknięcia",
+  "click_mode_popup": "Popup",
+  "click_mode_switch_view": "Zmień widok",
+  "target_view": "Widok docelowy",
+  "popup_width": "Szerokość popupu",
+  "popup_height": "Wysokość popupu",
+  "popup_offset_x": "Przesunięcie X popupu (puste = wyśrodkowane)",
+  "popup_offset_y": "Przesunięcie Y popupu (puste = wyśrodkowane)",
+  "close_on_outside_click": "Zamknij po kliknięciu na zewnątrz",
+  "show_close_button": "Pokaż przycisk zamknięcia",
+  "auto_close_seconds": "Automatyczne zamykanie (sekundy, 0 = wyłączone)"
 }

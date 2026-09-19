@@ -67,5 +67,17 @@
   "padding_right": "Marge intérieure droite",
   "padding_bottom": "Marge intérieure bas",
   "padding_left": "Marge intérieure gauche",
-  "row_label_color": "Couleur de l'étiquette de ligne"
+  "row_label_color": "Couleur de l'étiquette de ligne",
+  "click_group": "Comportement au clic / Popup",
+  "click_mode": "Mode de clic",
+  "click_mode_popup": "Popup",
+  "click_mode_switch_view": "Changer de vue",
+  "target_view": "Vue cible",
+  "popup_width": "Largeur du popup",
+  "popup_height": "Hauteur du popup",
+  "popup_offset_x": "Décalage X du popup (vide = centré)",
+  "popup_offset_y": "Décalage Y du popup (vide = centré)",
+  "close_on_outside_click": "Fermer en cliquant à l'extérieur",
+  "show_close_button": "Afficher le bouton de fermeture",
+  "auto_close_seconds": "Fermeture automatique (secondes, 0 = désactivé)"
 }

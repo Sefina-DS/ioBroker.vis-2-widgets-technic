@@ -67,5 +67,17 @@
   "padding_right": "Padding Right",
   "padding_bottom": "Padding Bottom",
   "padding_left": "Padding Left",
-  "row_label_color": "Row Label Color"
+  "row_label_color": "Row Label Color",
+  "click_group": "Click Behavior / Popup",
+  "click_mode": "Click Mode",
+  "click_mode_popup": "Popup",
+  "click_mode_switch_view": "Switch View",
+  "target_view": "Target View",
+  "popup_width": "Popup Width",
+  "popup_height": "Popup Height",
+  "popup_offset_x": "Popup Offset X (empty = centered)",
+  "popup_offset_y": "Popup Offset Y (empty = centered)",
+  "close_on_outside_click": "Close on Outside Click",
+  "show_close_button": "Show Close Button",
+  "auto_close_seconds": "Auto-Close (seconds, 0 = disabled)"
 }

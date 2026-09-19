@@ -67,5 +67,17 @@
   "padding_right": "Espaçamento direito",
   "padding_bottom": "Espaçamento inferior",
   "padding_left": "Espaçamento esquerdo",
-  "row_label_color": "Cor do rótulo da linha"
+  "row_label_color": "Cor do rótulo da linha",
+  "click_group": "Comportamento do clique / Popup",
+  "click_mode": "Modo de clique",
+  "click_mode_popup": "Popup",
+  "click_mode_switch_view": "Mudar de vista",
+  "target_view": "Vista de destino",
+  "popup_width": "Largura do popup",
+  "popup_height": "Altura do popup",
+  "popup_offset_x": "Deslocamento X do popup (vazio = centralizado)",
+  "popup_offset_y": "Deslocamento Y do popup (vazio = centralizado)",
+  "close_on_outside_click": "Fechar ao clicar fora",
+  "show_close_button": "Mostrar botão de fechar",
+  "auto_close_seconds": "Fechamento automático (segundos, 0 = desativado)"
 }
