@@ -34,5 +34,13 @@
   "room_name": "Nazwa pokoju",
   "name_color": "Kolor nazwy",
   "name_font_size": "Rozmiar czcionki nazwy",
-  "name_bold": "Nazwa pogrubiona"
+  "name_bold": "Nazwa pogrubiona",
+  "name_align": "Wyrównanie poziome nazwy",
+  "name_valign": "Wyrównanie pionowe nazwy",
+  "align_left": "Lewo",
+  "align_center": "Środek",
+  "align_right": "Prawo",
+  "valign_top": "Góra",
+  "valign_middle": "Środek",
+  "valign_bottom": "Dół"
 }

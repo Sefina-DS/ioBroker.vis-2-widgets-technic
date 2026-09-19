@@ -34,5 +34,13 @@
   "room_name": "Назва кімнати",
   "name_color": "Колір назви",
   "name_font_size": "Розмір шрифту назви",
-  "name_bold": "Назва жирним"
+  "name_bold": "Назва жирним",
+  "name_align": "Горизонтальне вирівнювання назви",
+  "name_valign": "Вертикальне вирівнювання назви",
+  "align_left": "Ліворуч",
+  "align_center": "По центру",
+  "align_right": "Праворуч",
+  "valign_top": "Зверху",
+  "valign_middle": "Посередині",
+  "valign_bottom": "Знизу"
 }

@@ -34,5 +34,13 @@
   "room_name": "Nome della stanza",
   "name_color": "Colore del nome",
   "name_font_size": "Dimensione carattere nome",
-  "name_bold": "Nome in grassetto"
+  "name_bold": "Nome in grassetto",
+  "name_align": "Allineamento orizzontale nome",
+  "name_valign": "Allineamento verticale nome",
+  "align_left": "Sinistra",
+  "align_center": "Centro",
+  "align_right": "Destra",
+  "valign_top": "In alto",
+  "valign_middle": "Centro",
+  "valign_bottom": "In basso"
 }

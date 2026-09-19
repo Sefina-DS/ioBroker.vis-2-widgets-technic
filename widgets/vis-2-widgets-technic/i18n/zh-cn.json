@@ -34,5 +34,13 @@
   "room_name": "房间名称",
   "name_color": "名称颜色",
   "name_font_size": "名称字体大小",
-  "name_bold": "名称加粗"
+  "name_bold": "名称加粗",
+  "name_align": "名称水平对齐",
+  "name_valign": "名称垂直对齐",
+  "align_left": "左",
+  "align_center": "居中",
+  "align_right": "右",
+  "valign_top": "顶部",
+  "valign_middle": "居中",
+  "valign_bottom": "底部"
 }

@@ -34,5 +34,13 @@
   "room_name": "Room Name",
   "name_color": "Name Color",
   "name_font_size": "Name Font Size",
-  "name_bold": "Name Bold"
+  "name_bold": "Name Bold",
+  "name_align": "Name Horizontal Alignment",
+  "name_valign": "Name Vertical Alignment",
+  "align_left": "Left",
+  "align_center": "Center",
+  "align_right": "Right",
+  "valign_top": "Top",
+  "valign_middle": "Middle",
+  "valign_bottom": "Bottom"
 }
