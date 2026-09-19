@@ -62,5 +62,9 @@
   "row_oids_extra": "Additional Data Points (comma-separated)",
   "row_logic": "Logic",
   "logic_and": "AND",
-  "logic_or": "OR"
+  "logic_or": "OR",
+  "padding_top": "Padding Top",
+  "padding_right": "Padding Right",
+  "padding_bottom": "Padding Bottom",
+  "padding_left": "Padding Left"
 }

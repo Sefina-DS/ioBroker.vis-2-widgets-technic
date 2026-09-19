@@ -62,5 +62,9 @@
   "row_oids_extra": "Dodatkowe punkty danych (oddzielone przecinkami)",
   "row_logic": "Logika",
   "logic_and": "ORAZ",
-  "logic_or": "LUB"
+  "logic_or": "LUB",
+  "padding_top": "Wewnętrzny odstęp góra",
+  "padding_right": "Wewnętrzny odstęp prawo",
+  "padding_bottom": "Wewnętrzny odstęp dół",
+  "padding_left": "Wewnętrzny odstęp lewo"
 }

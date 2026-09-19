@@ -62,5 +62,9 @@
   "row_oids_extra": "Pontos de dados adicionais (separados por vírgula)",
   "row_logic": "Lógica",
   "logic_and": "E",
-  "logic_or": "OU"
+  "logic_or": "OU",
+  "padding_top": "Espaçamento superior",
+  "padding_right": "Espaçamento direito",
+  "padding_bottom": "Espaçamento inferior",
+  "padding_left": "Espaçamento esquerdo"
 }

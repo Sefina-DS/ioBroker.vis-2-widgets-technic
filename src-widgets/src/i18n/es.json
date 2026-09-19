@@ -62,5 +62,9 @@
   "row_oids_extra": "Puntos de datos adicionales (separados por comas)",
   "row_logic": "Lógica",
   "logic_and": "Y",
-  "logic_or": "O"
+  "logic_or": "O",
+  "padding_top": "Relleno superior",
+  "padding_right": "Relleno derecho",
+  "padding_bottom": "Relleno inferior",
+  "padding_left": "Relleno izquierdo"
 }
