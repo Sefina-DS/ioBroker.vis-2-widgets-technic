@@ -15,8 +15,8 @@ class RaumKachel extends window.visRxWidget {
             visSetLabel: 'Technic Widgets',
             visSetColor: '#2ecfbf',
             visWidgetColor: '#0d1820',
-            visName: 'Room Tile',
-            visWidgetLabel: 'Room Tile',
+            visName: 'Room - Overlay',
+            visWidgetLabel: 'Room - Overlay',
             visDefaultStyle: { width: 160, height: 100 },
             vis2: true,
             visAttrs: [
@@ -184,6 +184,7 @@ class RaumKachel extends window.visRxWidget {
                     ],
                 },
             ],
+            visPrev: 'widgets/vis-2-widgets-technic/img/prev-raum-kachel.png',
         };
     }
 
