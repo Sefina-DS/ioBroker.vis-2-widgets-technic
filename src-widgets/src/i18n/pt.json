@@ -79,5 +79,10 @@
   "popup_offset_y": "Deslocamento Y do popup (vazio = centralizado)",
   "close_on_outside_click": "Fechar ao clicar fora",
   "show_close_button": "Mostrar botão de fechar",
-  "auto_close_seconds": "Fechamento automático (segundos, 0 = desativado)"
+  "auto_close_seconds": "Fechamento automático (segundos, 0 = desativado)",
+  "popup_use_offset": "Usar posição fixa (em vez de centralizado)",
+  "popup_background_color": "Cor de fundo do popup",
+  "popup_border_color": "Cor da borda do popup",
+  "popup_border_width": "Largura da borda do popup",
+  "popup_border_radius": "Raio da borda do popup"
 }

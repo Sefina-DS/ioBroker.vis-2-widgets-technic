@@ -79,5 +79,10 @@
   "popup_offset_y": "弹出窗口 Y 偏移（留空=居中）",
   "close_on_outside_click": "点击外部时关闭",
   "show_close_button": "显示关闭按钮",
-  "auto_close_seconds": "自动关闭（秒，0=禁用）"
+  "auto_close_seconds": "自动关闭（秒，0=禁用）",
+  "popup_use_offset": "使用固定位置（而非居中）",
+  "popup_background_color": "弹出窗口背景颜色",
+  "popup_border_color": "弹出窗口边框颜色",
+  "popup_border_width": "弹出窗口边框宽度",
+  "popup_border_radius": "弹出窗口圆角半径"
 }

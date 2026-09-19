@@ -79,5 +79,10 @@
   "popup_offset_y": "Przesunięcie Y popupu (puste = wyśrodkowane)",
   "close_on_outside_click": "Zamknij po kliknięciu na zewnątrz",
   "show_close_button": "Pokaż przycisk zamknięcia",
-  "auto_close_seconds": "Automatyczne zamykanie (sekundy, 0 = wyłączone)"
+  "auto_close_seconds": "Automatyczne zamykanie (sekundy, 0 = wyłączone)",
+  "popup_use_offset": "Użyj stałej pozycji (zamiast wyśrodkowania)",
+  "popup_background_color": "Kolor tła popupu",
+  "popup_border_color": "Kolor obramowania popupu",
+  "popup_border_width": "Szerokość obramowania popupu",
+  "popup_border_radius": "Promień zaokrąglenia popupu"
 }
