@@ -142,12 +142,16 @@ class RaumKachel extends window.visRxWidget {
                             hidden: data => (data.clickMode || 'popup') !== 'popup',
                         },
                         {
-                            name: 'popupOffsetX', label: 'popup_offset_x', type: 'number',
+                            name: 'popupUseOffset', label: 'popup_use_offset', type: 'checkbox', default: false,
                             hidden: data => (data.clickMode || 'popup') !== 'popup',
                         },
                         {
+                            name: 'popupOffsetX', label: 'popup_offset_x', type: 'number',
+                            hidden: data => (data.clickMode || 'popup') !== 'popup' || !data.popupUseOffset,
+                        },
+                        {
                             name: 'popupOffsetY', label: 'popup_offset_y', type: 'number',
-                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                            hidden: data => (data.clickMode || 'popup') !== 'popup' || !data.popupUseOffset,
                         },
                         {
                             name: 'closeOnOutsideClick', label: 'close_on_outside_click', type: 'checkbox', default: true,
@@ -159,6 +163,22 @@ class RaumKachel extends window.visRxWidget {
                         },
                         {
                             name: 'autoCloseSeconds', label: 'auto_close_seconds', type: 'number', default: 0,
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'popupBackgroundColor', label: 'popup_background_color', type: 'color', default: '#0d1820',
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'popupBorderColor', label: 'popup_border_color', type: 'color', default: '#2ecfbf',
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'popupBorderWidth', label: 'popup_border_width', type: 'number', default: 1,
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'popupBorderRadius', label: 'popup_border_radius', type: 'number', default: 8,
                             hidden: data => (data.clickMode || 'popup') !== 'popup',
                         },
                     ],
@@ -280,14 +300,24 @@ class RaumKachel extends window.visRxWidget {
             targetView,
             popupWidth = 800,
             popupHeight = 600,
-            popupOffsetX,
-            popupOffsetY,
+            popupUseOffset = false,
+            popupOffsetX = 0,
+            popupOffsetY = 0,
             closeOnOutsideClick = true,
             showCloseButton = true,
+            popupBackgroundColor = '#0d1820',
+            popupBorderColor = '#2ecfbf',
+            popupBorderWidth = 1,
+            popupBorderRadius = 8,
         } = this.state.rxData;
 
-        const hasOffset = popupOffsetX !== undefined && popupOffsetX !== '' && popupOffsetY !== undefined && popupOffsetY !== '';
-        const posStyle = hasOffset
+        // Explizites Kontrollkaestchen statt Ableitung aus dem Zahlenwert der
+        // Offset-Felder: ein leeres Zahlenfeld liefert je nach Interaktion
+        // undefined ODER '' (verifiziert im vis2-Editor-Bundle, niemals 0),
+        // beides waere als "kein Offset" nicht eindeutig von einem bewusst
+        // gesetzten Offset 0/0 unterscheidbar. popupUseOffset macht die Absicht
+        // explizit statt sie zu erraten.
+        const posStyle = popupUseOffset
             ? { top: `${popupOffsetY}px`, left: `${popupOffsetX}px`, transform: 'none' }
             : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
 
@@ -311,8 +341,12 @@ class RaumKachel extends window.visRxWidget {
                         position: 'fixed',
                         ...posStyle,
                         width: `${popupWidth}px`, height: `${popupHeight}px`,
-                        background: '#0d1820', borderRadius: 4, overflow: 'hidden',
+                        background: popupBackgroundColor,
+                        border: `${popupBorderWidth}px solid ${popupBorderColor}`,
+                        borderRadius: `${popupBorderRadius}px`,
+                        overflow: 'hidden',
                         boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
+                        boxSizing: 'border-box',
                     }}
                     onClick={e => e.stopPropagation()}
                 >
