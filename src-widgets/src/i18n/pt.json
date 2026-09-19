@@ -56,5 +56,11 @@
   "row_true_text": "Texto quando verdadeiro",
   "row_true_color": "Cor quando verdadeiro",
   "row_false_text": "Texto quando falso",
-  "row_false_color": "Cor quando falso"
+  "row_false_color": "Cor quando falso",
+  "row_label": "Rótulo da linha",
+  "row_font_size": "Tamanho da fonte da linha",
+  "row_oids_extra": "Pontos de dados adicionais (separados por vírgula)",
+  "row_logic": "Lógica",
+  "logic_and": "E",
+  "logic_or": "OU"
 }

@@ -56,5 +56,11 @@
   "row_true_text": "Texte si vrai",
   "row_true_color": "Couleur si vrai",
   "row_false_text": "Texte si faux",
-  "row_false_color": "Couleur si faux"
+  "row_false_color": "Couleur si faux",
+  "row_label": "Étiquette de ligne",
+  "row_font_size": "Taille de police de la ligne",
+  "row_oids_extra": "Points de données supplémentaires (séparés par des virgules)",
+  "row_logic": "Logique",
+  "logic_and": "ET",
+  "logic_or": "OU"
 }

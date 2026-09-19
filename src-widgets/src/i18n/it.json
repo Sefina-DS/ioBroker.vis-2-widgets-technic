@@ -56,5 +56,11 @@
   "row_true_text": "Testo se vero",
   "row_true_color": "Colore se vero",
   "row_false_text": "Testo se falso",
-  "row_false_color": "Colore se falso"
+  "row_false_color": "Colore se falso",
+  "row_label": "Etichetta riga",
+  "row_font_size": "Dimensione carattere riga",
+  "row_oids_extra": "Punti dati aggiuntivi (separati da virgola)",
+  "row_logic": "Logica",
+  "logic_and": "E",
+  "logic_or": "O"
 }

@@ -56,5 +56,11 @@
   "row_true_text": "Texto cuando es verdadero",
   "row_true_color": "Color cuando es verdadero",
   "row_false_text": "Texto cuando es falso",
-  "row_false_color": "Color cuando es falso"
+  "row_false_color": "Color cuando es falso",
+  "row_label": "Etiqueta de fila",
+  "row_font_size": "Tamaño de fuente de fila",
+  "row_oids_extra": "Puntos de datos adicionales (separados por comas)",
+  "row_logic": "Lógica",
+  "logic_and": "Y",
+  "logic_or": "O"
 }

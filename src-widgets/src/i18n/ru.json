@@ -56,5 +56,11 @@
   "row_true_text": "Текст при Истина",
   "row_true_color": "Цвет при Истина",
   "row_false_text": "Текст при Ложь",
-  "row_false_color": "Цвет при Ложь"
+  "row_false_color": "Цвет при Ложь",
+  "row_label": "Метка строки",
+  "row_font_size": "Размер шрифта строки",
+  "row_oids_extra": "Дополнительные точки данных (через запятую)",
+  "row_logic": "Логика",
+  "logic_and": "И",
+  "logic_or": "ИЛИ"
 }

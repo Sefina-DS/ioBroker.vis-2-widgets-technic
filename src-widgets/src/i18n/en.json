@@ -56,5 +56,11 @@
   "row_true_text": "Text when True",
   "row_true_color": "Color when True",
   "row_false_text": "Text when False",
-  "row_false_color": "Color when False"
+  "row_false_color": "Color when False",
+  "row_label": "Row Label",
+  "row_font_size": "Row Font Size",
+  "row_oids_extra": "Additional Data Points (comma-separated)",
+  "row_logic": "Logic",
+  "logic_and": "AND",
+  "logic_or": "OR"
 }

@@ -56,5 +56,11 @@
   "row_true_text": "为真时的文本",
   "row_true_color": "为真时的颜色",
   "row_false_text": "为假时的文本",
-  "row_false_color": "为假时的颜色"
+  "row_false_color": "为假时的颜色",
+  "row_label": "行标签",
+  "row_font_size": "行字体大小",
+  "row_oids_extra": "附加数据点（逗号分隔）",
+  "row_logic": "逻辑",
+  "logic_and": "与",
+  "logic_or": "或"
 }
