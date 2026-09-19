@@ -328,6 +328,24 @@ class RaumKachel extends window.visRxWidget {
         const path = window.location.pathname.replace(/[^/]*$/, 'index.html');
         const src = `${window.location.origin}${path}#${targetView}`;
 
+        // Ziel-View-Konfiguration ist bereits client-seitig geladen (this.props.context.views
+        // enthaelt ALLE Views des Projekts, nicht nur die aktive - gleiches Zugriffsmuster wie
+        // im offiziellen vis2-Navigations-Menu-Widget: context.views[viewName].settings.sizex/
+        // sizey/limitScreen). Kein Extra-Request noetig.
+        // Ist limitScreen aktiv und sizex/sizey gesetzt, bekommt das iframe exakt diese Groesse
+        // und wird im Popup zentriert - so wird die View nie groesser/kleiner dargestellt als
+        // sie tatsaechlich konfiguriert ist (Ursache des vorherigen Letterboxing-Problems).
+        const targetSettings = this.props.context.views?.[targetView]?.settings;
+        const viewSizeX = parseInt(targetSettings?.sizex, 10);
+        const viewSizeY = parseInt(targetSettings?.sizey, 10);
+        const hasFixedViewSize = !!targetSettings?.limitScreen
+            && !Number.isNaN(viewSizeX) && viewSizeX > 0
+            && !Number.isNaN(viewSizeY) && viewSizeY > 0;
+
+        const iframeStyle = hasFixedViewSize
+            ? { width: `${viewSizeX}px`, height: `${viewSizeY}px`, border: 'none', flexShrink: 0 }
+            : { width: '100%', height: '100%', border: 'none' };
+
         return (
             <div
                 style={{
@@ -363,11 +381,19 @@ class RaumKachel extends window.visRxWidget {
                             ×
                         </button>
                     )}
-                    <iframe
-                        src={src}
-                        title={targetView}
-                        style={{ width: '100%', height: '100%', border: 'none' }}
-                    />
+                    <div
+                        style={{
+                            width: '100%', height: '100%',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            overflow: 'hidden',
+                        }}
+                    >
+                        <iframe
+                            src={src}
+                            title={targetView}
+                            style={iframeStyle}
+                        />
+                    </div>
                 </div>
             </div>
         );
