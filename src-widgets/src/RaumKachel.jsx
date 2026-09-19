@@ -28,6 +28,24 @@ class RaumKachel extends window.visRxWidget {
                         { name: 'nameColor', label: 'name_color', type: 'color', default: '#e8f4f3' },
                         { name: 'nameFontSize', label: 'name_font_size', type: 'number', default: 14 },
                         { name: 'nameBold', label: 'name_bold', type: 'checkbox', default: false },
+                        {
+                            name: 'nameAlign', label: 'name_align', type: 'select',
+                            options: [
+                                { value: 'left',   label: 'align_left' },
+                                { value: 'center', label: 'align_center' },
+                                { value: 'right',  label: 'align_right' },
+                            ],
+                            default: 'left',
+                        },
+                        {
+                            name: 'nameVerticalAlign', label: 'name_valign', type: 'select',
+                            options: [
+                                { value: 'top',    label: 'valign_top' },
+                                { value: 'middle', label: 'valign_middle' },
+                                { value: 'bottom', label: 'valign_bottom' },
+                            ],
+                            default: 'top',
+                        },
                     ],
                 },
             ],
@@ -53,13 +71,19 @@ class RaumKachel extends window.visRxWidget {
             nameColor = '#e8f4f3',
             nameFontSize = 14,
             nameBold = false,
+            nameAlign = 'left',
+            nameVerticalAlign = 'top',
         } = this.state.rxData;
+
+        const justifyContent = { left: 'flex-start', center: 'center', right: 'flex-end' }[nameAlign] || 'flex-start';
+        const alignItems = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[nameVerticalAlign] || 'flex-start';
 
         return (
             <div
                 style={{
                     width: '100%', height: '100%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    display: 'flex', flexDirection: 'row',
+                    justifyContent, alignItems,
                     boxSizing: 'border-box', padding: 4,
                     cursor: this.props.editMode ? 'default' : 'pointer',
                     userSelect: 'none',
@@ -70,11 +94,11 @@ class RaumKachel extends window.visRxWidget {
                         color: nameColor,
                         fontSize: `${nameFontSize}px`,
                         fontWeight: nameBold ? 700 : 400,
-                        textAlign: 'center',
+                        textAlign: nameAlign,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
-                        width: '100%',
+                        maxWidth: '100%',
                     }}
                 >
                     {name}
