@@ -42,5 +42,19 @@
   "align_right": "Derecha",
   "valign_top": "Arriba",
   "valign_middle": "Medio",
-  "valign_bottom": "Abajo"
+  "valign_bottom": "Abajo",
+  "rows_group": "Filas de estado",
+  "row_count": "Número de filas",
+  "status_row": "Fila de estado",
+  "row_oid": "Punto de datos",
+  "row_value_type": "Tipo de valor",
+  "row_type_number": "Número",
+  "row_type_bool": "Booleano",
+  "row_unit": "Unidad",
+  "row_decimals": "Decimales",
+  "row_number_color": "Color del número",
+  "row_true_text": "Texto cuando es verdadero",
+  "row_true_color": "Color cuando es verdadero",
+  "row_false_text": "Texto cuando es falso",
+  "row_false_color": "Color cuando es falso"
 }

@@ -42,5 +42,19 @@
   "align_right": "Rechts",
   "valign_top": "Boven",
   "valign_middle": "Midden",
-  "valign_bottom": "Onder"
+  "valign_bottom": "Onder",
+  "rows_group": "Statusregels",
+  "row_count": "Aantal regels",
+  "status_row": "Statusregel",
+  "row_oid": "Datapunt",
+  "row_value_type": "Waardetype",
+  "row_type_number": "Getal",
+  "row_type_bool": "Booleaans",
+  "row_unit": "Eenheid",
+  "row_decimals": "Decimalen",
+  "row_number_color": "Getalkleur",
+  "row_true_text": "Tekst bij waar",
+  "row_true_color": "Kleur bij waar",
+  "row_false_text": "Tekst bij onwaar",
+  "row_false_color": "Kleur bij onwaar"
 }

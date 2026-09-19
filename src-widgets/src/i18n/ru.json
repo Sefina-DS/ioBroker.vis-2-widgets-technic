@@ -42,5 +42,19 @@
   "align_right": "Справа",
   "valign_top": "Сверху",
   "valign_middle": "По центру",
-  "valign_bottom": "Снизу"
+  "valign_bottom": "Снизу",
+  "rows_group": "Строки статуса",
+  "row_count": "Количество строк",
+  "status_row": "Строка статуса",
+  "row_oid": "Точка данных",
+  "row_value_type": "Тип значения",
+  "row_type_number": "Число",
+  "row_type_bool": "Логическое значение",
+  "row_unit": "Единица измерения",
+  "row_decimals": "Знаков после запятой",
+  "row_number_color": "Цвет числа",
+  "row_true_text": "Текст при Истина",
+  "row_true_color": "Цвет при Истина",
+  "row_false_text": "Текст при Ложь",
+  "row_false_color": "Цвет при Ложь"
 }

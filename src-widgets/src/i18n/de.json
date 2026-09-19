@@ -42,5 +42,19 @@
   "align_right": "Rechts",
   "valign_top": "Oben",
   "valign_middle": "Mitte",
-  "valign_bottom": "Unten"
+  "valign_bottom": "Unten",
+  "rows_group": "Statuszeilen",
+  "row_count": "Anzahl Zeilen",
+  "status_row": "Statuszeile",
+  "row_oid": "Datenpunkt",
+  "row_value_type": "Werttyp",
+  "row_type_number": "Zahl",
+  "row_type_bool": "Boolescher Wert",
+  "row_unit": "Einheit",
+  "row_decimals": "Nachkommastellen",
+  "row_number_color": "Zahlenfarbe",
+  "row_true_text": "Text bei Wahr",
+  "row_true_color": "Farbe bei Wahr",
+  "row_false_text": "Text bei Falsch",
+  "row_false_color": "Farbe bei Falsch"
 }

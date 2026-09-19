@@ -42,5 +42,19 @@
   "align_right": "Prawo",
   "valign_top": "Góra",
   "valign_middle": "Środek",
-  "valign_bottom": "Dół"
+  "valign_bottom": "Dół",
+  "rows_group": "Wiersze statusu",
+  "row_count": "Liczba wierszy",
+  "status_row": "Wiersz statusu",
+  "row_oid": "Punkt danych",
+  "row_value_type": "Typ wartości",
+  "row_type_number": "Liczba",
+  "row_type_bool": "Wartość logiczna",
+  "row_unit": "Jednostka",
+  "row_decimals": "Miejsca dziesiętne",
+  "row_number_color": "Kolor liczby",
+  "row_true_text": "Tekst gdy prawda",
+  "row_true_color": "Kolor gdy prawda",
+  "row_false_text": "Tekst gdy fałsz",
+  "row_false_color": "Kolor gdy fałsz"
 }

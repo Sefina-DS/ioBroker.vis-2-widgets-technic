@@ -42,5 +42,19 @@
   "align_right": "Destra",
   "valign_top": "In alto",
   "valign_middle": "Centro",
-  "valign_bottom": "In basso"
+  "valign_bottom": "In basso",
+  "rows_group": "Righe di stato",
+  "row_count": "Numero di righe",
+  "status_row": "Riga di stato",
+  "row_oid": "Punto dati",
+  "row_value_type": "Tipo di valore",
+  "row_type_number": "Numero",
+  "row_type_bool": "Booleano",
+  "row_unit": "Unità",
+  "row_decimals": "Decimali",
+  "row_number_color": "Colore numero",
+  "row_true_text": "Testo se vero",
+  "row_true_color": "Colore se vero",
+  "row_false_text": "Testo se falso",
+  "row_false_color": "Colore se falso"
 }
