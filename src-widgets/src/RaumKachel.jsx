@@ -46,6 +46,10 @@ class RaumKachel extends window.visRxWidget {
                             ],
                             default: 'top',
                         },
+                        { name: 'paddingTop', label: 'padding_top', type: 'number', default: 8 },
+                        { name: 'paddingRight', label: 'padding_right', type: 'number', default: 8 },
+                        { name: 'paddingBottom', label: 'padding_bottom', type: 'number', default: 8 },
+                        { name: 'paddingLeft', label: 'padding_left', type: 'number', default: 8 },
                     ],
                 },
                 {
@@ -123,9 +127,62 @@ class RaumKachel extends window.visRxWidget {
 
     constructor(props) {
         super(props);
+        // oidsExtra ist ein Freitextfeld -> vis2 subscribed diese oids NICHT automatisch
+        // (nur 'id'-Feldtypen werden von der Basisklasse erkannt). Wir subscriben sie
+        // manuell ueber context.socket und halten die Werte separat in extraValues.
+        this.state = { ...this.state, extraValues: {} };
+        this._extraSubscribed = [];
+        this._onExtraStateChange = this._onExtraStateChange.bind(this);
     }
 
-    propertiesUpdate() {}
+    // Alle in oidsExtra referenzierten oids (ueber alle Bool-Zeilen) einsammeln.
+    _getExtraOids() {
+        const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
+        const oids = new Set();
+        for (let i = 1; i <= rowCount; i++) {
+            if ((this.state.rxData[`valueType${i}`] || 'number') !== 'bool') continue;
+            String(this.state.rxData[`oidsExtra${i}`] || '')
+                .split(',')
+                .map(s => s.trim())
+                .filter(Boolean)
+                .forEach(o => oids.add(o));
+        }
+        return Array.from(oids);
+    }
+
+    _onExtraStateChange(id, state) {
+        this.setState({ extraValues: { ...this.state.extraValues, [id]: state ? state.val : null } });
+    }
+
+    // Subscription an die aktuell benoetigten Zusatz-oids angleichen (Diff aus
+    // vorherigem Stand), analog zum internen Subscribe-Pattern der Basisklasse
+    // (this.props.context.socket.subscribeState/unsubscribeState).
+    _syncExtraSubscriptions() {
+        const wanted = this._getExtraOids();
+        const toRemove = this._extraSubscribed.filter(o => !wanted.includes(o));
+        const toAdd = wanted.filter(o => !this._extraSubscribed.includes(o));
+        if (toRemove.length) {
+            this.props.context.socket.unsubscribeState(toRemove, this._onExtraStateChange);
+        }
+        if (toAdd.length) {
+            this.props.context.socket.subscribeState(toAdd, this._onExtraStateChange);
+        }
+        this._extraSubscribed = wanted;
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        this._syncExtraSubscriptions();
+    }
+
+    componentWillUnmount() {
+        if (this._extraSubscribed.length) {
+            this.props.context.socket.unsubscribeState(this._extraSubscribed, this._onExtraStateChange);
+        }
+        super.componentWillUnmount();
+    }
+
+    propertiesUpdate() { this._syncExtraSubscriptions(); }
     onRxDataChanged()  { this.propertiesUpdate(); }
     onRxStyleChanged() {}
     onStateUpdated()   {}
@@ -143,10 +200,15 @@ class RaumKachel extends window.visRxWidget {
     }
 
     // Mehrere oids (oid + oidsExtra, kommagetrennt) einzeln auswerten und über
-    // logic (and/or) zu einem Bool-Ergebnis verknuepfen.
+    // logic (and/or) zu einem Bool-Ergebnis verknuepfen. oid kommt aus dem
+    // regulaeren vis2-Subscribe (this.state.values), die oidsExtra-oids aus der
+    // manuellen Subscription (this.state.extraValues, siehe _syncExtraSubscriptions).
     _isTrueCombined(oid, oidsExtra, logic) {
-        const oids = [oid, ...String(oidsExtra || '').split(',').map(s => s.trim()).filter(Boolean)];
-        const results = oids.map(o => this._isTrue(this.state.values[`${o}.val`]));
+        const extraOids = String(oidsExtra || '').split(',').map(s => s.trim()).filter(Boolean);
+        const results = [
+            this._isTrue(this.state.values[`${oid}.val`]),
+            ...extraOids.map(o => this._isTrue(this.state.extraValues[o])),
+        ];
         return logic === 'or' ? results.some(Boolean) : results.every(Boolean);
     }
 
@@ -223,6 +285,10 @@ class RaumKachel extends window.visRxWidget {
             nameBold = false,
             nameAlign = 'left',
             nameVerticalAlign = 'top',
+            paddingTop = 8,
+            paddingRight = 8,
+            paddingBottom = 8,
+            paddingLeft = 8,
         } = this.state.rxData;
 
         const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
@@ -238,7 +304,12 @@ class RaumKachel extends window.visRxWidget {
                 style={{
                     width: '100%', height: '100%',
                     display: 'flex', flexDirection: 'column',
-                    boxSizing: 'border-box', padding: 4, gap: 2,
+                    boxSizing: 'border-box',
+                    paddingTop: `${paddingTop}px`,
+                    paddingRight: `${paddingRight}px`,
+                    paddingBottom: `${paddingBottom}px`,
+                    paddingLeft: `${paddingLeft}px`,
+                    gap: 2,
                     cursor: this.props.editMode ? 'default' : 'pointer',
                     userSelect: 'none',
                 }}
