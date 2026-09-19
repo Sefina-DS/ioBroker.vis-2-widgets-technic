@@ -120,6 +120,49 @@ class RaumKachel extends window.visRxWidget {
                         },
                     ],
                 },
+                {
+                    name: 'click',
+                    label: 'click_group',
+                    fields: [
+                        {
+                            name: 'clickMode', label: 'click_mode', type: 'select',
+                            options: [
+                                { value: 'popup',      label: 'click_mode_popup' },
+                                { value: 'switchView', label: 'click_mode_switch_view' },
+                            ],
+                            default: 'popup',
+                        },
+                        { name: 'targetView', label: 'target_view', type: 'text', default: '' },
+                        {
+                            name: 'popupWidth', label: 'popup_width', type: 'number', default: 800,
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'popupHeight', label: 'popup_height', type: 'number', default: 600,
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'popupOffsetX', label: 'popup_offset_x', type: 'number',
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'popupOffsetY', label: 'popup_offset_y', type: 'number',
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'closeOnOutsideClick', label: 'close_on_outside_click', type: 'checkbox', default: true,
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'showCloseButton', label: 'show_close_button', type: 'checkbox', default: true,
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                        {
+                            name: 'autoCloseSeconds', label: 'auto_close_seconds', type: 'number', default: 0,
+                            hidden: data => (data.clickMode || 'popup') !== 'popup',
+                        },
+                    ],
+                },
             ],
         };
     }
@@ -131,9 +174,10 @@ class RaumKachel extends window.visRxWidget {
         // oidsExtra ist ein Freitextfeld -> vis2 subscribed diese oids NICHT automatisch
         // (nur 'id'-Feldtypen werden von der Basisklasse erkannt). Wir subscriben sie
         // manuell ueber context.socket und halten die Werte separat in extraValues.
-        this.state = { ...this.state, extraValues: {} };
+        this.state = { ...this.state, extraValues: {}, popupOpen: false };
         this._extraSubscribed = [];
         this._onExtraStateChange = this._onExtraStateChange.bind(this);
+        this._autoCloseTimer = null;
     }
 
     // Alle in oidsExtra referenzierten oids (ueber alle Bool-Zeilen) einsammeln.
@@ -180,6 +224,10 @@ class RaumKachel extends window.visRxWidget {
         if (this._extraSubscribed.length) {
             this.props.context.socket.unsubscribeState(this._extraSubscribed, this._onExtraStateChange);
         }
+        if (this._autoCloseTimer) {
+            clearTimeout(this._autoCloseTimer);
+            this._autoCloseTimer = null;
+        }
         super.componentWillUnmount();
     }
 
@@ -187,6 +235,109 @@ class RaumKachel extends window.visRxWidget {
     onRxDataChanged()  { this.propertiesUpdate(); }
     onRxStyleChanged() {}
     onStateUpdated()   {}
+
+    // clickMode "popup": eigenes Popup mit iframe auf die Ziel-View.
+    // clickMode "switchView": echter VIS2-View-Wechsel ueber die reale, im
+    // installierten @iobroker/types-vis-2 (VisContext) dokumentierte und im
+    // vis-2-Kernbundle vielfach verwendete API this.props.context.changeView(view) -
+    // exakt das, was offizielle vis2-Basiswidgets (z.B. Navigations-Menu, "nav_view"-
+    // Button, Swipe-Widget) fuer Klick-basierte View-Wechsel selbst nutzen.
+    _onTileClick() {
+        if (this.props.editMode) return;
+        const targetView = this.state.rxData.targetView;
+        if (!targetView) return;
+
+        const clickMode = this.state.rxData.clickMode || 'popup';
+        if (clickMode === 'switchView') {
+            this.props.context.changeView(targetView);
+            return;
+        }
+        this._openPopup();
+    }
+
+    _openPopup() {
+        if (this._autoCloseTimer) {
+            clearTimeout(this._autoCloseTimer);
+            this._autoCloseTimer = null;
+        }
+        this.setState({ popupOpen: true });
+        const autoCloseSeconds = parseInt(this.state.rxData.autoCloseSeconds, 10) || 0;
+        if (autoCloseSeconds > 0) {
+            this._autoCloseTimer = setTimeout(() => this._closePopup(), autoCloseSeconds * 1000);
+        }
+    }
+
+    _closePopup() {
+        if (this._autoCloseTimer) {
+            clearTimeout(this._autoCloseTimer);
+            this._autoCloseTimer = null;
+        }
+        this.setState({ popupOpen: false });
+    }
+
+    _renderPopup() {
+        const {
+            targetView,
+            popupWidth = 800,
+            popupHeight = 600,
+            popupOffsetX,
+            popupOffsetY,
+            closeOnOutsideClick = true,
+            showCloseButton = true,
+        } = this.state.rxData;
+
+        const hasOffset = popupOffsetX !== undefined && popupOffsetX !== '' && popupOffsetY !== undefined && popupOffsetY !== '';
+        const posStyle = hasOffset
+            ? { top: `${popupOffsetY}px`, left: `${popupOffsetX}px`, transform: 'none' }
+            : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
+
+        // Gleiches Muster wie das bisherige globale openModal()-Skript:
+        // .../vis-2/index.html#{targetView}. Pfad wird relativ zur aktuellen
+        // Seite ermittelt statt hart codiert, damit es unabhaengig vom
+        // tatsaechlichen Deployment-Unterpfad funktioniert.
+        const path = window.location.pathname.replace(/[^/]*$/, 'index.html');
+        const src = `${window.location.origin}${path}#${targetView}`;
+
+        return (
+            <div
+                style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'rgba(0,0,0,0.4)', zIndex: 10000,
+                }}
+                onClick={closeOnOutsideClick ? () => this._closePopup() : undefined}
+            >
+                <div
+                    style={{
+                        position: 'fixed',
+                        ...posStyle,
+                        width: `${popupWidth}px`, height: `${popupHeight}px`,
+                        background: '#0d1820', borderRadius: 4, overflow: 'hidden',
+                        boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
+                    }}
+                    onClick={e => e.stopPropagation()}
+                >
+                    {showCloseButton && (
+                        <button
+                            onClick={() => this._closePopup()}
+                            style={{
+                                position: 'absolute', top: 4, right: 4, zIndex: 1,
+                                width: 28, height: 28, borderRadius: '50%', border: 'none',
+                                background: 'rgba(0,0,0,0.5)', color: '#fff', cursor: 'pointer',
+                                fontSize: 16, lineHeight: '28px', padding: 0,
+                            }}
+                        >
+                            ×
+                        </button>
+                    )}
+                    <iframe
+                        src={src}
+                        title={targetView}
+                        style={{ width: '100%', height: '100%', border: 'none' }}
+                    />
+                </div>
+            </div>
+        );
+    }
 
     // Boolean lesen (alle Varianten abdecken, LEARNINGS.md #21)
     _isTrue(val) {
@@ -303,6 +454,7 @@ class RaumKachel extends window.visRxWidget {
 
         return (
             <div
+                onClick={() => this._onTileClick()}
                 style={{
                     width: '100%', height: '100%',
                     display: 'flex', flexDirection: 'column',
@@ -351,6 +503,7 @@ class RaumKachel extends window.visRxWidget {
                         {rowEls}
                     </div>
                 )}
+                {this.state.popupOpen && this._renderPopup()}
             </div>
         );
     }
