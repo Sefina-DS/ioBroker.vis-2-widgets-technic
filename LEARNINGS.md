@@ -602,3 +602,161 @@ Für einheitliches Aussehen aller Widgets immer diese Defaults verwenden:
 visSetColor:    '#2ecfbf',  // Gruppenfarbe
 visWidgetColor: '#0d1820',  // Kachel-Hintergrundfarbe im Editor
 ```
+
+---
+
+## 27. `indexFrom`/`indexTo`-Gruppen: reale Feldnamens-Konvention ist Suffix, kein Präfix
+
+**Fehler-Annahme:** Bei einer indizierten Feldgruppe (`indexFrom: 1, indexTo: 'rowCount'`) könnte man
+vermuten, dass die generierten Feldnamen ein Präfix-Muster wie `row{i}_oid` bekommen.
+
+**Richtig:** vis2 hängt den Index als **Suffix an den Basisnamen** an – Basisname bleibt vorne:
+
+```javascript
+// Definition:
+{
+    name: 'row',
+    indexFrom: 1,
+    indexTo: 'rowCount',
+    fields: [
+        { name: 'rowLabel', ... },
+        { name: 'oid', ... },
+        { name: 'valueType', ... },
+    ],
+},
+
+// Tatsächliche Feldnamen in rxData: oid1, oid2, ..., rowLabel1, valueType1, ...
+const oid = this.state.rxData[`oid${i}`];
+const rowLabel = this.state.rxData[`rowLabel${i}`];
+```
+
+Kein `row{i}_oid`- oder `row_${i}_oid`-Muster möglich – immer `<feldname><index>`.
+
+---
+
+## 28. Freitextfelder mit oids werden NICHT automatisch subscribed
+
+**Problem:** Nur Felder vom `type: 'id'` werden von der Basisklasse (`window.visRxWidget`) automatisch
+abonniert und landen in `this.state.values`. Ein Freitextfeld (`type: 'text'`), das kommagetrennt
+mehrere oids enthält (z.B. `oidsExtra` für UND/ODER-Verknüpfung), wird von vis2 **ignoriert** – die
+referenzierten Werte bleiben `undefined`, ohne Fehlermeldung.
+
+**Fix:** Eigene Subscription über `this.props.context.socket.subscribeState()`/`unsubscribeState()`,
+mit Diff-Abgleich (nur tatsächlich neue/entfallene oids an-/abmelden) statt bei jedem Update alles neu
+zu subscriben:
+
+```javascript
+constructor(props) {
+    super(props);
+    this.state = { ...this.state, extraValues: {} };
+    this._extraSubscribed = [];
+    this._onExtraStateChange = this._onExtraStateChange.bind(this);
+}
+
+_onExtraStateChange(id, state) {
+    this.setState({ extraValues: { ...this.state.extraValues, [id]: state ? state.val : null } });
+}
+
+_syncExtraSubscriptions() {
+    const wanted = this._getExtraOids();   // aus allen Freitextfeldern eingesammelt
+    const toRemove = this._extraSubscribed.filter(o => !wanted.includes(o));
+    const toAdd = wanted.filter(o => !this._extraSubscribed.includes(o));
+    if (toRemove.length) this.props.context.socket.unsubscribeState(toRemove, this._onExtraStateChange);
+    if (toAdd.length) this.props.context.socket.subscribeState(toAdd, this._onExtraStateChange);
+    this._extraSubscribed = wanted;
+}
+
+componentDidMount() { super.componentDidMount(); this._syncExtraSubscriptions(); }
+componentWillUnmount() {
+    if (this._extraSubscribed.length) {
+        this.props.context.socket.unsubscribeState(this._extraSubscribed, this._onExtraStateChange);
+    }
+    super.componentWillUnmount();
+}
+propertiesUpdate() { this._syncExtraSubscriptions(); }   // bei jeder Config-Änderung neu abgleichen
+```
+
+**Wichtig:** Sauberes Unsubscribe in `componentWillUnmount()` nicht vergessen – sonst Memory-Leak /
+Zombie-Listener beim Verlassen der View.
+
+---
+
+## 29. View-Wechsel per Klick: `context.changeView()`
+
+**Richtig (offizielles vis2-Muster, auch in eingebauten Widgets wie Navigations-Menu/Swipe-Widget
+verwendet):**
+
+```javascript
+this.props.context.changeView(targetView /*, subView? */);
+```
+
+Kein manuelles Ändern von URL-Hash/Location nötig – das ist die reguläre, von vis2 selbst genutzte API
+für Klick-basierte View-Wechsel.
+
+---
+
+## 30. Reale Größe/Settings einer beliebigen View zur Laufzeit
+
+`this.props.context.views` enthält bereits **das komplette Projekt inkl. aller Views** (nicht nur die
+aktive) – kein zusätzlicher Request nötig, um z.B. die konfigurierte Größe einer Ziel-View zu kennen:
+
+```javascript
+const targetSettings = this.props.context.views?.[targetView]?.settings;
+const viewSizeX = parseInt(targetSettings?.sizex, 10);
+const viewSizeY = parseInt(targetSettings?.sizey, 10);
+const hasFixedViewSize = !!targetSettings?.limitScreen
+    && !Number.isNaN(viewSizeX) && viewSizeX > 0
+    && !Number.isNaN(viewSizeY) && viewSizeY > 0;
+```
+
+Gleiches Zugriffsmuster wie im offiziellen vis2-Navigations-Menu-Widget. Nützlich z.B. um ein
+Popup-iframe exakt auf die tatsächlich konfigurierte View-Größe zu bringen statt es zu strecken.
+
+---
+
+## 31. Leere Flex-Zeilen kollabieren auf 0px ohne explizites `minHeight`
+
+**Fehler:** Eine Zeile mit `display:flex, flexDirection:row, alignItems:'baseline'`, deren Kind-Elemente
+(Label/Wert) beide leeren Textinhalt haben (z.B. Platzhalterzeile ohne zugewiesenen Datenpunkt), hat
+**keinen Inhalt und damit keine Baseline-Referenz** – der Browser rendert die Zeile mit `height: 0px`,
+obwohl sie im DOM vorhanden ist (`display: flex`, `visibility: visible`). Optisch sieht das aus, als würde
+die Zeile komplett fehlen bzw. als würden mehrere Zeilen ohne Abstand zusammenrücken.
+
+**Verifikation:** Nicht per Code-Review erkennbar – erst durch tatsächliches Rendern (z.B. Playwright
+gegen die echte `_renderRows()`-Ausgabe) sichtbar: befüllte Zeile `height: 16px`, leere Zeile `height: 0px`.
+
+**Fix:** Festes `minHeight` auf den Zeilen-Container setzen, von `rowFontSize` abgeleitet:
+```javascript
+style={{
+    display: 'flex', flexDirection: 'row', alignItems: 'baseline',
+    minHeight: `${Math.round(rowFontSize * 1.3)}px`,   // ← verhindert 0px-Kollaps bei leerem Inhalt
+}}
+```
+
+---
+
+## 32. npm Trusted Publisher (OIDC) + `id-token: write` → sonst IMMER 404 bei `npm publish`
+
+**Fehler-Annahme:** `id-token: write` + `--provenance` + gültiger `NODE_AUTH_TOKEN` reicht für
+`npm publish` in GitHub Actions.
+
+**Tatsächliches Verhalten:** Sobald `id-token: write` gesetzt ist (Pflicht für `--provenance`), versucht
+npm **automatisch** einen OIDC-"Trusted Publishing"-Login-Exchange – unabhängig davon, ob man das will.
+Ist kein Trusted Publisher für das Paket konfiguriert, schlägt dieser Exchange fehl, und der Rückfall auf
+den regulären `NODE_AUTH_TOKEN` funktioniert **nicht zuverlässig** – Ergebnis ist ein irreführendes
+```
+npm error code E404
+npm error 404 Not Found - PUT https://registry.npmjs.org/<paket> - Not found
+```
+obwohl das Paket existiert und der Token gültig ist. **Nicht npm-CLI-versionsabhängig** – in der Praxis
+verifiziert: sowohl npm 11.13.0 als auch 11.19.0 betroffen, ein Versions-Pin behebt es nicht.
+
+**Fix (Pflicht, sobald `id-token: write` im Workflow gesetzt ist):**
+npmjs.com → Paket → **Settings** → **Trusted Publisher** → GitHub Actions hinzufügen:
+- Organization/User + Repository exakt wie auf GitHub
+- Workflow-Dateiname exakt (`test-and-release.yml`)
+- Environment leer lassen, falls der Job kein `environment:` setzt
+- **"Allow npm publish" muss explizit angehakt werden**
+
+Betrifft jedes Repo mit demselben Workflow-Aufbau (Provenance + `id-token: write`) – vorsorglich für alle
+prüfen, nicht erst wenn der nächste Release-Tag scheitert.
