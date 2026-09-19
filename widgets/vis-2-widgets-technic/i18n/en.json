@@ -79,5 +79,10 @@
   "popup_offset_y": "Popup Offset Y (empty = centered)",
   "close_on_outside_click": "Close on Outside Click",
   "show_close_button": "Show Close Button",
-  "auto_close_seconds": "Auto-Close (seconds, 0 = disabled)"
+  "auto_close_seconds": "Auto-Close (seconds, 0 = disabled)",
+  "popup_use_offset": "Use Fixed Position (instead of centered)",
+  "popup_background_color": "Popup Background Color",
+  "popup_border_color": "Popup Border Color",
+  "popup_border_width": "Popup Border Width",
+  "popup_border_radius": "Popup Border Radius"
 }
