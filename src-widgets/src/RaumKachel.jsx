@@ -53,6 +53,7 @@ class RaumKachel extends window.visRxWidget {
                     label: 'rows_group',
                     fields: [
                         { name: 'rowCount', label: 'row_count', type: 'number', min: 0, max: 10, default: 0 },
+                        { name: 'rowFontSize', label: 'row_font_size', type: 'number', default: 13 },
                     ],
                 },
                 {
@@ -61,6 +62,7 @@ class RaumKachel extends window.visRxWidget {
                     indexFrom: 1,
                     indexTo: 'rowCount',
                     fields: [
+                        { name: 'rowLabel', label: 'row_label', type: 'text', default: '' },
                         { name: 'oid', label: 'row_oid', type: 'id' },
                         {
                             name: 'valueType', label: 'row_value_type', type: 'select',
@@ -98,6 +100,19 @@ class RaumKachel extends window.visRxWidget {
                             name: 'falseColor', label: 'row_false_color', type: 'color', default: '#c8e6e3',
                             hidden: (data, index) => data[`valueType${index}`] !== 'bool',
                         },
+                        {
+                            name: 'oidsExtra', label: 'row_oids_extra', type: 'text', default: '',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'bool',
+                        },
+                        {
+                            name: 'logic', label: 'row_logic', type: 'select',
+                            options: [
+                                { value: 'and', label: 'logic_and' },
+                                { value: 'or',  label: 'logic_or' },
+                            ],
+                            default: 'and',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'bool' || !data[`oidsExtra${index}`],
+                        },
                     ],
                 },
             ],
@@ -127,19 +142,29 @@ class RaumKachel extends window.visRxWidget {
         return `${num.toFixed(decimals)}${unit ? ` ${unit}` : ''}`;
     }
 
-    _renderRows(rowCount) {
+    // Mehrere oids (oid + oidsExtra, kommagetrennt) einzeln auswerten und über
+    // logic (and/or) zu einem Bool-Ergebnis verknuepfen.
+    _isTrueCombined(oid, oidsExtra, logic) {
+        const oids = [oid, ...String(oidsExtra || '').split(',').map(s => s.trim()).filter(Boolean)];
+        const results = oids.map(o => this._isTrue(this.state.values[`${o}.val`]));
+        return logic === 'or' ? results.some(Boolean) : results.every(Boolean);
+    }
+
+    _renderRows(rowCount, rowFontSize) {
         const rows = [];
         for (let i = 1; i <= rowCount; i++) {
             const oid = this.state.rxData[`oid${i}`];
             if (!oid) continue;
 
+            const rowLabel = this.state.rxData[`rowLabel${i}`] || '';
             const valueType = this.state.rxData[`valueType${i}`] || 'number';
-            const val = this.state.values[`${oid}.val`];
 
             let text;
             let color;
             if (valueType === 'bool') {
-                const isTrue = this._isTrue(val);
+                const oidsExtra = this.state.rxData[`oidsExtra${i}`];
+                const logic = this.state.rxData[`logic${i}`] || 'and';
+                const isTrue = this._isTrueCombined(oid, oidsExtra, logic);
                 text = isTrue
                     ? (this.state.rxData[`trueText${i}`] || '')
                     : (this.state.rxData[`falseText${i}`] || '');
@@ -147,6 +172,7 @@ class RaumKachel extends window.visRxWidget {
                     ? (this.state.rxData[`trueColor${i}`] || '#c8e6e3')
                     : (this.state.rxData[`falseColor${i}`] || '#c8e6e3');
             } else {
+                const val = this.state.values[`${oid}.val`];
                 const decimalsRaw = parseInt(this.state.rxData[`decimals${i}`], 10);
                 const decimals = Number.isNaN(decimalsRaw) ? 1 : decimalsRaw;
                 const unit = this.state.rxData[`unit${i}`] || '';
@@ -158,16 +184,29 @@ class RaumKachel extends window.visRxWidget {
                 <div
                     key={i}
                     style={{
-                        color,
-                        fontSize: 12,
-                        textAlign: 'center',
-                        width: '100%',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                        display: 'flex', flexDirection: 'row',
+                        justifyContent: 'space-between', alignItems: 'baseline',
+                        gap: 4, width: '100%', fontSize: `${rowFontSize}px`,
                     }}
                 >
-                    {text}
+                    <div
+                        style={{
+                            color: '#c8e6e3',
+                            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                            minWidth: 0, flex: '1 1 auto', textAlign: 'left',
+                        }}
+                    >
+                        {rowLabel}
+                    </div>
+                    <div
+                        style={{
+                            color,
+                            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                            flex: '0 0 auto', maxWidth: '60%', textAlign: 'right',
+                        }}
+                    >
+                        {text}
+                    </div>
                 </div>,
             );
         }
@@ -187,7 +226,9 @@ class RaumKachel extends window.visRxWidget {
         } = this.state.rxData;
 
         const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
-        const rowEls = rowCount > 0 ? this._renderRows(rowCount) : null;
+        const rowFontSizeRaw = parseInt(this.state.rxData.rowFontSize, 10);
+        const rowFontSize = Number.isNaN(rowFontSizeRaw) ? 13 : rowFontSizeRaw;
+        const rowEls = rowCount > 0 ? this._renderRows(rowCount, rowFontSize) : null;
 
         const justifyContent = { left: 'flex-start', center: 'center', right: 'flex-end' }[nameAlign] || 'flex-start';
         const alignItems = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[nameVerticalAlign] || 'flex-start';
