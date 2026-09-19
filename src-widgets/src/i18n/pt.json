@@ -66,5 +66,6 @@
   "padding_top": "Espaçamento superior",
   "padding_right": "Espaçamento direito",
   "padding_bottom": "Espaçamento inferior",
-  "padding_left": "Espaçamento esquerdo"
+  "padding_left": "Espaçamento esquerdo",
+  "row_label_color": "Cor do rótulo da linha"
 }

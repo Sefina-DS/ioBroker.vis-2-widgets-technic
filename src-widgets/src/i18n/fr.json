@@ -66,5 +66,6 @@
   "padding_top": "Marge intérieure haut",
   "padding_right": "Marge intérieure droite",
   "padding_bottom": "Marge intérieure bas",
-  "padding_left": "Marge intérieure gauche"
+  "padding_left": "Marge intérieure gauche",
+  "row_label_color": "Couleur de l'étiquette de ligne"
 }

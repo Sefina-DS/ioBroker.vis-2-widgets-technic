@@ -66,5 +66,6 @@
   "padding_top": "Padding Top",
   "padding_right": "Padding Right",
   "padding_bottom": "Padding Bottom",
-  "padding_left": "Padding Left"
+  "padding_left": "Padding Left",
+  "row_label_color": "Row Label Color"
 }

@@ -66,5 +66,6 @@
   "padding_top": "Relleno superior",
   "padding_right": "Relleno derecho",
   "padding_bottom": "Relleno inferior",
-  "padding_left": "Relleno izquierdo"
+  "padding_left": "Relleno izquierdo",
+  "row_label_color": "Color de etiqueta de fila"
 }

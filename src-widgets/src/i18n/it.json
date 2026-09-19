@@ -66,5 +66,6 @@
   "padding_top": "Spaziatura interna superiore",
   "padding_right": "Spaziatura interna destra",
   "padding_bottom": "Spaziatura interna inferiore",
-  "padding_left": "Spaziatura interna sinistra"
+  "padding_left": "Spaziatura interna sinistra",
+  "row_label_color": "Colore etichetta riga"
 }
