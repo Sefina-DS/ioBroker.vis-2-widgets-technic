@@ -38,6 +38,10 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.21 (2026-09-19)
+- feat: rename RaumKachel widget label to "Room - Overlay", add widget preview image
+- fix: empty placeholder rows (rows without an assigned data point) no longer collapse to 0px height
+
 ### 0.1.20 (2026-06-28)
 - fix: complete translations for all news entries
 
