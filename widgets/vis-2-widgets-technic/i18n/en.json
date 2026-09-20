@@ -141,5 +141,6 @@
   "influx_instance": "InfluxDB instance",
   "range_24h": "24h",
   "range_7d": "7 days",
-  "history_error": "History could not be loaded"
+  "history_error": "History could not be loaded",
+  "history_loading": "Loading…"
 }

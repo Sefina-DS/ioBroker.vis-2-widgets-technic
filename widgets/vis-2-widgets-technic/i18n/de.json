@@ -141,5 +141,6 @@
   "influx_instance": "InfluxDB-Instanz",
   "range_24h": "24h",
   "range_7d": "7 Tage",
-  "history_error": "Verlauf konnte nicht geladen werden"
+  "history_error": "Verlauf konnte nicht geladen werden",
+  "history_loading": "Lädt…"
 }
