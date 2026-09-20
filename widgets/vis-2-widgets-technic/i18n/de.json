@@ -145,6 +145,7 @@
   "history_loading": "Lädt…",
   "history_line_color": "Verlaufslinie Farbe",
   "history_line_color_ist": "Verlaufslinie Farbe (Ist)",
+  "history_line_color_aktor": "Verlauf Aktor-Farbe",
   "legend_soll": "Soll-Temperatur",
   "legend_aktor": "Aktor aktiv",
   "legend_ist": "Ist-Temperatur"
