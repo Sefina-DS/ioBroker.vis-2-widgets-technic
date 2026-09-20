@@ -179,7 +179,8 @@
                     "SchalterBoolean",
                     "ReglerLicht",
                     "RaumKachel",
-                    "ClockDate"
+                    "ClockDate",
+                    "HeatingCircuit"
                 ]
             }
         }
