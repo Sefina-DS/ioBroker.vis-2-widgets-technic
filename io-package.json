@@ -204,8 +204,7 @@
                     "FensterWand",
                     "SchalterBoolean",
                     "ReglerLicht",
-                    "RaumKachel",
-                    "UhrDatum"
+                    "RaumKachel"
                 ]
             }
         }
