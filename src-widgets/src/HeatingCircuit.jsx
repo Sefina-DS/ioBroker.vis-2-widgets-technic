@@ -211,7 +211,11 @@ class HeatingCircuit extends window.visRxWidget {
         return null;
     }
 
-    // ── Schreiben ─────────────────────────────────────
+    // ── Lokales Live-Feedback (Anzeige + Kugel) ────────
+    // Schreibt NUR den lokalen Drag-State, damit Text/Kugel während des
+    // Ziehens sofort folgen. Der eigentliche OID-Write passiert erst in
+    // _onPointerUp() – vorher wurde hier bei jedem Move bereits geschrieben,
+    // was der Vorgabe "erst bei mouseup/touchend" widersprach.
     _setTempSoll(value) {
         if (this.props.editMode) return;
         const { min, max, step } = this._getRange();
@@ -219,8 +223,6 @@ class HeatingCircuit extends window.visRxWidget {
         v = Math.max(min, Math.min(max, v));
         v = Math.round(v * 100) / 100;
         this.setState({ dragTemp: v });
-        const oid = this.state.rxData.oid_temp_soll;
-        if (oid) this.props.context.setValue(oid, v);
     }
 
     // ── Layout-Größe (voll dynamisch aus rxStyle) ─────
@@ -307,6 +309,10 @@ class HeatingCircuit extends window.visRxWidget {
     }
 
     _onPointerUp() {
+        if (this._dragging && !this.props.editMode && this.state.dragTemp !== null) {
+            const oid = this.state.rxData.oid_temp_soll;
+            if (oid) this.props.context.setValue(oid, this.state.dragTemp);
+        }
         this._dragging = false;
         this.setState({ dragTemp: null });
     }
