@@ -769,7 +769,7 @@ Ab dem Widget "ClockDate" gilt für alle NEUEN Widgets:
 
 - **Datei-/Klassenname:** Englisch, kurz und beschreibend, z.B. `ClockDate`. Bestehende deutsche Namen (`FensterWand`, `SchalterBoolean`, `RaumKachel` usw.) bleiben unverändert — nur neue Widgets folgen der neuen Konvention.
 - **Widget-ID** (`id` in `getWidgetInfo()`): `tplTechnic<Klassenname>`, z.B. `tplTechnicClockDate`.
-- **Anzeigename im Editor** (`visName`): kurz, englisch, z.B. `'Clock & Date'`.
+- **Anzeigename im Editor** (`visName`): Format ist immer `"<Kategorie> - <Typ>"` (Bindestrich mit Leerzeichen davor/danach), passend zu den bestehenden Widgets: `Window - Wall`, `Switch - Boolean`, `Dimmer - Light`, `Room - Overlay`, `Clock - Date`. Kein `&`, kein reiner Freitext.
 - **Alle `label`-Werte in `visAttrs`** sind Übersetzungs-Keys (keine literalen deutschen Texte) — die Übersetzung liegt in `src-widgets/src/i18n/<lang>.json`, für jede unterstützte Sprache (aktuell: en, de, ru, pt, nl, fr, it, es, pl, uk, zh-cn).
 - Generische Keys (`align`, `color`, `padding`, `bold`, `fontSize`, `borderRadius`, `gap`, `colorBg`, `align_left`/`align_center`/`align_right` usw.) werden zwischen Widgets wiederverwendet statt dupliziert — vor dem Anlegen neuer Keys immer erst `src-widgets/src/i18n/de.json` (oder `en.json`) nach dem gewünschten Begriff durchsuchen.
 - Ein Widget gilt erst als fertig, wenn Code UND Übersetzungs-Keys für alle Sprachen vorhanden sind.
@@ -780,3 +780,16 @@ Ab dem Widget "ClockDate" gilt für alle NEUEN Widgets:
 nicht zuverlässig. Ein Rückbau zu `true` (z.B. weil eine Anleitung das pauschal verlangt) riskiert stillschweigend
 die Übersetzungen für **alle** Widgets der Sammlung, nicht nur das neue. Bei widersprüchlichen Anweisungen: nachfragen
 statt den dokumentierten Fix rückgängig zu machen.
+
+---
+
+## 34. Versionsdisziplin während lokaler Entwicklung — NICHT pro Zwischenschritt bumpen
+
+Solange ein Widget noch aktiv iteriert wird und alles lokal bleibt (kein Push/Tag/Release):
+
+- **NICHT** bei jedem Zwischenschritt/Commit die Version in package.json/io-package.json erhöhen. Versionssprünge ohne zugehörigen README-Changelog-Eintrag sind gefährlich, falls versehentlich doch released wird.
+- Version wird **genau einmal** erhöht — erst wenn das Widget als fertig gilt (Sign-off durch David).
+- Bei diesem einen Bump IMMER gleichzeitig:
+  1. Ein neuer Eintrag im io-package.json `"news"`-Block (wie bisher, manuell, kein sed — siehe Punkt 24)
+  2. Ein passender Eintrag im `## Changelog`-Abschnitt von README.md (siehe DEV-README.md Pflichtstruktur) — beide müssen synchron sein, niemals nur einer von beiden.
+- Zwischenstände während der Entwicklung laufen ohne Versionsbump über `./deploy.sh` (Version bleibt stehen, nur Code/Assets werden aktualisiert und lokal getestet).
