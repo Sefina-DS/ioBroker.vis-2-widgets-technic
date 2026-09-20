@@ -164,7 +164,7 @@ class ReglerTemperatur extends window.visRxWidget {
                     name: 'common',
                     label: 'general',
                     fields: [
-                        { name: 'ueberschrift', label: 'heading', type: 'text', default: 'Heating' },
+                        { name: 'ueberschrift', label: 'heading', type: 'text', default: 'Temperatur' },
                         { name: 'showName', label: 'show_heading', type: 'checkbox', default: true },
                         {
                             name: 'namePosition', label: 'heading_position', type: 'select',
@@ -394,7 +394,7 @@ class ReglerTemperatur extends window.visRxWidget {
         super.renderWidgetBody(props);
 
         const {
-            ueberschrift  = 'Heating',
+            ueberschrift  = 'Temperatur',
             showName      = true,
             namePosition  = 'bottom',
             colorAN       = '#2ecfbf',
