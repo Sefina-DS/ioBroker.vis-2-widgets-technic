@@ -597,26 +597,23 @@ class ReglerTemperatur extends window.visRxWidget {
         this._fetchHistoryData(range);
     }
 
-    // Promise-Wrapper um die callback-basierte Socket-API. Eigener Timeout, weil
-    // eine nicht erreichbare/nicht existierende influxInstance den Callback im
-    // Zweifel nie aufruft - ohne das würde der Ladezustand endlos hängen bleiben
-    // statt die geforderte Fehlermeldung zu zeigen.
+    // this.props.context.socket ist eine @iobroker/socket-client Connection
+    // (LegacyConnection) - deren getHistory(id, options) ist bereits Promise-
+    // basiert (KEIN Callback-Parameter, s. Connection.d.ts: "getHistory(id: string,
+    // options: GetHistoryOptions): Promise<GetHistoryResult>"). Ein früherer Versuch
+    // hier rief sie fälschlich mit einem dritten Callback-Argument auf - das wurde
+    // von der Implementierung stillschweigend ignoriert, die zurückgegebene Promise
+    // nie ausgewertet, wodurch JEDE Historien-Abfrage immer erst nach dem eigenen
+    // 15s-Timeout mit history_error endete, obwohl die Daten in InfluxDB korrekt
+    // vorlagen. Fix: Promise direkt verwenden. Der 15s-Timeout bleibt sinnvoll,
+    // da die Bibliothek für getHistory selbst explizit commandTimeout:false setzt,
+    // also keinen eigenen Timeout mitbringt.
     _getHistory(oid, options) {
-        return new Promise((resolve, reject) => {
-            let settled = false;
-            const timer = setTimeout(() => {
-                if (settled) return;
-                settled = true;
-                reject(new Error('history request timeout'));
-            }, 15000);
-            this.props.context.socket.getHistory(oid, options, (err, result) => {
-                if (settled) return;
-                settled = true;
-                clearTimeout(timer);
-                if (err) reject(err instanceof Error ? err : new Error(String(err)));
-                else resolve(result || []);
-            });
+        const request = this.props.context.socket.getHistory(oid, options);
+        const timeout = new Promise((_resolve, reject) => {
+            setTimeout(() => reject(new Error('history request timeout')), 15000);
         });
+        return Promise.race([request, timeout]).then(result => result || []);
     }
 
     // onchange-Rohpunkte (nur echte Änderungszeitpunkte) → durchgehende Linie:
