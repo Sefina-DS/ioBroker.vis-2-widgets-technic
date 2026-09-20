@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { I18n } from '@iobroker/adapter-react-v5';
 import translations from './translations.js';
 
@@ -142,6 +143,18 @@ function buildDialSVG(sz, tempSoll, tempIst, humidity, motor, min, max, colorAN,
     `;
 }
 
+function rangeButtonStyle(active, color) {
+    return {
+        padding: '3px 10px',
+        fontSize: 12,
+        borderRadius: 4,
+        cursor: 'pointer',
+        border: `1px solid ${color}`,
+        background: active ? color : 'transparent',
+        color: active ? '#0d1820' : color,
+    };
+}
+
 // ═══════════════════════════════════════════════════════
 //  WIDGET KLASSE
 // ═══════════════════════════════════════════════════════
@@ -206,6 +219,13 @@ class ReglerTemperatur extends window.visRxWidget {
                         { name: 'colorKuehlen', label: 'color_cooling', type: 'color', default: '#4aa8ff' },
                     ],
                 },
+                {
+                    name: 'history',
+                    label: 'history_group',
+                    fields: [
+                        { name: 'influxInstance', label: 'influx_instance', type: 'text', default: 'influxdb.0' },
+                    ],
+                },
             ],
         };
     }
@@ -214,7 +234,7 @@ class ReglerTemperatur extends window.visRxWidget {
 
     constructor(props) {
         super(props);
-        this.state = { ...this.state, dragTemp: null };
+        this.state = { ...this.state, dragTemp: null, historyOpen: false, historyRange: '24h' };
         this._svgRef = React.createRef();
     }
 
@@ -390,6 +410,107 @@ class ReglerTemperatur extends window.visRxWidget {
         this.setState({ dragTemp: null });
     }
 
+    // ── Verlaufs-Overlay: Öffnen/Schließen/Zeitraum ────
+    // S2a: nur Gerüst mit Dummy-Inhalt. S2b ergänzt echten InfluxDB-Abruf
+    // in _setHistoryRange()/_openHistory() an dieser Stelle.
+    _openHistory() {
+        if (this.props.editMode) return;
+        this.setState({ historyOpen: true });
+    }
+
+    _closeHistory() {
+        this.setState({ historyOpen: false });
+    }
+
+    _setHistoryRange(range) {
+        if (range === this.state.historyRange) return;
+        this.setState({ historyRange: range });
+    }
+
+    _renderHistoryButton() {
+        const { influxInstance, colorAN = '#2ecfbf', colorAUS = '#5f8f8a' } = this.state.rxData;
+        if (!influxInstance || !String(influxInstance).trim()) return null;
+
+        return (
+            <div
+                onClick={e => { e.stopPropagation(); this._openHistory(); }}
+                title={I18n.t('history_group')}
+                style={{
+                    position: 'absolute', top: 2, right: 2,
+                    width: 22, height: 22,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    cursor: this.props.editMode ? 'default' : 'pointer',
+                    zIndex: 2,
+                    opacity: 0.75,
+                }}
+            >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <circle cx="10" cy="10" r="7" stroke={colorAUS} strokeWidth="2" />
+                    <line x1="15.5" y1="15.5" x2="21" y2="21" stroke={colorAUS} strokeWidth="2" strokeLinecap="round" />
+                </svg>
+            </div>
+        );
+    }
+
+    // Portal nach document.body: das Widget selbst kann in Editor UND Runtime
+    // durch overflow/Größe des Containers geclippt werden – ein Overlay im
+    // normalen Render-Baum wäre davon betroffen, ein Portal nicht.
+    _renderHistoryOverlay() {
+        if (!this.state.historyOpen || this.props.editMode) return null;
+
+        const { colorAN = '#2ecfbf', colorAUS = '#5f8f8a', ueberschrift } = this.state.rxData;
+        const range = this.state.historyRange || '24h';
+        const title = ueberschrift ? `${ueberschrift} – ${I18n.t('history_group')}` : I18n.t('history_group');
+
+        return createPortal(
+            <div
+                style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'rgba(0,0,0,0.5)', zIndex: 100000,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+                onClick={() => this._closeHistory()}
+            >
+                <div
+                    onClick={e => e.stopPropagation()}
+                    style={{
+                        width: 'min(90vw, 700px)', height: 'min(80vh, 400px)',
+                        background: '#0d1820', border: `1px solid ${colorAN}`,
+                        borderRadius: 8, boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
+                        display: 'flex', flexDirection: 'column', boxSizing: 'border-box',
+                        padding: 12, color: '#c8e6e3', fontFamily: 'sans-serif',
+                    }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                        <div style={{ fontSize: 15, fontWeight: 600 }}>{title}</div>
+                        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                            <button onClick={() => this._setHistoryRange('24h')} style={rangeButtonStyle(range === '24h', colorAN)}>
+                                {I18n.t('range_24h')}
+                            </button>
+                            <button onClick={() => this._setHistoryRange('7d')} style={rangeButtonStyle(range === '7d', colorAN)}>
+                                {I18n.t('range_7d')}
+                            </button>
+                            <button
+                                onClick={() => this._closeHistory()}
+                                style={{
+                                    marginLeft: 8, width: 26, height: 26, borderRadius: '50%', border: 'none',
+                                    background: 'rgba(255,255,255,0.12)', color: '#fff', cursor: 'pointer',
+                                    fontSize: 15, lineHeight: '26px', padding: 0,
+                                }}
+                            >
+                                ×
+                            </button>
+                        </div>
+                    </div>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: colorAUS, fontSize: 13 }}>
+                        Platzhalter – Chart folgt in S2b ({range})
+                    </div>
+                </div>
+            </div>,
+            document.body,
+        );
+    }
+
     renderWidgetBody(props) {
         super.renderWidgetBody(props);
 
@@ -434,6 +555,7 @@ class ReglerTemperatur extends window.visRxWidget {
         return (
             <div
                 style={{
+                    position: 'relative',
                     width: '100%', height: '100%',
                     display: 'flex', flexDirection: 'column',
                     alignItems: 'center', justifyContent: 'center',
@@ -452,6 +574,9 @@ class ReglerTemperatur extends window.visRxWidget {
                 onTouchMove={e   => { e.preventDefault(); this._onPointerMove(e, sz); }}
                 onTouchEnd={()   => this._onPointerUp()}
             >
+                {this._renderHistoryButton()}
+                {this._renderHistoryOverlay()}
+
                 {namePosition === 'top' && nameEl}
 
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>

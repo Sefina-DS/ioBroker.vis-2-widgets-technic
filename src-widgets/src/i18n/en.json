@@ -136,5 +136,10 @@
   "temp_step": "Step",
   "oid_kuehlmodus": "Cooling mode active (bool)",
   "color_cooling": "Color cooling",
-  "oid_feuchtigkeit": "Humidity (%)"
+  "oid_feuchtigkeit": "Humidity (%)",
+  "history_group": "History",
+  "influx_instance": "InfluxDB instance",
+  "range_24h": "24h",
+  "range_7d": "7 days",
+  "history_error": "History could not be loaded"
 }

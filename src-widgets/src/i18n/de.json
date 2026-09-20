@@ -136,5 +136,10 @@
   "temp_step": "Schrittweite",
   "oid_kuehlmodus": "Kühlmodus aktiv (bool)",
   "color_cooling": "Farbe Kühlen",
-  "oid_feuchtigkeit": "Feuchtigkeit (%)"
+  "oid_feuchtigkeit": "Feuchtigkeit (%)",
+  "history_group": "Verlauf",
+  "influx_instance": "InfluxDB-Instanz",
+  "range_24h": "24h",
+  "range_7d": "7 Tage",
+  "history_error": "Verlauf konnte nicht geladen werden"
 }
