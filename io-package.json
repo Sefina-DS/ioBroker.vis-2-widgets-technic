@@ -3,8 +3,21 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.22",
+        "version": "0.1.23",
         "news": {
+            "0.1.23": {
+                "en": "Added new widget 'Thermostat - Temperature': heating/cooling circuit regulator with setpoint dial, actual temperature, humidity, actuator status (flame/snowflake), and an InfluxDB-based history overlay (24h/7 days).",
+                "de": "Neues Widget 'Thermostat - Temperature' hinzugefügt: Heiz-/Kühlkreis-Regler mit Soll-Temperatur-Dial, Ist-Temperatur, Feuchtigkeit, Aktor-Status (Flamme/Schneeflocke) sowie Verlaufs-Overlay auf Basis von InfluxDB (24h/7 Tage).",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
+            },
             "0.1.16": {
                 "en": "Translate all widget names and labels to English, fix window blind open/close logic, add quick-set buttons (0/25/50/75/100%)",
                 "de": "Widget-Namen und Labels auf Englisch übersetzt, Rollo Auf/Zu-Logik korrigiert, Schnellauswahl-Buttons (0/25/50/75/100%) hinzugefügt",
