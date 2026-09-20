@@ -126,5 +126,12 @@
   "date_weekday": "Weekday",
   "date_weekday_off": "Off",
   "date_weekday_short": "Abbreviated",
-  "date_weekday_long": "Full name"
+  "date_weekday_long": "Full name",
+  "oid_temp_soll": "Setpoint temperature",
+  "oid_temp_ist": "Actual temperature",
+  "oid_stellmotor": "Actuator",
+  "dial_group": "Dial",
+  "temp_min": "Min. temperature",
+  "temp_max": "Max. temperature",
+  "temp_step": "Step"
 }
