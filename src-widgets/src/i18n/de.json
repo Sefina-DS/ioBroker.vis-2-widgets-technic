@@ -126,5 +126,12 @@
   "date_weekday": "Wochentag",
   "date_weekday_off": "Aus",
   "date_weekday_short": "Kurz",
-  "date_weekday_long": "Ausgeschrieben"
+  "date_weekday_long": "Ausgeschrieben",
+  "oid_temp_soll": "Soll-Temperatur",
+  "oid_temp_ist": "Ist-Temperatur",
+  "oid_stellmotor": "Stellmotor",
+  "dial_group": "Regler",
+  "temp_min": "Min.-Temperatur",
+  "temp_max": "Max.-Temperatur",
+  "temp_step": "Schrittweite"
 }
