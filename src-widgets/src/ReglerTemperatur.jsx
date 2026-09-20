@@ -59,11 +59,11 @@ function buildSnowIcon(cx, cy, size, color) {
     return `<g>${out}</g>`;
 }
 
-function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS, colorKuehlen, cooling) {
+function buildDialSVG(sz, tempSoll, tempIst, humidity, motor, min, max, colorAN, colorAUS, colorKuehlen, cooling) {
     const cx = sz / 2, cy = sz / 2;
-    const R  = sz * 0.42;
-    const sw = Math.max(3, sz * 0.06);
-    const knobR = Math.max(6, sz * 0.075);
+    const R  = sz * 0.43;
+    const sw = Math.max(3, sz * 0.055);
+    const knobR = Math.max(5, sz * 0.06);
 
     const pct = max > min ? Math.max(0, Math.min(1, (tempSoll - min) / (max - min))) : 0;
     const kDeg = DIAL_START + DIAL_TOTAL * pct;
@@ -75,44 +75,59 @@ function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS,
         ? `<path d="${describeArc(cx, cy, R, DIAL_START, DIAL_START + DIAL_TOTAL * pct)}" fill="none" stroke="${colorAN}" stroke-width="${sw}" stroke-linecap="round"/>`
         : '';
 
-    const sollSize = Math.max(12, sz * 0.16);
-    const subSize  = Math.max(9, sz * 0.075);
-    const sollY = cy + sollSize * 0.12;
-    const subY  = sollY + sollSize * 0.62;
-    const gap   = sz * 0.05;   // deutlich mehr Abstand als vorher (war 0.018) – behebt "zu eng/verschachtelt"
+    // Zentrums-Layout, drei Zeilen übereinander:
+    //   1. Soll-Temperatur (groß, höher gerückt)
+    //   2. Ist-Temperatur [+ Feuchtigkeit] (mittig, Schriftgröße hängt davon ab
+    //      ob beide Werte sich die Zeile teilen)
+    //   3. Aktor-Icon [+ %-Wert] – deutlich unterhalb Zeile 2, nicht mehr auf
+    //      gleicher Höhe wie die Ist-Temperatur
+    const sollSize = Math.max(15, sz * 0.20);
+    const sollY = cy - sollSize * 0.08;
+
+    const hasHumidity = humidity !== null;
+    const subSize = hasHumidity ? Math.max(9, sz * 0.075) : Math.max(12, sz * 0.11);
+    const subY = sollY + sollSize * 0.78;
 
     const sollText = `<text x="${cx}" y="${sollY.toFixed(1)}" text-anchor="middle" font-family="sans-serif" font-size="${sollSize.toFixed(1)}" font-weight="700" fill="${colorAN}">${tempSoll.toFixed(1)}°</text>`;
 
-    const istText = tempIst !== null
-        ? `<text x="${(cx - gap).toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="end" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${tempIst.toFixed(1)}°</text>`
+    let subContent = '';
+    if (tempIst !== null && hasHumidity) {
+        subContent = `${tempIst.toFixed(1)}° · ${humidity}%`;
+    } else if (tempIst !== null) {
+        subContent = `${tempIst.toFixed(1)}°`;
+    } else if (hasHumidity) {
+        subContent = `${humidity}%`;
+    }
+    const subText = subContent
+        ? `<text x="${cx}" y="${subY.toFixed(1)}" text-anchor="middle" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${subContent}</text>`
         : '';
 
-    // Größe/Abstand wie in der vorigen Runde (deutlich größer als der ursprüngliche
-    // Punkt-Indikator, mehr Luft zur Ist-Temperatur) – nur das Symbol wechselt.
-    const iconSize = sz * 0.13;
-    const iconCx = cx + gap + iconSize / 2;
-    const iconCy = subY - iconSize * 0.38;
+    const iconSize = sz * 0.15;
+    const iconY = subY + subSize * 0.95 + iconSize * 0.42;
 
     let motorEl = '';
     if (motor) {
         if (motor.type === 'bool') {
             if (!motor.value) {
-                motorEl = buildOffDot(iconCx, iconCy, iconSize, colorAUS);
+                motorEl = buildOffDot(cx, iconY, iconSize, colorAUS);
             } else if (cooling) {
-                motorEl = buildSnowIcon(iconCx, iconCy, iconSize, colorKuehlen);
+                motorEl = buildSnowIcon(cx, iconY, iconSize, colorKuehlen);
             } else {
-                motorEl = buildFlameIcon(iconCx, iconCy, iconSize, colorAN);
+                motorEl = buildFlameIcon(cx, iconY, iconSize, colorAN);
             }
         } else {
             // 0-100%: passendes Icon davor (Flamme/Schneeflocke), kein Icon bei 0%
             const pctIconSize = iconSize * 0.8;
-            const iconSvg = motor.value > 0
-                ? (cooling
-                    ? buildSnowIcon(iconCx, iconCy, pctIconSize, colorKuehlen)
-                    : buildFlameIcon(iconCx, iconCy, pctIconSize, colorAN))
-                : '';
-            const textX = cx + gap + (motor.value > 0 ? iconSize * 0.9 : 0);
-            motorEl = `${iconSvg}<text x="${textX.toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="start" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${motor.value}%</text>`;
+            const pctTextY = iconY + pctIconSize * 0.12;
+            if (motor.value > 0) {
+                const iconCx = cx - pctIconSize * 0.9;
+                const iconSvg = cooling
+                    ? buildSnowIcon(iconCx, iconY, pctIconSize, colorKuehlen)
+                    : buildFlameIcon(iconCx, iconY, pctIconSize, colorAN);
+                motorEl = `${iconSvg}<text x="${(cx - pctIconSize * 0.15).toFixed(1)}" y="${pctTextY.toFixed(1)}" text-anchor="start" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${motor.value}%</text>`;
+            } else {
+                motorEl = `<text x="${cx.toFixed(1)}" y="${pctTextY.toFixed(1)}" text-anchor="middle" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">0%</text>`;
+            }
         }
     }
 
@@ -122,7 +137,7 @@ function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS,
         ${fillPath}
         <circle cx="${kx.toFixed(2)}" cy="${ky.toFixed(2)}" r="${knobR}" fill="transparent" stroke="${colorAN}" stroke-width="2.4"/>
         ${sollText}
-        ${istText}
+        ${subText}
         ${motorEl}
     `;
 }
@@ -168,6 +183,7 @@ class ReglerTemperatur extends window.visRxWidget {
                     fields: [
                         { name: 'oid_temp_soll', label: 'oid_temp_soll', type: 'id' },
                         { name: 'oid_temp_ist', label: 'oid_temp_ist', type: 'id' },
+                        { name: 'oid_feuchtigkeit', label: 'oid_feuchtigkeit', type: 'id' },
                         { name: 'oid_stellmotor', label: 'oid_stellmotor', type: 'id' },
                         { name: 'oid_kuehlmodus', label: 'oid_kuehlmodus', type: 'id' },
                     ],
@@ -236,6 +252,15 @@ class ReglerTemperatur extends window.visRxWidget {
         if (raw === null || raw === undefined) return null;
         const n = Number(raw);
         return Number.isNaN(n) ? null : n;
+    }
+
+    _getFeuchtigkeit() {
+        const oid = this.state.rxData.oid_feuchtigkeit;
+        if (!oid) return null;
+        const raw = this.state.values[`${oid}.val`];
+        if (raw === null || raw === undefined) return null;
+        const n = Number(raw);
+        return Number.isNaN(n) ? null : Math.max(0, Math.min(100, Math.round(n)));
     }
 
     // Typ-Erkennung zur Laufzeit über typeof – boolean → AN/AUS, number → 0-100%
@@ -380,12 +405,13 @@ class ReglerTemperatur extends window.visRxWidget {
         const { min, max } = this._getRange();
         const tempSoll = this._getTempSoll();
         const tempIst  = this._getTempIst();
+        const humidity = this._getFeuchtigkeit();
         const motor    = this._getStellmotor();
         const cooling  = this._getKuehlmodus();
         const sz       = this._getSz();
         const iconScale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
 
-        const svgContent = buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS, colorKuehlen, cooling);
+        const svgContent = buildDialSVG(sz, tempSoll, tempIst, humidity, motor, min, max, colorAN, colorAUS, colorKuehlen, cooling);
 
         const nameEl = showName && ueberschrift ? (
             <div style={{

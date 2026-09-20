@@ -135,5 +135,6 @@
   "temp_max": "Max. temperature",
   "temp_step": "Step",
   "oid_kuehlmodus": "Cooling mode active (bool)",
-  "color_cooling": "Color cooling"
+  "color_cooling": "Color cooling",
+  "oid_feuchtigkeit": "Humidity (%)"
 }
