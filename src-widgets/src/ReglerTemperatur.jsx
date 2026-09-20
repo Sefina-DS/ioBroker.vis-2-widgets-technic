@@ -157,6 +157,113 @@ function pickIconContrastColor(hex) {
     return luminance > 0.6 ? '#0d1820' : '#ffffff';
 }
 
+// ═══════════════════════════════════════════════════════
+//  VERLAUFS-CHART (S2b) – handgezeichnetes SVG, kein Chart-Framework
+// ═══════════════════════════════════════════════════════
+function historyToBool(v) {
+    return v === true || v === 'true' || v === 1 || v === '1';
+}
+
+// Reduziert clientseitig auf max. `max` Punkte (Fallback falls die Server-Antwort
+// trotz count/step-Vorgabe mehr liefert) – erster/letzter Punkt bleiben erhalten,
+// damit der Linienverlauf an den Fensterrändern nicht abgeschnitten wirkt.
+function capHistoryPoints(points, max) {
+    if (points.length <= max) return points;
+    const result = [];
+    const stepIdx = (points.length - 1) / (max - 1);
+    for (let i = 0; i < max; i++) result.push(points[Math.round(i * stepIdx)]);
+    return result;
+}
+
+// onchange-Punkte (Zeitpunkt + boolean) → An-Zeiträume als [t0,t1]-Paare.
+// Vor dem ersten bekannten Punkt ist der Zustand unbekannt und wird nicht
+// gezeichnet; der letzte bekannte Zustand wird bis `end` verlängert.
+function buildBoolSegments(raw, start, end) {
+    const pts = (raw || [])
+        .filter(p => p && p.val !== null && p.val !== undefined)
+        .map(p => ({ t: p.ts, v: historyToBool(p.val) }))
+        .sort((a, b) => a.t - b.t);
+    const segs = [];
+    for (let i = 0; i < pts.length; i++) {
+        if (!pts[i].v) continue;
+        const t0 = Math.max(pts[i].t, start);
+        const t1 = Math.min(i + 1 < pts.length ? pts[i + 1].t : end, end);
+        if (t1 > t0) segs.push({ t0, t1 });
+    }
+    return segs;
+}
+
+function formatHistoryTick(ts, rangeKey) {
+    const d = new Date(ts);
+    return rangeKey === '7d'
+        ? d.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit' })
+        : d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+}
+
+function buildHistorySVG(vbW, vbH, data, colorAN, colorAUS, colorKuehlen, cooling, rangeKey) {
+    const marginL = 36, marginR = 10, marginT = 10, marginB = 20;
+    const plotW = vbW - marginL - marginR;
+    const plotH = vbH - marginT - marginB;
+    const { soll, motor, start, end } = data;
+
+    let yMin = Math.min(...soll.map(p => p.v));
+    let yMax = Math.max(...soll.map(p => p.v));
+    if (yMin === yMax) { yMin -= 1; yMax += 1; }
+    const pad = (yMax - yMin) * 0.15;
+    yMin -= pad; yMax += pad;
+
+    const xScale = t => marginL + ((t - start) / (end - start || 1)) * plotW;
+    const yScale = v => marginT + (1 - (v - yMin) / (yMax - yMin)) * plotH;
+    const baseline = marginT + plotH;
+
+    // Hintergrund: Stellmotor-Aktivität (falls oid_stellmotor gesetzt)
+    let motorSvg = '';
+    const motorColor = cooling ? colorKuehlen : colorAN;
+    if (motor?.type === 'bool' && motor.points?.length) {
+        motorSvg = buildBoolSegments(motor.points, start, end).map(s => {
+            const x1 = xScale(s.t0), x2 = xScale(s.t1);
+            return `<rect x="${x1.toFixed(1)}" y="${marginT}" width="${Math.max(0.5, x2 - x1).toFixed(1)}" height="${plotH.toFixed(1)}" fill="${motorColor}" opacity="0.18"/>`;
+        }).join('');
+    } else if (motor?.type === 'num' && motor.points?.length) {
+        const pts = motor.points
+            .filter(p => p && p.val !== null && p.val !== undefined)
+            .map(p => ({ t: p.ts, v: Math.max(0, Math.min(100, Number(p.val))) }))
+            .sort((a, b) => a.t - b.t);
+        if (pts.length) {
+            const yMotor = v => marginT + (1 - v / 100) * plotH;
+            let d = `M ${xScale(pts[0].t).toFixed(1)} ${baseline.toFixed(1)} `;
+            d += pts.map(p => `L ${xScale(p.t).toFixed(1)} ${yMotor(p.v).toFixed(1)}`).join(' ');
+            d += ` L ${xScale(pts[pts.length - 1].t).toFixed(1)} ${baseline.toFixed(1)} Z`;
+            motorSvg = `<path d="${d}" fill="${motorColor}" opacity="0.18" stroke="none"/>`;
+        }
+    }
+
+    // Y-Achse: Temperaturskala + horizontale Hilfslinien
+    let yAxisSvg = '';
+    const yTickCount = 4;
+    for (let i = 0; i <= yTickCount; i++) {
+        const v = yMin + (yMax - yMin) * (i / yTickCount);
+        const y = yScale(v);
+        yAxisSvg += `<line x1="${marginL}" y1="${y.toFixed(1)}" x2="${(marginL + plotW).toFixed(1)}" y2="${y.toFixed(1)}" stroke="${colorAUS}" stroke-width="0.5" opacity="0.22"/>`;
+        yAxisSvg += `<text x="${(marginL - 5).toFixed(1)}" y="${(y + 3).toFixed(1)}" text-anchor="end" font-family="sans-serif" font-size="9" fill="${colorAUS}">${v.toFixed(1)}°</text>`;
+    }
+
+    // X-Achse: Zeit – bei 24h alle ~4h ein Label, bei 7 Tage eins pro Tag
+    let xAxisSvg = '';
+    const xTickCount = rangeKey === '7d' ? 7 : 6;
+    for (let i = 0; i <= xTickCount; i++) {
+        const t = start + (end - start) * (i / xTickCount);
+        const x = xScale(t);
+        xAxisSvg += `<text x="${x.toFixed(1)}" y="${(baseline + 13).toFixed(1)}" text-anchor="middle" font-family="sans-serif" font-size="9" fill="${colorAUS}">${formatHistoryTick(t, rangeKey)}</text>`;
+    }
+
+    // Soll-Temperatur-Linie
+    const linePath = soll.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.t).toFixed(1)} ${yScale(p.v).toFixed(1)}`).join(' ');
+    const lineSvg = `<path d="${linePath}" fill="none" stroke="${colorAN}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+    return `${yAxisSvg}${motorSvg}${lineSvg}${xAxisSvg}`;
+}
+
 function rangeButtonStyle(active, color) {
     return {
         padding: '3px 10px',
@@ -248,9 +355,23 @@ class ReglerTemperatur extends window.visRxWidget {
 
     constructor(props) {
         super(props);
-        this.state = { ...this.state, dragTemp: null, historyOpen: false, historyRange: '24h' };
+        this.state = {
+            ...this.state,
+            dragTemp: null,
+            historyOpen: false,
+            historyRange: '24h',
+            historyData: null,
+            historyLoading: false,
+            historyError: null,
+        };
         this._svgRef = React.createRef();
         this._rootRef = React.createRef();
+        this._mounted = false;
+        // Wird bei jedem neuen Abruf hochgezählt – ein noch laufender älterer
+        // Abruf (z.B. durch schnellen Zeitraum-Wechsel oder Schließen+Neuöffnen
+        // überholt) erkennt daran, dass sein Ergebnis veraltet ist, und darf dann
+        // keinen State mehr setzen.
+        this._historyFetchToken = 0;
 
         // Fensterweite Resize/Scroll-Events ändern nicht rxStyle und lösen daher
         // keinen normalen Re-Render aus - der per Portal aus dem geclippten
@@ -271,6 +392,7 @@ class ReglerTemperatur extends window.visRxWidget {
 
     componentDidMount() {
         super.componentDidMount();
+        this._mounted = true;
         window.addEventListener('resize', this._onWindowReflow);
         window.addEventListener('scroll', this._onWindowReflow, true);
         // Beim ersten Mount ist this._rootRef.current erst nach dem Commit gesetzt -
@@ -280,6 +402,7 @@ class ReglerTemperatur extends window.visRxWidget {
     }
 
     componentWillUnmount() {
+        this._mounted = false;
         window.removeEventListener('resize', this._onWindowReflow);
         window.removeEventListener('scroll', this._onWindowReflow, true);
         super.componentWillUnmount();
@@ -458,11 +581,10 @@ class ReglerTemperatur extends window.visRxWidget {
     }
 
     // ── Verlaufs-Overlay: Öffnen/Schließen/Zeitraum ────
-    // S2a: nur Gerüst mit Dummy-Inhalt. S2b ergänzt echten InfluxDB-Abruf
-    // in _setHistoryRange()/_openHistory() an dieser Stelle.
     _openHistory() {
         if (this.props.editMode) return;
         this.setState({ historyOpen: true });
+        this._fetchHistoryData(this.state.historyRange);
     }
 
     _closeHistory() {
@@ -472,6 +594,99 @@ class ReglerTemperatur extends window.visRxWidget {
     _setHistoryRange(range) {
         if (range === this.state.historyRange) return;
         this.setState({ historyRange: range });
+        this._fetchHistoryData(range);
+    }
+
+    // Promise-Wrapper um die callback-basierte Socket-API. Eigener Timeout, weil
+    // eine nicht erreichbare/nicht existierende influxInstance den Callback im
+    // Zweifel nie aufruft - ohne das würde der Ladezustand endlos hängen bleiben
+    // statt die geforderte Fehlermeldung zu zeigen.
+    _getHistory(oid, options) {
+        return new Promise((resolve, reject) => {
+            let settled = false;
+            const timer = setTimeout(() => {
+                if (settled) return;
+                settled = true;
+                reject(new Error('history request timeout'));
+            }, 15000);
+            this.props.context.socket.getHistory(oid, options, (err, result) => {
+                if (settled) return;
+                settled = true;
+                clearTimeout(timer);
+                if (err) reject(err instanceof Error ? err : new Error(String(err)));
+                else resolve(result || []);
+            });
+        });
+    }
+
+    // onchange-Rohpunkte (nur echte Änderungszeitpunkte) → durchgehende Linie:
+    // erster/letzter Punkt wird bis an den Fensterrand (start/end) verlängert,
+    // sonst würde die Linie mitten im Chart beginnen/enden.
+    _normalizeSollPoints(raw, start, end) {
+        const pts = (raw || [])
+            .filter(p => p && p.val !== null && p.val !== undefined && !Number.isNaN(Number(p.val)))
+            .map(p => ({ t: p.ts, v: Number(p.val) }))
+            .sort((a, b) => a.t - b.t);
+        if (!pts.length) return [];
+        if (pts[0].t > start) pts.unshift({ t: start, v: pts[0].v });
+        if (pts[pts.length - 1].t < end) pts.push({ t: end, v: pts[pts.length - 1].v });
+        return capHistoryPoints(pts, 200);
+    }
+
+    _fetchHistoryData(range) {
+        const { influxInstance, oid_temp_soll, oid_stellmotor } = this.state.rxData;
+        if (!influxInstance || !oid_temp_soll) {
+            this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
+            return;
+        }
+
+        const token = ++this._historyFetchToken;
+        this.setState({ historyLoading: true, historyError: null });
+
+        const end = Date.now();
+        const start = end - (range === '7d' ? 7 * 24 * 3600 * 1000 : 24 * 3600 * 1000);
+
+        const sollPromise = this._getHistory(oid_temp_soll, {
+            instance: influxInstance, start, end, aggregate: 'onchange', count: 200,
+        });
+
+        // Typ des Stellmotor-Datenpunkts ist erst durch echte Daten sicher bekannt,
+        // aber der aktuelle Live-Wert (typeof-Erkennung wie in _getStellmotor()) ist
+        // ein zuverlässiger Hinweis, welches Aggregat sinnvoll ist - boolean →
+        // onchange (An/Aus-Zeitpunkte exakt), 0-100% → Zeitraster-Average.
+        let motorPromise = Promise.resolve(null);
+        if (oid_stellmotor) {
+            const liveMotor = this._getStellmotor();
+            if (liveMotor?.type === 'num') {
+                const step = range === '7d' ? 60 * 60 * 1000 : 10 * 60 * 1000;
+                motorPromise = this._getHistory(oid_stellmotor, {
+                    instance: influxInstance, start, end, aggregate: 'average', step,
+                }).then(points => ({ type: 'num', points }));
+            } else {
+                motorPromise = this._getHistory(oid_stellmotor, {
+                    instance: influxInstance, start, end, aggregate: 'onchange', count: 200,
+                }).then(points => ({ type: 'bool', points: capHistoryPoints(points, 200) }));
+            }
+        }
+
+        Promise.all([sollPromise, motorPromise])
+            .then(([sollRaw, motor]) => {
+                if (!this._mounted || token !== this._historyFetchToken) return;
+                const soll = this._normalizeSollPoints(sollRaw, start, end);
+                if (!soll.length) {
+                    this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
+                    return;
+                }
+                this.setState({
+                    historyLoading: false,
+                    historyError: null,
+                    historyData: { soll, motor, start, end },
+                });
+            })
+            .catch(() => {
+                if (!this._mounted || token !== this._historyFetchToken) return;
+                this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
+            });
     }
 
     // Frei konfigurierbarer Widget-Rahmen (Breite/Farbe/Radius aus rxStyle) sitzt
@@ -532,7 +747,8 @@ class ReglerTemperatur extends window.visRxWidget {
     _renderHistoryOverlay() {
         if (!this.state.historyOpen || this.props.editMode) return null;
 
-        const { colorAN = '#2ecfbf', colorAUS = '#5f8f8a', ueberschrift } = this.state.rxData;
+        const { colorAN = '#2ecfbf', colorAUS = '#5f8f8a', colorKuehlen = '#4aa8ff', ueberschrift } = this.state.rxData;
+        const cooling = this._getKuehlmodus();
         const range = this.state.historyRange || '24h';
         const title = ueberschrift ? `${ueberschrift} – ${I18n.t('history_group')}` : I18n.t('history_group');
 
@@ -576,12 +792,50 @@ class ReglerTemperatur extends window.visRxWidget {
                             </button>
                         </div>
                     </div>
-                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: colorAUS, fontSize: 13 }}>
-                        Platzhalter – Chart folgt in S2b ({range})
-                    </div>
+                    {this._renderHistoryBody(colorAN, colorAUS, colorKuehlen, cooling)}
                 </div>
             </div>,
             document.body,
+        );
+    }
+
+    // Chart-Bereich innerhalb des Overlays: Ladehinweis / Fehlermeldung / SVG-Chart.
+    // Beim Zeitraum-Wechsel bleibt ein bereits vorhandener Chart sichtbar (kein
+    // Flackern) - Lade-/Fehlerzustand erscheint dann nur als kleines Badge oben
+    // rechts über dem weiterhin sichtbaren alten Chart.
+    _renderHistoryBody(colorAN, colorAUS, colorKuehlen, cooling) {
+        const { historyData, historyLoading, historyError, historyRange } = this.state;
+
+        if (!historyData) {
+            return (
+                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: colorAUS, fontSize: 13, textAlign: 'center', padding: 12 }}>
+                    {historyError || I18n.t('history_loading')}
+                </div>
+            );
+        }
+
+        const svgContent = buildHistorySVG(640, 260, historyData, colorAN, colorAUS, colorKuehlen, cooling, historyRange);
+
+        return (
+            <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>
+                <svg
+                    width="100%" height="100%"
+                    viewBox="0 0 640 260"
+                    preserveAspectRatio="xMidYMid meet"
+                    style={{ display: 'block' }}
+                    dangerouslySetInnerHTML={{ __html: svgContent }}
+                />
+                {(historyLoading || historyError) && (
+                    <div style={{
+                        position: 'absolute', top: 4, right: 4,
+                        fontSize: 10, padding: '2px 6px', borderRadius: 4,
+                        background: 'rgba(0,0,0,0.55)',
+                        color: historyError ? '#ff8a80' : colorAUS,
+                    }}>
+                        {historyError || I18n.t('history_loading')}
+                    </div>
+                )}
+            </div>
         );
     }
 
