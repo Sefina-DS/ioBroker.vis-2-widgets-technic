@@ -22,22 +22,44 @@ function describeArc(cx, cy, r, startDeg, endDeg) {
     return `M ${x1.toFixed(3)} ${y1.toFixed(3)} A ${r} ${r} 0 ${large} 1 ${x2.toFixed(3)} ${y2.toFixed(3)}`;
 }
 
-// Kleiner Schiebeschalter (Track + Knob) für die boolesche Stellmotor-Anzeige
-function buildToggleSwitch(x, y, w, h, isOn, colorAN, colorAUS) {
-    const r = h / 2;
-    const trackColor = isOn ? colorAN : colorAUS;
-    const knobR = h * 0.38;
-    const knobCx = isOn ? (x + w - r) : (x + r);
-    const knobCy = y + h / 2;
-    return `
-        <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}"
-            rx="${r.toFixed(1)}" ry="${r.toFixed(1)}" fill="${trackColor}" opacity="0.30"
-            stroke="${trackColor}" stroke-width="1.4"/>
-        <circle cx="${knobCx.toFixed(1)}" cy="${knobCy.toFixed(1)}" r="${knobR.toFixed(1)}" fill="${trackColor}"/>
-    `;
+// ── Aktor-Icons: Flamme (Heizen) / Schneeflocke (Kühlen) / Kreis (Aus) ────
+// Kein Vorentwurf im Git-Verlauf gefunden (geprüft) – neu gezeichnet.
+function buildOffDot(cx, cy, size, color) {
+    const r  = size * 0.28;
+    const sw = Math.max(1.4, size * 0.09);
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="none" stroke="${color}" stroke-width="${sw.toFixed(1)}"/>`;
 }
 
-function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS) {
+function buildFlameIcon(cx, cy, size, color) {
+    const s  = size / 100;
+    const ox = cx - size / 2;
+    const oy = cy - size / 2;
+    return `<g transform="translate(${ox.toFixed(1)},${oy.toFixed(1)}) scale(${s.toFixed(4)})">
+        <path d="M50 4 C32 22 21 42 21 60 C21 81 34 96 50 96 C66 96 79 81 79 60
+            C79 47 70 36 63 26 C64 43 54 49 49 41 C55 29 50 14 50 4 Z" fill="${color}"/>
+    </g>`;
+}
+
+function buildSnowIcon(cx, cy, size, color) {
+    const r  = size / 2;
+    const sw = Math.max(1.2, size * 0.09);
+    const branchLen = r * 0.35;
+    let out = '';
+    for (let i = 0; i < 3; i++) {
+        const rad = i * 60 * Math.PI / 180;
+        const dx = Math.cos(rad) * r, dy = Math.sin(rad) * r;
+        out += `<line x1="${(cx - dx).toFixed(1)}" y1="${(cy - dy).toFixed(1)}" x2="${(cx + dx).toFixed(1)}" y2="${(cy + dy).toFixed(1)}" stroke="${color}" stroke-width="${sw.toFixed(1)}" stroke-linecap="round"/>`;
+        [0.6, -0.6].forEach(t => {
+            const bx = cx + dx * t, by = cy + dy * t;
+            const bRad1 = rad + Math.PI / 4, bRad2 = rad - Math.PI / 4;
+            out += `<line x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${(bx + Math.cos(bRad1) * branchLen).toFixed(1)}" y2="${(by + Math.sin(bRad1) * branchLen).toFixed(1)}" stroke="${color}" stroke-width="${sw.toFixed(1)}" stroke-linecap="round"/>`;
+            out += `<line x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${(bx + Math.cos(bRad2) * branchLen).toFixed(1)}" y2="${(by + Math.sin(bRad2) * branchLen).toFixed(1)}" stroke="${color}" stroke-width="${sw.toFixed(1)}" stroke-linecap="round"/>`;
+        });
+    }
+    return `<g>${out}</g>`;
+}
+
+function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS, colorKuehlen, cooling) {
     const cx = sz / 2, cy = sz / 2;
     const R  = sz * 0.42;
     const sw = Math.max(3, sz * 0.06);
@@ -65,16 +87,32 @@ function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS)
         ? `<text x="${(cx - gap).toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="end" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${tempIst.toFixed(1)}°</text>`
         : '';
 
+    // Größe/Abstand wie in der vorigen Runde (deutlich größer als der ursprüngliche
+    // Punkt-Indikator, mehr Luft zur Ist-Temperatur) – nur das Symbol wechselt.
+    const iconSize = sz * 0.13;
+    const iconCx = cx + gap + iconSize / 2;
+    const iconCy = subY - iconSize * 0.38;
+
     let motorEl = '';
     if (motor) {
         if (motor.type === 'bool') {
-            const swW = sz * 0.15;
-            const swH = swW * 0.46;
-            const swX = cx + gap;
-            const swY = subY - swH * 0.7;
-            motorEl = buildToggleSwitch(swX, swY, swW, swH, motor.value, colorAN, colorAUS);
+            if (!motor.value) {
+                motorEl = buildOffDot(iconCx, iconCy, iconSize, colorAUS);
+            } else if (cooling) {
+                motorEl = buildSnowIcon(iconCx, iconCy, iconSize, colorKuehlen);
+            } else {
+                motorEl = buildFlameIcon(iconCx, iconCy, iconSize, colorAN);
+            }
         } else {
-            motorEl = `<text x="${(cx + gap).toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="start" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${motor.value}%</text>`;
+            // 0-100%: passendes Icon davor (Flamme/Schneeflocke), kein Icon bei 0%
+            const pctIconSize = iconSize * 0.8;
+            const iconSvg = motor.value > 0
+                ? (cooling
+                    ? buildSnowIcon(iconCx, iconCy, pctIconSize, colorKuehlen)
+                    : buildFlameIcon(iconCx, iconCy, pctIconSize, colorAN))
+                : '';
+            const textX = cx + gap + (motor.value > 0 ? iconSize * 0.9 : 0);
+            motorEl = `${iconSvg}<text x="${textX.toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="start" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${motor.value}%</text>`;
         }
     }
 
@@ -131,6 +169,7 @@ class ReglerTemperatur extends window.visRxWidget {
                         { name: 'oid_temp_soll', label: 'oid_temp_soll', type: 'id' },
                         { name: 'oid_temp_ist', label: 'oid_temp_ist', type: 'id' },
                         { name: 'oid_stellmotor', label: 'oid_stellmotor', type: 'id' },
+                        { name: 'oid_kuehlmodus', label: 'oid_kuehlmodus', type: 'id' },
                     ],
                 },
                 {
@@ -148,6 +187,7 @@ class ReglerTemperatur extends window.visRxWidget {
                     fields: [
                         { name: 'colorAN', label: 'color_on', type: 'color', default: '#2ecfbf' },
                         { name: 'colorAUS', label: 'color_off', type: 'color', default: '#5f8f8a' },
+                        { name: 'colorKuehlen', label: 'color_cooling', type: 'color', default: '#4aa8ff' },
                     ],
                 },
             ],
@@ -210,6 +250,13 @@ class ReglerTemperatur extends window.visRxWidget {
         const n = Number(raw);
         if (!Number.isNaN(n)) return { type: 'num', value: Math.max(0, Math.min(100, Math.round(n))) };
         return null;
+    }
+
+    _getKuehlmodus() {
+        const oid = this.state.rxData.oid_kuehlmodus;
+        if (!oid) return false;
+        const val = this.state.values[`${oid}.val`];
+        return val === true || val === 'true' || val === 1 || val === '1';
     }
 
     // ── Lokales Live-Feedback (Anzeige + Kugel) ────────
@@ -322,21 +369,23 @@ class ReglerTemperatur extends window.visRxWidget {
         super.renderWidgetBody(props);
 
         const {
-            ueberschrift = 'Heating',
-            showName     = true,
-            namePosition = 'bottom',
-            colorAN      = '#2ecfbf',
-            colorAUS     = '#5f8f8a',
+            ueberschrift  = 'Heating',
+            showName      = true,
+            namePosition  = 'bottom',
+            colorAN       = '#2ecfbf',
+            colorAUS      = '#5f8f8a',
+            colorKuehlen  = '#4aa8ff',
         } = this.state.rxData;
 
         const { min, max } = this._getRange();
         const tempSoll = this._getTempSoll();
         const tempIst  = this._getTempIst();
         const motor    = this._getStellmotor();
+        const cooling  = this._getKuehlmodus();
         const sz       = this._getSz();
         const iconScale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
 
-        const svgContent = buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS);
+        const svgContent = buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS, colorKuehlen, cooling);
 
         const nameEl = showName && ueberschrift ? (
             <div style={{

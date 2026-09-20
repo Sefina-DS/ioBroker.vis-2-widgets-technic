@@ -133,5 +133,7 @@
   "dial_group": "Dial",
   "temp_min": "Min. temperature",
   "temp_max": "Max. temperature",
-  "temp_step": "Step"
+  "temp_step": "Step",
+  "oid_kuehlmodus": "Cooling mode active (bool)",
+  "color_cooling": "Color cooling"
 }
