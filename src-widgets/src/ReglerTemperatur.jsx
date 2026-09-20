@@ -204,10 +204,13 @@ function buildHistorySVG(vbW, vbH, data, colorAN, colorAUS, colorKuehlen, colorL
     const marginL = 36, marginR = 10, marginT = 10, marginB = 20;
     const plotW = vbW - marginL - marginR;
     const plotH = vbH - marginT - marginB;
-    const { soll, motor, start, end } = data;
+    const { soll, ist, motor, start, end } = data;
 
-    let yMin = Math.min(...soll.map(p => p.v));
-    let yMax = Math.max(...soll.map(p => p.v));
+    // Y-Skala muss Soll UND Ist gemeinsam abdecken, sonst kann die Ist-Linie
+    // oben/unten abgeschnitten werden.
+    const allTempValues = ist?.length ? soll.map(p => p.v).concat(ist.map(p => p.v)) : soll.map(p => p.v);
+    let yMin = Math.min(...allTempValues);
+    let yMax = Math.max(...allTempValues);
     if (yMin === yMax) { yMin -= 1; yMax += 1; }
     const pad = (yMax - yMin) * 0.15;
     yMin -= pad; yMax += pad;
@@ -262,7 +265,16 @@ function buildHistorySVG(vbW, vbH, data, colorAN, colorAUS, colorKuehlen, colorL
     const linePath = soll.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.t).toFixed(1)} ${yScale(p.v).toFixed(1)}`).join(' ');
     const lineSvg = `<path d="${linePath}" fill="none" stroke="${colorLine}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
 
-    return `${yAxisSvg}${motorSvg}${lineSvg}${xAxisSvg}`;
+    // Ist-Temperatur-Linie (optional, nur wenn oid_temp_ist gesetzt) - eigene
+    // Farbe colorAUS statt eines weiteren neuen Farbfelds, konsistent zur
+    // bestehenden Dial-Farblogik (colorAUS wird dort auch für Ist verwendet).
+    let istLineSvg = '';
+    if (ist?.length) {
+        const istPath = ist.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.t).toFixed(1)} ${yScale(p.v).toFixed(1)}`).join(' ');
+        istLineSvg = `<path d="${istPath}" fill="none" stroke="${colorAUS}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
+
+    return `${yAxisSvg}${motorSvg}${lineSvg}${istLineSvg}${xAxisSvg}`;
 }
 
 function rangeButtonStyle(active, color) {
@@ -620,8 +632,9 @@ class ReglerTemperatur extends window.visRxWidget {
 
     // onchange-Rohpunkte (nur echte Änderungszeitpunkte) → durchgehende Linie:
     // erster/letzter Punkt wird bis an den Fensterrand (start/end) verlängert,
-    // sonst würde die Linie mitten im Chart beginnen/enden.
-    _normalizeSollPoints(raw, start, end) {
+    // sonst würde die Linie mitten im Chart beginnen/enden. Für Soll- UND Ist-
+    // Temperatur gleichermaßen genutzt.
+    _normalizePoints(raw, start, end) {
         const pts = (raw || [])
             .filter(p => p && p.val !== null && p.val !== undefined && !Number.isNaN(Number(p.val)))
             .map(p => ({ t: p.ts, v: Number(p.val) }))
@@ -633,7 +646,7 @@ class ReglerTemperatur extends window.visRxWidget {
     }
 
     _fetchHistoryData(range) {
-        const { influxInstance, oid_temp_soll, oid_stellmotor } = this.state.rxData;
+        const { influxInstance, oid_temp_soll, oid_temp_ist, oid_stellmotor } = this.state.rxData;
         if (!influxInstance || !oid_temp_soll) {
             this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
             return;
@@ -648,6 +661,15 @@ class ReglerTemperatur extends window.visRxWidget {
         const sollPromise = this._getHistory(oid_temp_soll, {
             instance: influxInstance, start, end, aggregate: 'onchange', count: 200,
         });
+
+        // Ist-Temp ist optional - gleiche aggregate-Logik wie Soll, aber nur
+        // abgefragt wenn oid_temp_ist überhaupt gesetzt ist (Konsistenz mit dem
+        // Rest des Widgets, wo alles optional ein-/ausgeblendet wird).
+        const istPromise = oid_temp_ist
+            ? this._getHistory(oid_temp_ist, {
+                instance: influxInstance, start, end, aggregate: 'onchange', count: 200,
+            })
+            : Promise.resolve(null);
 
         // Typ des Stellmotor-Datenpunkts ist erst durch echte Daten sicher bekannt,
         // aber der aktuelle Live-Wert (typeof-Erkennung wie in _getStellmotor()) ist
@@ -668,18 +690,19 @@ class ReglerTemperatur extends window.visRxWidget {
             }
         }
 
-        Promise.all([sollPromise, motorPromise])
-            .then(([sollRaw, motor]) => {
+        Promise.all([sollPromise, istPromise, motorPromise])
+            .then(([sollRaw, istRaw, motor]) => {
                 if (!this._mounted || token !== this._historyFetchToken) return;
-                const soll = this._normalizeSollPoints(sollRaw, start, end);
+                const soll = this._normalizePoints(sollRaw, start, end);
                 if (!soll.length) {
                     this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
                     return;
                 }
+                const ist = istRaw ? this._normalizePoints(istRaw, start, end) : null;
                 this.setState({
                     historyLoading: false,
                     historyError: null,
-                    historyData: { soll, motor, start, end },
+                    historyData: { soll, ist, motor, start, end },
                 });
             })
             .catch(() => {
@@ -799,6 +822,12 @@ class ReglerTemperatur extends window.visRxWidget {
                             <span style={{ display: 'inline-block', width: 14, height: 2.5, background: colorVerlaufSoll, borderRadius: 1 }} />
                             {I18n.t('legend_soll')}
                         </div>
+                        {this.state.rxData.oid_temp_ist && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                                <span style={{ display: 'inline-block', width: 14, height: 2.5, background: colorAUS, borderRadius: 1 }} />
+                                {I18n.t('legend_ist')}
+                            </div>
+                        )}
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                             <span style={{ display: 'inline-block', width: 10, height: 10, background: colorAN, opacity: 0.5, borderRadius: 2 }} />
                             {I18n.t('legend_aktor')}

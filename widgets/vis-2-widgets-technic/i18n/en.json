@@ -145,5 +145,6 @@
   "history_loading": "Loading…",
   "history_line_color": "History line color",
   "legend_soll": "Setpoint temperature",
-  "legend_aktor": "Actuator active"
+  "legend_aktor": "Actuator active",
+  "legend_ist": "Actual temperature"
 }
