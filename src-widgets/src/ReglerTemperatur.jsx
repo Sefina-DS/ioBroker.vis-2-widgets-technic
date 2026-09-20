@@ -442,7 +442,7 @@ class ReglerTemperatur extends window.visRxWidget {
                     userSelect: 'none',
                     touchAction: 'none',
                     boxSizing: 'border-box',
-                    padding: 4,
+                    padding: 1,
                 }}
                 onMouseDown={e   => this._onPointerDown(e, sz)}
                 onMouseMove={e   => this._onPointerMove(e, sz)}
