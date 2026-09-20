@@ -143,6 +143,20 @@ function buildDialSVG(sz, tempSoll, tempIst, humidity, motor, min, max, colorAN,
     `;
 }
 
+// Liefert eine gut lesbare Icon-Farbe (dunkel oder hell) für einen gegebenen
+// Hintergrund-Hex-Wert, damit der Lupe-Button unabhängig vom gewählten colorAN
+// immer klaren Kontrast hat (nicht nur bei den Standardfarben).
+function pickIconContrastColor(hex) {
+    const h = (hex || '').replace('#', '');
+    const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    if (full.length !== 6) return '#ffffff';
+    const r = parseInt(full.substring(0, 2), 16);
+    const g = parseInt(full.substring(2, 4), 16);
+    const b = parseInt(full.substring(4, 6), 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.6 ? '#0d1820' : '#ffffff';
+}
+
 function rangeButtonStyle(active, color) {
     return {
         padding: '3px 10px',
@@ -428,8 +442,13 @@ class ReglerTemperatur extends window.visRxWidget {
     }
 
     _renderHistoryButton() {
-        const { influxInstance, colorAN = '#2ecfbf', colorAUS = '#5f8f8a' } = this.state.rxData;
+        const { influxInstance, colorAN = '#2ecfbf' } = this.state.rxData;
         if (!influxInstance || !String(influxInstance).trim()) return null;
+
+        // Gefüllter Kreis statt reinem Stroke-Icon: Sichtbarkeit darf nicht vom
+        // zufälligen Kontrast zum jeweiligen Hintergrund abhängen (siehe Fix-Notiz
+        // zu diesem Button in LEARNINGS.md / Commit-Historie).
+        const iconColor = pickIconContrastColor(colorAN);
 
         return (
             <div
@@ -438,15 +457,17 @@ class ReglerTemperatur extends window.visRxWidget {
                 style={{
                     position: 'absolute', top: 2, right: 2,
                     width: 22, height: 22,
+                    borderRadius: '50%',
+                    background: colorAN,
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.45)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: this.props.editMode ? 'default' : 'pointer',
                     zIndex: 2,
-                    opacity: 0.75,
                 }}
             >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <circle cx="10" cy="10" r="7" stroke={colorAUS} strokeWidth="2" />
-                    <line x1="15.5" y1="15.5" x2="21" y2="21" stroke={colorAUS} strokeWidth="2" strokeLinecap="round" />
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                    <circle cx="10" cy="10" r="7" stroke={iconColor} strokeWidth="2.4" />
+                    <line x1="15.5" y1="15.5" x2="21" y2="21" stroke={iconColor} strokeWidth="2.4" strokeLinecap="round" />
                 </svg>
             </div>
         );
