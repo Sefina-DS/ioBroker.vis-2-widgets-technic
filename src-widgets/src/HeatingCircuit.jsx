@@ -22,7 +22,22 @@ function describeArc(cx, cy, r, startDeg, endDeg) {
     return `M ${x1.toFixed(3)} ${y1.toFixed(3)} A ${r} ${r} 0 ${large} 1 ${x2.toFixed(3)} ${y2.toFixed(3)}`;
 }
 
-function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS, colorBg) {
+// Kleiner Schiebeschalter (Track + Knob) für die boolesche Stellmotor-Anzeige
+function buildToggleSwitch(x, y, w, h, isOn, colorAN, colorAUS) {
+    const r = h / 2;
+    const trackColor = isOn ? colorAN : colorAUS;
+    const knobR = h * 0.38;
+    const knobCx = isOn ? (x + w - r) : (x + r);
+    const knobCy = y + h / 2;
+    return `
+        <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}"
+            rx="${r.toFixed(1)}" ry="${r.toFixed(1)}" fill="${trackColor}" opacity="0.30"
+            stroke="${trackColor}" stroke-width="1.4"/>
+        <circle cx="${knobCx.toFixed(1)}" cy="${knobCy.toFixed(1)}" r="${knobR.toFixed(1)}" fill="${trackColor}"/>
+    `;
+}
+
+function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS) {
     const cx = sz / 2, cy = sz / 2;
     const R  = sz * 0.42;
     const sw = Math.max(3, sz * 0.06);
@@ -42,25 +57,24 @@ function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS,
     const subSize  = Math.max(9, sz * 0.075);
     const sollY = cy + sollSize * 0.12;
     const subY  = sollY + sollSize * 0.62;
-    const midGap = sz * 0.018;
-    const dotR = Math.max(3, subSize * 0.22);
+    const gap   = sz * 0.05;   // deutlich mehr Abstand als vorher (war 0.018) – behebt "zu eng/verschachtelt"
 
     const sollText = `<text x="${cx}" y="${sollY.toFixed(1)}" text-anchor="middle" font-family="sans-serif" font-size="${sollSize.toFixed(1)}" font-weight="700" fill="${colorAN}">${tempSoll.toFixed(1)}°</text>`;
 
     const istText = tempIst !== null
-        ? `<text x="${(cx - midGap).toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="end" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${tempIst.toFixed(1)}°</text>`
+        ? `<text x="${(cx - gap).toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="end" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${tempIst.toFixed(1)}°</text>`
         : '';
 
     let motorEl = '';
     if (motor) {
         if (motor.type === 'bool') {
-            const mColor = motor.value ? colorAN : colorAUS;
-            const dcy = subY - subSize * 0.32;
-            motorEl = motor.value
-                ? `<circle cx="${(cx + midGap + dotR).toFixed(1)}" cy="${dcy.toFixed(1)}" r="${dotR.toFixed(1)}" fill="${mColor}"/>`
-                : `<circle cx="${(cx + midGap + dotR).toFixed(1)}" cy="${dcy.toFixed(1)}" r="${dotR.toFixed(1)}" fill="none" stroke="${mColor}" stroke-width="1.4"/>`;
+            const swW = sz * 0.15;
+            const swH = swW * 0.46;
+            const swX = cx + gap;
+            const swY = subY - swH * 0.7;
+            motorEl = buildToggleSwitch(swX, swY, swW, swH, motor.value, colorAN, colorAUS);
         } else {
-            motorEl = `<text x="${(cx + midGap).toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="start" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${motor.value}%</text>`;
+            motorEl = `<text x="${(cx + gap).toFixed(1)}" y="${subY.toFixed(1)}" text-anchor="start" font-family="sans-serif" font-size="${subSize.toFixed(1)}" fill="${colorAUS}">${motor.value}%</text>`;
         }
     }
 
@@ -68,7 +82,7 @@ function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS,
         <path d="${describeArc(cx, cy, R, DIAL_START, DIAL_START + DIAL_TOTAL)}"
             fill="none" stroke="${colorAUS}" stroke-width="${sw}" stroke-linecap="round" opacity="0.45"/>
         ${fillPath}
-        <circle cx="${kx.toFixed(2)}" cy="${ky.toFixed(2)}" r="${knobR}" fill="${colorBg}" stroke="${colorAN}" stroke-width="2.4"/>
+        <circle cx="${kx.toFixed(2)}" cy="${ky.toFixed(2)}" r="${knobR}" fill="transparent" stroke="${colorAN}" stroke-width="2.4"/>
         ${sollText}
         ${istText}
         ${motorEl}
@@ -133,7 +147,6 @@ class HeatingCircuit extends window.visRxWidget {
                     fields: [
                         { name: 'colorAN', label: 'color_on', type: 'color', default: '#2ecfbf' },
                         { name: 'colorAUS', label: 'color_off', type: 'color', default: '#5f8f8a' },
-                        { name: 'colorBg', label: 'colorBg', type: 'color', default: '#0d1820' },
                     ],
                 },
             ],
@@ -307,7 +320,6 @@ class HeatingCircuit extends window.visRxWidget {
             namePosition = 'bottom',
             colorAN      = '#2ecfbf',
             colorAUS     = '#5f8f8a',
-            colorBg      = '#0d1820',
         } = this.state.rxData;
 
         const { min, max } = this._getRange();
@@ -316,7 +328,7 @@ class HeatingCircuit extends window.visRxWidget {
         const motor    = this._getStellmotor();
         const sz       = this._getSz();
 
-        const svgContent = buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS, colorBg);
+        const svgContent = buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS);
 
         const nameEl = showName && ueberschrift ? (
             <div style={{
@@ -348,7 +360,6 @@ class HeatingCircuit extends window.visRxWidget {
                     touchAction: 'none',
                     boxSizing: 'border-box',
                     padding: 4,
-                    backgroundColor: colorBg,
                 }}
                 onMouseDown={e   => this._onPointerDown(e, sz)}
                 onMouseMove={e   => this._onPointerMove(e, sz)}
