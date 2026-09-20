@@ -121,6 +121,7 @@ class ReglerTemperatur extends window.visRxWidget {
                             ],
                             default: 'bottom',
                         },
+                        { name: 'iconScale', label: 'icon_size_pct', type: 'number', default: 80 },
                     ],
                 },
                 {
@@ -333,6 +334,7 @@ class ReglerTemperatur extends window.visRxWidget {
         const tempIst  = this._getTempIst();
         const motor    = this._getStellmotor();
         const sz       = this._getSz();
+        const iconScale = Math.max(10, Math.min(100, parseInt(this.state.rxData.iconScale) || 80));
 
         const svgContent = buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS);
 
@@ -378,14 +380,16 @@ class ReglerTemperatur extends window.visRxWidget {
                 {namePosition === 'top' && nameEl}
 
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 0 }}>
-                    <svg
-                        ref={this._svgRef}
-                        width={sz} height={sz}
-                        viewBox={`0 0 ${sz} ${sz}`}
-                        preserveAspectRatio="xMidYMid meet"
-                        style={{ display: 'block', flexShrink: 0 }}
-                        dangerouslySetInnerHTML={{ __html: svgContent }}
-                    />
+                    <div style={{ width: `${iconScale}%`, height: `${iconScale}%` }}>
+                        <svg
+                            ref={this._svgRef}
+                            width="100%" height="100%"
+                            viewBox={`0 0 ${sz} ${sz}`}
+                            preserveAspectRatio="xMidYMid meet"
+                            style={{ display: 'block' }}
+                            dangerouslySetInnerHTML={{ __html: svgContent }}
+                        />
+                    </div>
                 </div>
 
                 {(namePosition === 'bottom' || !namePosition) && nameEl}
