@@ -793,3 +793,14 @@ Solange ein Widget noch aktiv iteriert wird und alles lokal bleibt (kein Push/Ta
   1. Ein neuer Eintrag im io-package.json `"news"`-Block (wie bisher, manuell, kein sed — siehe Punkt 24)
   2. Ein passender Eintrag im `## Changelog`-Abschnitt von README.md (siehe DEV-README.md Pflichtstruktur) — beide müssen synchron sein, niemals nur einer von beiden.
 - Zwischenstände während der Entwicklung laufen ohne Versionsbump über `./deploy.sh` (Version bleibt stehen, nur Code/Assets werden aktualisiert und lokal getestet).
+
+---
+
+## 35. `release.sh` IMMER mit expliziter Versionsnummer aufrufen, wenn Version bereits manuell gesetzt wurde
+
+Wurde die Version in package.json/io-package.json bereits manuell gesetzt (z.B. gemäß Punkt 34 Versionsdisziplin) und soll `release.sh` nur noch taggen/pushen: IMMER explizit aufrufen als
+`release.sh <version> "<en>" "<de>"` — NIEMALS ohne Versionsnummer.
+
+Ohne explizite Version fällt das Skript in den Auto-Increment-Zweig, erhöht die bereits gesetzte Version ein weiteres Mal und entfernt dabei den zuvor manuell angelegten news-Eintrag wieder (da er nicht zur neu berechneten Version passt) — Ergebnis: doppelter Versionssprung und verlorener Changelog-Eintrag trotz vorheriger korrekter Vorbereitung.
+
+Zusätzlicher Fallstrick (unabhängig vom Versions-Argument): `release.sh` fügt seinen eigenen README-Changelog-Eintrag per simplem String-Prepend nach `## Changelog\n\n` ein — **ohne** zu prüfen, ob für diese Version bereits ein manueller Eintrag existiert. Wurde der README-Eintrag (wie in Punkt 34 vorgesehen) schon vorher manuell ergänzt, entsteht ein doppelter `### <Version>`-Abschnitt. Nach jedem `release.sh`-Lauf `README.md`-Changelog auf Duplikate prüfen und ggf. per Follow-up-Commit bereinigen.

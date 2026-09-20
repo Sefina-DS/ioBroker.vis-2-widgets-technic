@@ -39,9 +39,6 @@ All widgets use a consistent color palette:
 ## Changelog
 
 ### 0.1.22 (2026-09-20)
-- New widget: Clock - Date
-
-### 0.1.22 (2026-09-20)
 - New widget "Clock - Date": configurable time and date display
 - Granular date formatting (language, order, separator, month format, year format, leading zero, weekday)
 - Full translation in all supported languages
