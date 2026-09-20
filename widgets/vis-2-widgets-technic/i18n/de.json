@@ -144,6 +144,7 @@
   "history_error": "Verlauf konnte nicht geladen werden",
   "history_loading": "Lädt…",
   "history_line_color": "Verlaufslinie Farbe",
+  "history_line_color_ist": "Verlaufslinie Farbe (Ist)",
   "legend_soll": "Soll-Temperatur",
   "legend_aktor": "Aktor aktiv",
   "legend_ist": "Ist-Temperatur"

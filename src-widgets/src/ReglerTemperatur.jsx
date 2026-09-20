@@ -200,7 +200,7 @@ function formatHistoryTick(ts, rangeKey) {
         : d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
 }
 
-function buildHistorySVG(vbW, vbH, data, colorAN, colorAUS, colorKuehlen, colorLine, cooling, rangeKey) {
+function buildHistorySVG(vbW, vbH, data, colorAN, colorAUS, colorKuehlen, colorLine, colorLineIst, cooling, rangeKey) {
     const marginL = 36, marginR = 10, marginT = 10, marginB = 20;
     const plotW = vbW - marginL - marginR;
     const plotH = vbH - marginT - marginB;
@@ -265,13 +265,14 @@ function buildHistorySVG(vbW, vbH, data, colorAN, colorAUS, colorKuehlen, colorL
     const linePath = soll.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.t).toFixed(1)} ${yScale(p.v).toFixed(1)}`).join(' ');
     const lineSvg = `<path d="${linePath}" fill="none" stroke="${colorLine}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
 
-    // Ist-Temperatur-Linie (optional, nur wenn oid_temp_ist gesetzt) - eigene
-    // Farbe colorAUS statt eines weiteren neuen Farbfelds, konsistent zur
-    // bestehenden Dial-Farblogik (colorAUS wird dort auch für Ist verwendet).
+    // Ist-Temperatur-Linie (optional, nur wenn oid_temp_ist gesetzt). Eigenes
+    // festes Farbfeld statt colorAUS: colorAUS ist eine frei wählbare Dial-Farbe,
+    // die Nutzer oft bewusst hell einstellen - das kollidierte mit der ebenfalls
+    // hellen Soll-Linie (siehe Fix-Notiz in der Commit-Historie).
     let istLineSvg = '';
     if (ist?.length) {
         const istPath = ist.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.t).toFixed(1)} ${yScale(p.v).toFixed(1)}`).join(' ');
-        istLineSvg = `<path d="${istPath}" fill="none" stroke="${colorAUS}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+        istLineSvg = `<path d="${istPath}" fill="none" stroke="${colorLineIst}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
     }
 
     return `${yAxisSvg}${motorSvg}${lineSvg}${istLineSvg}${xAxisSvg}`;
@@ -359,6 +360,7 @@ class ReglerTemperatur extends window.visRxWidget {
                     fields: [
                         { name: 'influxInstance', label: 'influx_instance', type: 'text', default: 'influxdb.0' },
                         { name: 'colorVerlaufSoll', label: 'history_line_color', type: 'color', default: '#ffffff' },
+                        { name: 'colorVerlaufIst', label: 'history_line_color_ist', type: 'color', default: '#ffb347' },
                     ],
                 },
             ],
@@ -771,7 +773,7 @@ class ReglerTemperatur extends window.visRxWidget {
 
         const {
             colorAN = '#2ecfbf', colorAUS = '#5f8f8a', colorKuehlen = '#4aa8ff',
-            colorVerlaufSoll = '#ffffff', ueberschrift,
+            colorVerlaufSoll = '#ffffff', colorVerlaufIst = '#ffb347', ueberschrift,
         } = this.state.rxData;
         const cooling = this._getKuehlmodus();
         const range = this.state.historyRange || '24h';
@@ -824,7 +826,7 @@ class ReglerTemperatur extends window.visRxWidget {
                         </div>
                         {this.state.rxData.oid_temp_ist && (
                             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                                <span style={{ display: 'inline-block', width: 14, height: 2.5, background: colorAUS, borderRadius: 1 }} />
+                                <span style={{ display: 'inline-block', width: 14, height: 2.5, background: colorVerlaufIst, borderRadius: 1 }} />
                                 {I18n.t('legend_ist')}
                             </div>
                         )}
@@ -833,7 +835,7 @@ class ReglerTemperatur extends window.visRxWidget {
                             {I18n.t('legend_aktor')}
                         </div>
                     </div>
-                    {this._renderHistoryBody(colorAN, colorAUS, colorKuehlen, colorVerlaufSoll, cooling)}
+                    {this._renderHistoryBody(colorAN, colorAUS, colorKuehlen, colorVerlaufSoll, colorVerlaufIst, cooling)}
                 </div>
             </div>,
             document.body,
@@ -844,7 +846,7 @@ class ReglerTemperatur extends window.visRxWidget {
     // Beim Zeitraum-Wechsel bleibt ein bereits vorhandener Chart sichtbar (kein
     // Flackern) - Lade-/Fehlerzustand erscheint dann nur als kleines Badge oben
     // rechts über dem weiterhin sichtbaren alten Chart.
-    _renderHistoryBody(colorAN, colorAUS, colorKuehlen, colorVerlaufSoll, cooling) {
+    _renderHistoryBody(colorAN, colorAUS, colorKuehlen, colorVerlaufSoll, colorVerlaufIst, cooling) {
         const { historyData, historyLoading, historyError, historyRange } = this.state;
 
         if (!historyData) {
@@ -855,7 +857,7 @@ class ReglerTemperatur extends window.visRxWidget {
             );
         }
 
-        const svgContent = buildHistorySVG(640, 260, historyData, colorAN, colorAUS, colorKuehlen, colorVerlaufSoll, cooling, historyRange);
+        const svgContent = buildHistorySVG(640, 260, historyData, colorAN, colorAUS, colorKuehlen, colorVerlaufSoll, colorVerlaufIst, cooling, historyRange);
 
         return (
             <div style={{ flex: 1, position: 'relative', minHeight: 0 }}>

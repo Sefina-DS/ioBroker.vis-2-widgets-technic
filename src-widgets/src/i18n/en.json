@@ -144,6 +144,7 @@
   "history_error": "History could not be loaded",
   "history_loading": "Loading…",
   "history_line_color": "History line color",
+  "history_line_color_ist": "History line color (actual)",
   "legend_soll": "Setpoint temperature",
   "legend_aktor": "Actuator active",
   "legend_ist": "Actual temperature"
