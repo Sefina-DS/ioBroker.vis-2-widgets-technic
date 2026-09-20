@@ -92,18 +92,18 @@ function buildDialSVG(sz, tempSoll, tempIst, motor, min, max, colorAN, colorAUS)
 // ═══════════════════════════════════════════════════════
 //  WIDGET KLASSE
 // ═══════════════════════════════════════════════════════
-class HeatingCircuit extends window.visRxWidget {
+class ReglerTemperatur extends window.visRxWidget {
 
     static getWidgetInfo() {
         return {
-            id: 'tplTechnicHeatingCircuit',
+            id: 'tplTechnicReglerTemperatur',
             visSet:          'vis-2-widgets-technic',
             visSetLabel:     'Technic Widgets',
             visSetColor:     '#2ecfbf',
             visWidgetColor:  '#0d1820',
-            visName:         'Heating - Circuit',
-            visWidgetLabel:  'Heating - Circuit',
-            visPrev:         'widgets/vis-2-widgets-technic/img/prev-heating-circuit.png',
+            visName:         'Regler - Temperatur',
+            visWidgetLabel:  'Regler - Temperatur',
+            visPrev:         'widgets/vis-2-widgets-technic/img/prev-regler-temperatur.png',
             visDefaultStyle: { width: 220, height: 220 },
             vis2: true,
             visAttrs: [
@@ -153,7 +153,7 @@ class HeatingCircuit extends window.visRxWidget {
         };
     }
 
-    getWidgetInfo() { return HeatingCircuit.getWidgetInfo(); }
+    getWidgetInfo() { return ReglerTemperatur.getWidgetInfo(); }
 
     constructor(props) {
         super(props);
@@ -394,4 +394,4 @@ class HeatingCircuit extends window.visRxWidget {
     }
 }
 
-export default HeatingCircuit;
+export default ReglerTemperatur;

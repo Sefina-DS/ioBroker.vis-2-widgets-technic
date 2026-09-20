@@ -18,7 +18,7 @@ const config = {
                 './ReglerLicht':     './src/ReglerLicht',
                 './RaumKachel':      './src/RaumKachel',
                 './ClockDate':       './src/ClockDate',
-                './HeatingCircuit':  './src/HeatingCircuit',
+                './ReglerTemperatur': './src/ReglerTemperatur',
                 './translations':    './src/translations',
             },
             remotes: {},
