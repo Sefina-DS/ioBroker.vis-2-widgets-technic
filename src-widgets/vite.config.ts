@@ -17,6 +17,7 @@ const config = {
                 './SchalterBoolean': './src/SchalterBoolean',
                 './ReglerLicht':     './src/ReglerLicht',
                 './RaumKachel':      './src/RaumKachel',
+                './UhrDatum':        './src/UhrDatum',
                 './translations':    './src/translations',
             },
             remotes: {},

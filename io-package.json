@@ -3,7 +3,7 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.21",
+        "version": "0.1.22",
         "news": {
             "0.1.14": {
                 "en": "Release 0.1.14",
@@ -108,6 +108,19 @@
                 "pl": "Poprawki i usprawnienia",
                 "uk": "Виправлення та покращення",
                 "zh-cn": "修复和改进"
+            },
+            "0.1.22": {
+                "en": "New widget: Clock & Date",
+                "de": "Neues Widget: Uhr & Datum",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
             }
         },
         "titleLang": {
@@ -191,7 +204,8 @@
                     "FensterWand",
                     "SchalterBoolean",
                     "ReglerLicht",
-                    "RaumKachel"
+                    "RaumKachel",
+                    "UhrDatum"
                 ]
             }
         }
