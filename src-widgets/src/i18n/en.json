@@ -142,5 +142,8 @@
   "range_24h": "24h",
   "range_7d": "7 days",
   "history_error": "History could not be loaded",
-  "history_loading": "Loading…"
+  "history_loading": "Loading…",
+  "history_line_color": "History line color",
+  "legend_soll": "Setpoint temperature",
+  "legend_aktor": "Actuator active"
 }
