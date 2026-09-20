@@ -760,3 +760,23 @@ npmjs.com → Paket → **Settings** → **Trusted Publisher** → GitHub Action
 
 Betrifft jedes Repo mit demselben Workflow-Aufbau (Provenance + `id-token: write`) – vorsorglich für alle
 prüfen, nicht erst wenn der nächste Release-Tag scheitert.
+
+---
+
+## 33. Namenskonvention für neue Widgets: englischer Klassenname + i18n-Label
+
+Ab dem Widget "ClockDate" gilt für alle NEUEN Widgets:
+
+- **Datei-/Klassenname:** Englisch, kurz und beschreibend, z.B. `ClockDate`. Bestehende deutsche Namen (`FensterWand`, `SchalterBoolean`, `RaumKachel` usw.) bleiben unverändert — nur neue Widgets folgen der neuen Konvention.
+- **Widget-ID** (`id` in `getWidgetInfo()`): `tplTechnic<Klassenname>`, z.B. `tplTechnicClockDate`.
+- **Anzeigename im Editor** (`visName`): kurz, englisch, z.B. `'Clock & Date'`.
+- **Alle `label`-Werte in `visAttrs`** sind Übersetzungs-Keys (keine literalen deutschen Texte) — die Übersetzung liegt in `src-widgets/src/i18n/<lang>.json`, für jede unterstützte Sprache (aktuell: en, de, ru, pt, nl, fr, it, es, pl, uk, zh-cn).
+- Generische Keys (`align`, `color`, `padding`, `bold`, `fontSize`, `borderRadius`, `gap`, `colorBg`, `align_left`/`align_center`/`align_right` usw.) werden zwischen Widgets wiederverwendet statt dupliziert — vor dem Anlegen neuer Keys immer erst `src-widgets/src/i18n/de.json` (oder `en.json`) nach dem gewünschten Begriff durchsuchen.
+- Ein Widget gilt erst als fertig, wenn Code UND Übersetzungs-Keys für alle Sprachen vorhanden sind.
+
+**Wichtig — `"i18n"` im `visWidgets`-Block IMMER auf `"component"` lassen, NIEMALS auf `true` ändern:**
+`true` wurde in v0.1.16 bewusst durch `"component"` ersetzt (bestätigt durch den v0.1.18-Changelog
+"fix i18n translations (component mode)") — der `true`-Modus lud die Übersetzungen für dieses Widget-Set
+nicht zuverlässig. Ein Rückbau zu `true` (z.B. weil eine Anleitung das pauschal verlangt) riskiert stillschweigend
+die Übersetzungen für **alle** Widgets der Sammlung, nicht nur das neue. Bei widersprüchlichen Anweisungen: nachfragen
+statt den dokumentierten Fix rückgängig zu machen.
