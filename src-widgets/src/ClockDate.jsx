@@ -56,7 +56,7 @@ class ClockDate extends window.visRxWidget {
             visSetLabel: 'Technic Widgets',
             visSetColor: '#2ecfbf',
             visWidgetColor: '#0d1820',
-            visName: 'Clock & Date',
+            visName: 'Clock - Date',
             visPrev: 'widgets/vis-2-widgets-technic/img/prev-clockdate.png',
             visDefaultStyle: { width: 260, height: 90 },
             vis2: true,
