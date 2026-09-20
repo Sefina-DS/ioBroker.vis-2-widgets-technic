@@ -250,6 +250,39 @@ class ReglerTemperatur extends window.visRxWidget {
         super(props);
         this.state = { ...this.state, dragTemp: null, historyOpen: false, historyRange: '24h' };
         this._svgRef = React.createRef();
+        this._rootRef = React.createRef();
+
+        // Fensterweite Resize/Scroll-Events ändern nicht rxStyle und lösen daher
+        // keinen normalen Re-Render aus - der per Portal aus dem geclippten
+        // Widget-Container ausgelagerte Lupe-Button muss seine Position (aus
+        // getBoundingClientRect() des Widget-Roots) trotzdem nachziehen.
+        // rAF-Throttle, damit Scroll-Storms nicht bei jedem Event ein forceUpdate
+        // auslösen.
+        this._reflowScheduled = false;
+        this._onWindowReflow = () => {
+            if (this._reflowScheduled) return;
+            this._reflowScheduled = true;
+            requestAnimationFrame(() => {
+                this._reflowScheduled = false;
+                this.forceUpdate();
+            });
+        };
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        window.addEventListener('resize', this._onWindowReflow);
+        window.addEventListener('scroll', this._onWindowReflow, true);
+        // Beim ersten Mount ist this._rootRef.current erst nach dem Commit gesetzt -
+        // ein Nachschlag sorgt dafür, dass der Lupe-Button sofort (statt erst beim
+        // nächsten Datenupdate) korrekt positioniert erscheint.
+        this.forceUpdate();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this._onWindowReflow);
+        window.removeEventListener('scroll', this._onWindowReflow, true);
+        super.componentWillUnmount();
     }
 
     propertiesUpdate() {}
@@ -441,35 +474,55 @@ class ReglerTemperatur extends window.visRxWidget {
         this.setState({ historyRange: range });
     }
 
+    // Frei konfigurierbarer Widget-Rahmen (Breite/Farbe/Radius aus rxStyle) sitzt
+    // auf einem Container mit overflow: hidden (für Dial/abgerundete Ecken nötig)
+    // - alles was über die Padding-Box hinausragt wird dort abgeschnitten, auch
+    // bei hohem z-index (der wirkt nur innerhalb desselben Stacking-Contexts,
+    // überwindet aber kein overflow:hidden der Eltern-Box). Lösung wie beim
+    // Overlay in S2a: per Portal nach document.body rendern, Position aus
+    // getBoundingClientRect() des Widget-Root-Elements statt aus fixen Werten.
     _renderHistoryButton() {
         const { influxInstance, colorAN = '#2ecfbf' } = this.state.rxData;
         if (!influxInstance || !String(influxInstance).trim()) return null;
+        // Während das Overlay offen ist, liegt dessen Backdrop (zIndex 100000)
+        // ohnehin über dem gesamten Viewport - Button hier zusätzlich gar nicht
+        // erst rendern, statt mich auf reine z-index-Reihenfolge zu verlassen.
+        if (this.state.historyOpen) return null;
+
+        const rootEl = this._rootRef.current;
+        if (!rootEl) return null; // erster Render vor dem Mount - componentDidMount holt das per forceUpdate nach
+        const rect = rootEl.getBoundingClientRect();
 
         // Gefüllter Kreis statt reinem Stroke-Icon: Sichtbarkeit darf nicht vom
         // zufälligen Kontrast zum jeweiligen Hintergrund abhängen (siehe Fix-Notiz
-        // zu diesem Button in LEARNINGS.md / Commit-Historie).
+        // zu diesem Button in der Commit-Historie).
         const iconColor = pickIconContrastColor(colorAN);
+        const btnSize = 22;
+        const outset = 5; // leichter Versatz nach außen, damit der Button sichtbar über dem Rahmen liegt
 
-        return (
+        return createPortal(
             <div
                 onClick={e => { e.stopPropagation(); this._openHistory(); }}
                 title={I18n.t('history_group')}
                 style={{
-                    position: 'absolute', top: 2, right: 2,
-                    width: 22, height: 22,
+                    position: 'fixed',
+                    top: rect.top - outset,
+                    left: rect.right - btnSize + outset,
+                    width: btnSize, height: btnSize,
                     borderRadius: '50%',
                     background: colorAN,
                     boxShadow: '0 1px 3px rgba(0,0,0,0.45)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: this.props.editMode ? 'default' : 'pointer',
-                    zIndex: 2,
+                    zIndex: 99998, // unterhalb des Overlays (100000), oberhalb anderer Widgets in der View
                 }}
             >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
                     <circle cx="10" cy="10" r="7" stroke={iconColor} strokeWidth="2.4" />
                     <line x1="15.5" y1="15.5" x2="21" y2="21" stroke={iconColor} strokeWidth="2.4" strokeLinecap="round" />
                 </svg>
-            </div>
+            </div>,
+            document.body,
         );
     }
 
@@ -575,6 +628,7 @@ class ReglerTemperatur extends window.visRxWidget {
 
         return (
             <div
+                ref={this._rootRef}
                 style={{
                     position: 'relative',
                     width: '100%', height: '100%',
