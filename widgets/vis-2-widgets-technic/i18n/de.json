@@ -135,5 +135,6 @@
   "temp_max": "Max.-Temperatur",
   "temp_step": "Schrittweite",
   "oid_kuehlmodus": "Kühlmodus aktiv (bool)",
-  "color_cooling": "Farbe Kühlen"
+  "color_cooling": "Farbe Kühlen",
+  "oid_feuchtigkeit": "Feuchtigkeit (%)"
 }
