@@ -39,6 +39,9 @@ All widgets use a consistent color palette:
 ## Changelog
 
 ### 0.1.23 (2026-09-20)
+- New widget: Thermostat - Temperature
+
+### 0.1.23 (2026-09-20)
 - New widget "Thermostat - Temperature": heating/cooling circuit regulator with
   setpoint dial, actual temperature, humidity, and actuator status (flame/snowflake)
 - InfluxDB-based history overlay (24h/7 days) with setpoint, actual-temperature and
