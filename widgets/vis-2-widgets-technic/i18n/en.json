@@ -148,5 +148,7 @@
   "history_line_color_aktor": "History actuator color",
   "legend_soll": "Setpoint temperature",
   "legend_aktor": "Actuator active",
-  "legend_ist": "Actual temperature"
+  "legend_ist": "Actual temperature",
+  "row_value_offset": "Value Column Offset (px)",
+  "container_padding_left": "Container Padding Left (px)"
 }

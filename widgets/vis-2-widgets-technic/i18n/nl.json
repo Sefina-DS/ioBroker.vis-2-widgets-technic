@@ -148,5 +148,7 @@
   "legend_aktor": "Actuator actief",
   "legend_ist": "Actuele temperatuur",
   "history_line_color_ist": "Verlooplijnkleur (actueel)",
-  "history_line_color_aktor": "Verloop actuatorkleur"
+  "history_line_color_aktor": "Verloop actuatorkleur",
+  "row_value_offset": "Verschuiving waardekolom (px)",
+  "container_padding_left": "Linker binnenmarge container (px)"
 }

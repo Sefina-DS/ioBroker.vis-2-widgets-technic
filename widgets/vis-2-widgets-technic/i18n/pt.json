@@ -148,5 +148,7 @@
   "legend_aktor": "Atuador ativo",
   "legend_ist": "Temperatura real",
   "history_line_color_ist": "Cor da linha do histórico (real)",
-  "history_line_color_aktor": "Cor do atuador no histórico"
+  "history_line_color_aktor": "Cor do atuador no histórico",
+  "row_value_offset": "Deslocamento da coluna de valores (px)",
+  "container_padding_left": "Preenchimento esquerdo do contêiner (px)"
 }

@@ -148,5 +148,7 @@
   "legend_aktor": "Привід активний",
   "legend_ist": "Фактична температура",
   "history_line_color_ist": "Колір лінії історії (факт.)",
-  "history_line_color_aktor": "Колір приводу в історії"
+  "history_line_color_aktor": "Колір приводу в історії",
+  "row_value_offset": "Зміщення колонки значень (px)",
+  "container_padding_left": "Відступ зліва контейнера (px)"
 }

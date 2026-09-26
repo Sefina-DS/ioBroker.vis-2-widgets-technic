@@ -148,5 +148,7 @@
   "legend_aktor": "Siłownik aktywny",
   "legend_ist": "Temperatura rzeczywista",
   "history_line_color_ist": "Kolor linii historii (rzeczywista)",
-  "history_line_color_aktor": "Kolor siłownika w historii"
+  "history_line_color_aktor": "Kolor siłownika w historii",
+  "row_value_offset": "Przesunięcie kolumny wartości (px)",
+  "container_padding_left": "Lewy margines wewnętrzny kontenera (px)"
 }

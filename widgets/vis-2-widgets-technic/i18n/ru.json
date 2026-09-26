@@ -148,5 +148,7 @@
   "legend_aktor": "Привод активен",
   "legend_ist": "Фактическая температура",
   "history_line_color_ist": "Цвет линии истории (факт.)",
-  "history_line_color_aktor": "Цвет привода в истории"
+  "history_line_color_aktor": "Цвет привода в истории",
+  "row_value_offset": "Смещение колонки значений (px)",
+  "container_padding_left": "Отступ слева контейнера (px)"
 }

@@ -148,5 +148,7 @@
   "history_line_color_aktor": "Verlauf Aktor-Farbe",
   "legend_soll": "Soll-Temperatur",
   "legend_aktor": "Aktor aktiv",
-  "legend_ist": "Ist-Temperatur"
+  "legend_ist": "Ist-Temperatur",
+  "row_value_offset": "Werte-Spalten-Versatz (px)",
+  "container_padding_left": "Container-Abstand links (px)"
 }
