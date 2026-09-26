@@ -256,12 +256,11 @@ class StatusList extends window.visRxWidget {
         // Standard-VIS2-Stilgruppe "CSS Font und Text" (this.state.rxStyle),
         // nicht aus eigenen visAttrs - analog zur Umstellung bei anderen Widgets.
         const rxStyle = this.state.rxStyle || {};
-        const rowFontSizeRaw = parseInt(rxStyle['font-size'], 10);
-        const rowFontSize = Number.isNaN(rowFontSizeRaw) ? 13 : rowFontSizeRaw;
+        const rowFontSize = parseInt(rxStyle?.['font-size'] ?? rxStyle?.fontSize) || 13;
         const labelStyle = {
             color: rxStyle.color || '#c8e6e3',
-            fontFamily: rxStyle['font-family'] || undefined,
-            fontWeight: rxStyle['font-weight'] || undefined,
+            fontFamily: rxStyle?.['font-family'] || rxStyle?.fontFamily || undefined,
+            fontWeight: rxStyle?.['font-weight'] || rxStyle?.fontWeight || 400,
         };
 
         const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
