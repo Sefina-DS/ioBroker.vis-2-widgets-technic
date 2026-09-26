@@ -3,8 +3,21 @@
         "name": "vis-2-widgets-technic",
         "icon": "vis-2-widgets-technic.png",
         "extIcon": "https://raw.githubusercontent.com/Sefina-DS/ioBroker.vis-2-widgets-technic/main/admin/vis-2-widgets-technic.png",
-        "version": "0.1.23",
+        "version": "0.1.24",
         "news": {
+            "0.1.24": {
+                "en": "Added StatusList widget (pure info rows, no click/popup)",
+                "de": "StatusList-Widget hinzugefügt (reine Info-Zeilen, ohne Klick/Popup)",
+                "ru": "Исправления и улучшения",
+                "pt": "Correções e melhorias",
+                "nl": "Fixes en verbeteringen",
+                "fr": "Corrections et améliorations",
+                "it": "Correzioni e miglioramenti",
+                "es": "Correcciones y mejoras",
+                "pl": "Poprawki i usprawnienia",
+                "uk": "Виправлення та покращення",
+                "zh-cn": "修复和改进"
+            },
             "0.1.17": {
                 "en": "Release 0.1.17",
                 "de": "Fehlerbehebungen und Verbesserungen",

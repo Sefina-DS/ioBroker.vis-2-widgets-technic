@@ -38,6 +38,13 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.24 (2026-09-26)
+- New widget "Status - List": pure info rows (label + value, number/bool, multi-oid
+  AND/OR, colors) without click/popup behavior, for status-only tiles
+- Row label styling (color, font size, font family, weight) follows the standard
+  VIS 2 "CSS Font and Text" style group instead of dedicated widget fields
+- Full translation in all supported languages
+
 ### 0.1.23 (2026-09-20)
 - New widget "Thermostat - Temperature": heating/cooling circuit regulator with
   setpoint dial, actual temperature, humidity, and actuator status (flame/snowflake)
