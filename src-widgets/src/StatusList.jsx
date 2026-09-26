@@ -89,6 +89,7 @@ class StatusList extends window.visRxWidget {
                     ],
                 },
             ],
+            visPrev: 'widgets/vis-2-widgets-technic/img/prev-status-list.png',
         };
     }
 
