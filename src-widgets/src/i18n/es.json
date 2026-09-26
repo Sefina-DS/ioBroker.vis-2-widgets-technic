@@ -149,5 +149,6 @@
   "legend_ist": "Temperatura real",
   "history_line_color_ist": "Color de línea del historial (real)",
   "history_line_color_aktor": "Color del actuador en el historial",
-  "row_value_offset": "Desplazamiento de la columna de valores (px)"
+  "row_value_offset": "Desplazamiento de la columna de valores (px)",
+  "container_padding_left": "Relleno izquierdo del contenedor (px)"
 }

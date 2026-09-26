@@ -149,5 +149,6 @@
   "legend_soll": "Soll-Temperatur",
   "legend_aktor": "Aktor aktiv",
   "legend_ist": "Ist-Temperatur",
-  "row_value_offset": "Werte-Spalten-Versatz (px)"
+  "row_value_offset": "Werte-Spalten-Versatz (px)",
+  "container_padding_left": "Container-Abstand links (px)"
 }
