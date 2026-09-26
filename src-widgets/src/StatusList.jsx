@@ -21,35 +21,11 @@ class StatusList extends window.visRxWidget {
             vis2: true,
             visAttrs: [
                 {
-                    name: 'heading',
-                    label: 'heading_group',
-                    fields: [
-                        { name: 'showHeading', label: 'show_heading', type: 'checkbox', default: false },
-                        {
-                            name: 'heading', label: 'heading', type: 'text', default: '',
-                            hidden: data => !data.showHeading,
-                        },
-                        {
-                            name: 'headingColor', label: 'heading_color', type: 'color', default: '#e8f4f3',
-                            hidden: data => !data.showHeading,
-                        },
-                        {
-                            name: 'headingFontSize', label: 'heading_font_size', type: 'number', default: 14,
-                            hidden: data => !data.showHeading,
-                        },
-                        {
-                            name: 'headingBold', label: 'heading_bold', type: 'checkbox', default: false,
-                            hidden: data => !data.showHeading,
-                        },
-                    ],
-                },
-                {
                     name: 'rows',
                     label: 'rows_group',
                     fields: [
                         { name: 'rowCount', label: 'row_count', type: 'number', min: 0, max: 10, default: 0 },
-                        { name: 'rowFontSize', label: 'row_font_size', type: 'number', default: 13 },
-                        { name: 'rowLabelColor', label: 'row_label_color', type: 'color', default: '#c8e6e3' },
+                        { name: 'valueOffset', label: 'row_value_offset', type: 'number', default: 90 },
                     ],
                 },
                 {
@@ -204,7 +180,7 @@ class StatusList extends window.visRxWidget {
         return logic === 'or' ? results.some(Boolean) : results.every(Boolean);
     }
 
-    _renderRows(rowCount, rowFontSize, rowLabelColor) {
+    _renderRows(rowCount, rowFontSize, labelStyle, valueOffset) {
         const rows = [];
         for (let i = 1; i <= rowCount; i++) {
             const oid = this.state.rxData[`oid${i}`];
@@ -241,7 +217,7 @@ class StatusList extends window.visRxWidget {
                     key={i}
                     style={{
                         display: 'flex', flexDirection: 'row',
-                        justifyContent: 'space-between', alignItems: 'baseline',
+                        alignItems: 'baseline',
                         gap: 4, width: '100%', fontSize: `${rowFontSize}px`,
                         // Leere Platzhalterzeile (kein oid) hat keinen Text -> ohne minHeight
                         // kollabiert die Zeile auf 0px (kein Content, kein Baseline-Bezug).
@@ -250,9 +226,10 @@ class StatusList extends window.visRxWidget {
                 >
                     <div
                         style={{
-                            color: rowLabelColor,
+                            ...labelStyle,
+                            width: `${valueOffset}px`, flexShrink: 0,
                             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                            minWidth: 0, flex: '1 1 auto', textAlign: 'left',
+                            textAlign: 'left',
                         }}
                     >
                         {rowLabel}
@@ -261,7 +238,7 @@ class StatusList extends window.visRxWidget {
                         style={{
                             color,
                             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                            flex: '0 0 auto', maxWidth: '60%', textAlign: 'right',
+                            flex: 1, minWidth: 0, textAlign: 'left',
                         }}
                     >
                         {text}
@@ -275,19 +252,22 @@ class StatusList extends window.visRxWidget {
     renderWidgetBody(props) {
         super.renderWidgetBody(props);
 
-        const {
-            showHeading = false,
-            heading = '',
-            headingColor = '#e8f4f3',
-            headingFontSize = 14,
-            headingBold = false,
-        } = this.state.rxData;
+        // Zeilenbeschriftung (Farbe, Schriftgröße, Schriftart) kommt aus der
+        // Standard-VIS2-Stilgruppe "CSS Font und Text" (this.state.rxStyle),
+        // nicht aus eigenen visAttrs - analog zur Umstellung bei anderen Widgets.
+        const rxStyle = this.state.rxStyle || {};
+        const rowFontSizeRaw = parseInt(rxStyle['font-size'], 10);
+        const rowFontSize = Number.isNaN(rowFontSizeRaw) ? 13 : rowFontSizeRaw;
+        const labelStyle = {
+            color: rxStyle.color || '#c8e6e3',
+            fontFamily: rxStyle['font-family'] || undefined,
+            fontWeight: rxStyle['font-weight'] || undefined,
+        };
 
         const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
-        const rowFontSizeRaw = parseInt(this.state.rxData.rowFontSize, 10);
-        const rowFontSize = Number.isNaN(rowFontSizeRaw) ? 13 : rowFontSizeRaw;
-        const rowLabelColor = this.state.rxData.rowLabelColor || '#c8e6e3';
-        const rowEls = rowCount > 0 ? this._renderRows(rowCount, rowFontSize, rowLabelColor) : null;
+        const valueOffsetRaw = parseInt(this.state.rxData.valueOffset, 10);
+        const valueOffset = Number.isNaN(valueOffsetRaw) ? 90 : valueOffsetRaw;
+        const rowEls = rowCount > 0 ? this._renderRows(rowCount, rowFontSize, labelStyle, valueOffset) : null;
 
         return (
             <div
@@ -299,22 +279,6 @@ class StatusList extends window.visRxWidget {
                     gap: 2,
                 }}
             >
-                {showHeading && (
-                    <div
-                        style={{
-                            flex: '0 0 auto',
-                            color: headingColor,
-                            fontSize: `${headingFontSize}px`,
-                            fontWeight: headingBold ? 700 : 400,
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            maxWidth: '100%',
-                        }}
-                    >
-                        {heading}
-                    </div>
-                )}
                 {rowCount > 0 && (
                     <div
                         style={{
