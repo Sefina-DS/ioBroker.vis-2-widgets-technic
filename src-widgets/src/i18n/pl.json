@@ -149,8 +149,5 @@
   "legend_ist": "Temperatura rzeczywista",
   "history_line_color_ist": "Kolor linii historii (rzeczywista)",
   "history_line_color_aktor": "Kolor siłownika w historii",
-  "heading_group": "Nagłówek",
-  "heading_color": "Kolor nagłówka",
-  "heading_font_size": "Rozmiar czcionki nagłówka",
-  "heading_bold": "Pogrubienie nagłówka"
+  "row_value_offset": "Przesunięcie kolumny wartości (px)"
 }

@@ -149,8 +149,5 @@
   "legend_ist": "Température réelle",
   "history_line_color_ist": "Couleur de ligne d'historique (réelle)",
   "history_line_color_aktor": "Couleur de l'actionneur dans l'historique",
-  "heading_group": "Titre",
-  "heading_color": "Couleur du titre",
-  "heading_font_size": "Taille de police du titre",
-  "heading_bold": "Titre en gras"
+  "row_value_offset": "Décalage de la colonne de valeurs (px)"
 }

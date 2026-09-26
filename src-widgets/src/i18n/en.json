@@ -149,8 +149,5 @@
   "legend_soll": "Setpoint temperature",
   "legend_aktor": "Actuator active",
   "legend_ist": "Actual temperature",
-  "heading_group": "Heading",
-  "heading_color": "Heading Color",
-  "heading_font_size": "Heading Font Size",
-  "heading_bold": "Heading Bold"
+  "row_value_offset": "Value Column Offset (px)"
 }

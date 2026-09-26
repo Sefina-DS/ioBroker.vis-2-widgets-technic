@@ -149,8 +149,5 @@
   "legend_ist": "Temperatura reale",
   "history_line_color_ist": "Colore linea cronologia (reale)",
   "history_line_color_aktor": "Colore attuatore nella cronologia",
-  "heading_group": "Titolo",
-  "heading_color": "Colore del titolo",
-  "heading_font_size": "Dimensione carattere titolo",
-  "heading_bold": "Titolo in grassetto"
+  "row_value_offset": "Offset colonna valori (px)"
 }

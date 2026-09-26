@@ -149,8 +149,5 @@
   "legend_ist": "Фактична температура",
   "history_line_color_ist": "Колір лінії історії (факт.)",
   "history_line_color_aktor": "Колір приводу в історії",
-  "heading_group": "Заголовок",
-  "heading_color": "Колір заголовка",
-  "heading_font_size": "Розмір шрифту заголовка",
-  "heading_bold": "Жирний заголовок"
+  "row_value_offset": "Зміщення колонки значень (px)"
 }

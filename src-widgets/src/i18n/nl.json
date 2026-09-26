@@ -149,8 +149,5 @@
   "legend_ist": "Actuele temperatuur",
   "history_line_color_ist": "Verlooplijnkleur (actueel)",
   "history_line_color_aktor": "Verloop actuatorkleur",
-  "heading_group": "Titel",
-  "heading_color": "Titelkleur",
-  "heading_font_size": "Titel lettergrootte",
-  "heading_bold": "Titel vet"
+  "row_value_offset": "Verschuiving waardekolom (px)"
 }

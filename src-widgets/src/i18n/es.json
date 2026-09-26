@@ -149,8 +149,5 @@
   "legend_ist": "Temperatura real",
   "history_line_color_ist": "Color de línea del historial (real)",
   "history_line_color_aktor": "Color del actuador en el historial",
-  "heading_group": "Título",
-  "heading_color": "Color del título",
-  "heading_font_size": "Tamaño de fuente del título",
-  "heading_bold": "Título en negrita"
+  "row_value_offset": "Desplazamiento de la columna de valores (px)"
 }
