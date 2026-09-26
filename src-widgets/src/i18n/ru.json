@@ -148,5 +148,9 @@
   "legend_aktor": "Привод активен",
   "legend_ist": "Фактическая температура",
   "history_line_color_ist": "Цвет линии истории (факт.)",
-  "history_line_color_aktor": "Цвет привода в истории"
+  "history_line_color_aktor": "Цвет привода в истории",
+  "heading_group": "Заголовок",
+  "heading_color": "Цвет заголовка",
+  "heading_font_size": "Размер шрифта заголовка",
+  "heading_bold": "Жирный заголовок"
 }

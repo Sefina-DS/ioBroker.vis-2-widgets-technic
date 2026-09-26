@@ -148,5 +148,9 @@
   "legend_aktor": "执行器激活",
   "legend_ist": "实际温度",
   "history_line_color_ist": "历史曲线颜色（实际）",
-  "history_line_color_aktor": "历史执行器颜色"
+  "history_line_color_aktor": "历史执行器颜色",
+  "heading_group": "标题",
+  "heading_color": "标题颜色",
+  "heading_font_size": "标题字体大小",
+  "heading_bold": "标题加粗"
 }

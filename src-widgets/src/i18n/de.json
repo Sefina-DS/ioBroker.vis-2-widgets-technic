@@ -148,5 +148,9 @@
   "history_line_color_aktor": "Verlauf Aktor-Farbe",
   "legend_soll": "Soll-Temperatur",
   "legend_aktor": "Aktor aktiv",
-  "legend_ist": "Ist-Temperatur"
+  "legend_ist": "Ist-Temperatur",
+  "heading_group": "Überschrift",
+  "heading_color": "Überschriftfarbe",
+  "heading_font_size": "Überschrift-Schriftgröße",
+  "heading_bold": "Überschrift fett"
 }
