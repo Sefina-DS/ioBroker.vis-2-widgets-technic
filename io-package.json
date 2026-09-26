@@ -180,7 +180,8 @@
                     "ReglerLicht",
                     "RaumKachel",
                     "ClockDate",
-                    "ReglerTemperatur"
+                    "ReglerTemperatur",
+                    "StatusList"
                 ]
             }
         }

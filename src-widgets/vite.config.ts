@@ -19,6 +19,7 @@ const config = {
                 './RaumKachel':      './src/RaumKachel',
                 './ClockDate':       './src/ClockDate',
                 './ReglerTemperatur': './src/ReglerTemperatur',
+                './StatusList':      './src/StatusList',
                 './translations':    './src/translations',
             },
             remotes: {},
