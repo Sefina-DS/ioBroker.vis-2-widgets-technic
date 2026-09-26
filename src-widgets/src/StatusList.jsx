@@ -218,10 +218,12 @@ class StatusList extends window.visRxWidget {
                     style={{
                         display: 'flex', flexDirection: 'row',
                         alignItems: 'baseline',
-                        gap: 4, width: '100%', fontSize: `${rowFontSize}px`,
+                        gap: 4, width: '100%', fontSize: rowFontSize,
                         // Leere Platzhalterzeile (kein oid) hat keinen Text -> ohne minHeight
                         // kollabiert die Zeile auf 0px (kein Content, kein Baseline-Bezug).
-                        minHeight: `${Math.round(rowFontSize * 1.3)}px`,
+                        // em-Einheit statt Pixel-Berechnung, damit es auch bei CSS-Keywords
+                        // (z.B. "xx-large") relativ zur tatsaechlichen fontSize skaliert.
+                        minHeight: '1.3em',
                     }}
                 >
                     <div
@@ -256,7 +258,11 @@ class StatusList extends window.visRxWidget {
         // Standard-VIS2-Stilgruppe "CSS Font und Text" (this.state.rxStyle),
         // nicht aus eigenen visAttrs - analog zur Umstellung bei anderen Widgets.
         const rxStyle = this.state.rxStyle || {};
-        const rowFontSize = parseInt(rxStyle?.['font-size'] ?? rxStyle?.fontSize) || 13;
+        // font-size aus rxStyle kann ein CSS-Keyword sein (z.B. "xx-large"), kein reiner
+        // px-Zahlenwert -> unveraendert als String durchreichen, genau wie color/
+        // fontFamily/fontWeight. parseInt() wuerde bei Keywords NaN liefern und stumm auf
+        // den Fallback zurueckfallen (Ursache des vorherigen "Groesse aendert sich nie"-Bugs).
+        const rowFontSize = rxStyle?.['font-size'] || rxStyle?.fontSize || '13px';
         const labelStyle = {
             color: rxStyle.color || '#c8e6e3',
             fontFamily: rxStyle?.['font-family'] || rxStyle?.fontFamily || undefined,
