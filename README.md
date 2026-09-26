@@ -39,9 +39,6 @@ All widgets use a consistent color palette:
 ## Changelog
 
 ### 0.1.24 (2026-09-26)
-- Added StatusList widget (pure info rows, no click/popup)
-
-### 0.1.24 (2026-09-26)
 - New widget "Status - List": pure info rows (label + value, number/bool, multi-oid
   AND/OR, colors) without click/popup behavior, for status-only tiles
 - Row label styling (color, font size, font family, weight) follows the standard
