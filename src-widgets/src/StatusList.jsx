@@ -26,6 +26,7 @@ class StatusList extends window.visRxWidget {
                     fields: [
                         { name: 'rowCount', label: 'row_count', type: 'number', min: 0, max: 10, default: 0 },
                         { name: 'valueOffset', label: 'row_value_offset', type: 'number', default: 90 },
+                        { name: 'containerPaddingLeft', label: 'container_padding_left', type: 'number', default: 8 },
                     ],
                 },
                 {
@@ -272,6 +273,8 @@ class StatusList extends window.visRxWidget {
         const rowCount = parseInt(this.state.rxData.rowCount, 10) || 0;
         const valueOffsetRaw = parseInt(this.state.rxData.valueOffset, 10);
         const valueOffset = Number.isNaN(valueOffsetRaw) ? 90 : valueOffsetRaw;
+        const containerPaddingLeftRaw = parseInt(this.state.rxData.containerPaddingLeft, 10);
+        const containerPaddingLeft = Number.isNaN(containerPaddingLeftRaw) ? 8 : containerPaddingLeftRaw;
         const rowEls = rowCount > 0 ? this._renderRows(rowCount, rowFontSize, labelStyle, valueOffset) : null;
 
         return (
@@ -291,6 +294,7 @@ class StatusList extends window.visRxWidget {
                             flex: 1, minHeight: 0,
                             justifyContent: 'center', gap: 2,
                             overflow: 'hidden',
+                            paddingLeft: `${containerPaddingLeft}px`,
                         }}
                     >
                         {rowEls}
