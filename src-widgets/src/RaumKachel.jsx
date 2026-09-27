@@ -4,6 +4,12 @@ import translations from './translations.js';
 
 I18n.extendTranslations(translations);
 
+// Bool-Zeilen bekommen diese Schriftart explizit gesetzt (statt vom vis2-Theme
+// geerbt), damit canvas.measureText() beim Berechnen der festen Wert-Spaltenbreite
+// (Checkpoint 3, Punkt 5) exakt dieselbe Schriftart misst, die auch tatsaechlich
+// gerendert wird.
+const RAUM_KACHEL_BOOL_FONT_FAMILY = 'sans-serif';
+
 // ═══════════════════════════════════════════════════════
 //  WIDGET KLASSE
 // ═══════════════════════════════════════════════════════
@@ -59,6 +65,15 @@ class RaumKachel extends window.visRxWidget {
                         { name: 'rowCount', label: 'row_count', type: 'number', min: 0, max: 10, default: 0 },
                         { name: 'rowFontSize', label: 'row_font_size', type: 'number', default: 13 },
                         { name: 'rowLabelColor', label: 'row_label_color', type: 'color', default: '#c8e6e3' },
+                        { name: 'horizontalLayout', label: 'row_horizontal_layout', type: 'checkbox', default: false },
+                        {
+                            name: 'rowSeparator', label: 'row_separator', type: 'text', default: '|',
+                            hidden: data => !data.horizontalLayout,
+                        },
+                        {
+                            name: 'rowGap', label: 'row_gap', type: 'number', default: 12,
+                            hidden: data => !data.horizontalLayout,
+                        },
                     ],
                 },
                 {
@@ -405,6 +420,40 @@ class RaumKachel extends window.visRxWidget {
         return val === true || val === 'true' || val === 1 || val === '1';
     }
 
+    // Wiederverwendetes, unsichtbares <canvas>-Element fuer canvas.measureText()
+    // (Checkpoint 3, Punkt 5) - einmalig anlegen statt bei jedem Render neu zu
+    // erzeugen.
+    _getMeasureCanvas() {
+        if (!this._measureCanvas) {
+            this._measureCanvas = document.createElement('canvas');
+        }
+        return this._measureCanvas;
+    }
+
+    // Feste Breite (px) fuer eine Bool-Zeile ermitteln: Maximum der echten
+    // Pixelbreite von trueText/falseText in der tatsaechlich gerenderten
+    // Schriftart/rowFontSize (siehe fontFamily unten in _renderRows), NICHT ueber
+    // Zeichenanzahl geschaetzt (Proportionalschrift: i schmaler als M). Ergebnis
+    // wird pro Zeilen-Index gecacht und nur bei Aenderung von trueText/falseText/
+    // rowFontSize neu berechnet.
+    _measureBoolValueWidth(rowIndex, trueText, falseText, rowFontSize) {
+        if (!this._boolWidthCache) this._boolWidthCache = {};
+        const cached = this._boolWidthCache[rowIndex];
+        if (cached && cached.trueText === trueText && cached.falseText === falseText && cached.rowFontSize === rowFontSize) {
+            return cached.width;
+        }
+
+        const ctx = this._getMeasureCanvas().getContext('2d');
+        ctx.font = `${rowFontSize}px ${RAUM_KACHEL_BOOL_FONT_FAMILY}`;
+        const width = Math.ceil(Math.max(
+            ctx.measureText(trueText || '').width,
+            ctx.measureText(falseText || '').width,
+        ));
+
+        this._boolWidthCache[rowIndex] = { trueText, falseText, rowFontSize, width };
+        return width;
+    }
+
     _formatNumber(val, decimals, unit) {
         if (val === null || val === undefined || val === '') return '–';
         const num = Number(val);
@@ -425,29 +474,38 @@ class RaumKachel extends window.visRxWidget {
         return logic === 'or' ? results.some(Boolean) : results.every(Boolean);
     }
 
-    _renderRows(rowCount, rowFontSize, rowLabelColor) {
-        const rows = [];
+    _renderRows(rowCount, rowFontSize, rowLabelColor, horizontalLayout, rowSeparator) {
+        const items = [];
         for (let i = 1; i <= rowCount; i++) {
             const oid = this.state.rxData[`oid${i}`];
+            const isEmpty = !oid;
+
+            // horizontalLayout=true: leere Platzhalterzeilen (nur fuer den Editor-
+            // Aufbau, Checkpoint 2) komplett ueberspringen - kein Rendering, kein
+            // Trennzeichen davor/danach. Im vertikalen Modus (Default) bleiben sie
+            // sichtbar (bestehendes Verhalten, siehe minHeight unten).
+            if (horizontalLayout && isEmpty) continue;
 
             const rowLabel = this.state.rxData[`rowLabel${i}`] || '';
             const valueType = this.state.rxData[`valueType${i}`] || 'number';
 
             let text;
             let color;
-            if (!oid) {
+            let valueWidth; // px - nur bei Bool-Zeilen gesetzt, verhindert Spaltenspringen
+            if (isEmpty) {
                 text = '';
                 color = this.state.rxData[`numberColor${i}`] || '#c8e6e3';
             } else if (valueType === 'bool') {
                 const oidsExtra = this.state.rxData[`oidsExtra${i}`];
                 const logic = this.state.rxData[`logic${i}`] || 'and';
                 const isTrue = this._isTrueCombined(oid, oidsExtra, logic);
-                text = isTrue
-                    ? (this.state.rxData[`trueText${i}`] || '')
-                    : (this.state.rxData[`falseText${i}`] || '');
+                const trueText = this.state.rxData[`trueText${i}`] || '';
+                const falseText = this.state.rxData[`falseText${i}`] || '';
+                text = isTrue ? trueText : falseText;
                 color = isTrue
                     ? (this.state.rxData[`trueColor${i}`] || '#c8e6e3')
                     : (this.state.rxData[`falseColor${i}`] || '#c8e6e3');
+                valueWidth = this._measureBoolValueWidth(i, trueText, falseText, rowFontSize);
             } else {
                 const val = this.state.values[`${oid}.val`];
                 const decimalsRaw = parseInt(this.state.rxData[`decimals${i}`], 10);
@@ -457,23 +515,25 @@ class RaumKachel extends window.visRxWidget {
                 color = this.state.rxData[`numberColor${i}`] || '#c8e6e3';
             }
 
-            rows.push(
+            items.push(
                 <div
                     key={i}
                     style={{
                         display: 'flex', flexDirection: 'row',
                         justifyContent: 'space-between', alignItems: 'baseline',
-                        gap: 4, width: '100%', fontSize: `${rowFontSize}px`,
+                        gap: 4, fontSize: `${rowFontSize}px`,
+                        width: horizontalLayout ? 'auto' : '100%',
                         // Leere Platzhalterzeile (kein oid) hat keinen Text -> ohne minHeight
                         // kollabiert die Zeile auf 0px (kein Content, kein Baseline-Bezug).
-                        minHeight: `${Math.round(rowFontSize * 1.3)}px`,
+                        // Im horizontalLayout gibt es keine leeren Zeilen mehr (s.o.).
+                        minHeight: horizontalLayout ? 'auto' : `${Math.round(rowFontSize * 1.3)}px`,
                     }}
                 >
                     <div
                         style={{
                             color: rowLabelColor,
                             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                            minWidth: 0, flex: '1 1 auto', textAlign: 'left',
+                            minWidth: 0, flex: horizontalLayout ? '0 0 auto' : '1 1 auto', textAlign: 'left',
                         }}
                     >
                         {rowLabel}
@@ -482,7 +542,11 @@ class RaumKachel extends window.visRxWidget {
                         style={{
                             color,
                             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                            flex: '0 0 auto', maxWidth: '60%', textAlign: 'right',
+                            flex: '0 0 auto',
+                            maxWidth: horizontalLayout ? 'none' : '60%',
+                            textAlign: valueWidth !== undefined ? 'left' : 'right',
+                            width: valueWidth !== undefined ? `${valueWidth}px` : undefined,
+                            fontFamily: valueWidth !== undefined ? RAUM_KACHEL_BOOL_FONT_FAMILY : undefined,
                         }}
                     >
                         {text}
@@ -490,7 +554,26 @@ class RaumKachel extends window.visRxWidget {
                 </div>,
             );
         }
-        return rows;
+
+        if (!horizontalLayout) return items;
+
+        // Trennzeichen (rowSeparator) nur zwischen zwei tatsaechlich gerenderten
+        // Zeilen einfuegen - nicht vor der ersten und nicht nach der letzten Zeile.
+        const withSeparators = [];
+        items.forEach((item, idx) => {
+            if (idx > 0) {
+                withSeparators.push(
+                    <span
+                        key={`sep-${idx}`}
+                        style={{ color: rowLabelColor, fontSize: `${rowFontSize}px`, margin: '0 6px' }}
+                    >
+                        {rowSeparator}
+                    </span>,
+                );
+            }
+            withSeparators.push(item);
+        });
+        return withSeparators;
     }
 
     renderWidgetBody(props) {
@@ -513,7 +596,13 @@ class RaumKachel extends window.visRxWidget {
         const rowFontSizeRaw = parseInt(this.state.rxData.rowFontSize, 10);
         const rowFontSize = Number.isNaN(rowFontSizeRaw) ? 13 : rowFontSizeRaw;
         const rowLabelColor = this.state.rxData.rowLabelColor || '#c8e6e3';
-        const rowEls = rowCount > 0 ? this._renderRows(rowCount, rowFontSize, rowLabelColor) : null;
+        const horizontalLayout = !!this.state.rxData.horizontalLayout;
+        const rowSeparator = this.state.rxData.rowSeparator ?? '|';
+        const rowGapRaw = parseInt(this.state.rxData.rowGap, 10);
+        const rowGap = Number.isNaN(rowGapRaw) ? 12 : rowGapRaw;
+        const rowEls = rowCount > 0
+            ? this._renderRows(rowCount, rowFontSize, rowLabelColor, horizontalLayout, rowSeparator)
+            : null;
 
         const justifyContent = { left: 'flex-start', center: 'center', right: 'flex-end' }[nameAlign] || 'flex-start';
         const alignItems = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[nameVerticalAlign] || 'flex-start';
@@ -559,12 +648,19 @@ class RaumKachel extends window.visRxWidget {
                 </div>
                 {rowCount > 0 && (
                     <div
-                        style={{
-                            display: 'flex', flexDirection: 'column',
-                            flex: 1, minHeight: 0,
-                            justifyContent: 'center', gap: 2,
-                            overflow: 'hidden',
-                        }}
+                        style={horizontalLayout
+                            ? {
+                                display: 'flex', flexDirection: 'row', flexWrap: 'wrap',
+                                alignItems: 'baseline', justifyContent: 'flex-start',
+                                flex: 1, minHeight: 0, gap: `${rowGap}px`,
+                                overflow: 'hidden',
+                            }
+                            : {
+                                display: 'flex', flexDirection: 'column',
+                                flex: 1, minHeight: 0,
+                                justifyContent: 'center', gap: 2,
+                                overflow: 'hidden',
+                            }}
                     >
                         {rowEls}
                     </div>
