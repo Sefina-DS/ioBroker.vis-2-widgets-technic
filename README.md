@@ -38,6 +38,13 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### 0.1.25 (2026-09-27)
+- RaumKachel: new horizontal row layout (`horizontalLayout`/`rowSeparator`/`rowGap`)
+  with a separator between actually-filled rows, empty placeholder rows fully
+  skipped
+- RaumKachel: fixed value-column width for boolean rows (canvas-measured, cached),
+  no more column jumping when toggling true/false text
+
 ### 0.1.24 (2026-09-26)
 - New widget "Status - List": pure info rows (label + value, number/bool, multi-oid
   AND/OR, colors) without click/popup behavior, for status-only tiles
