@@ -184,7 +184,7 @@
         ],
         "globalDependencies": [
             {
-                "vis-2": ">=2.0.0"
+                "vis-2": ">=2.15.2"
             }
         ],
         "platform": "Javascript/Node.js",
