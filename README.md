@@ -38,6 +38,9 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+- (iobroker-bot) Adapter requires node.js >= 22 now.
+
 ### 0.1.25 (2026-09-27)
 - RaumKachel: new horizontal row layout (`horizontalLayout`/`rowSeparator`/`rowGap`)
   with a separator between actually-filled rows, empty placeholder rows fully
