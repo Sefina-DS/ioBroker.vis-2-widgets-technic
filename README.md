@@ -38,12 +38,6 @@ All widgets use a consistent color palette:
 
 ## Changelog
 
-### **WORK IN PROGRESS**
-- (iobroker-bot) Adapter requires node.js >= 22 now.
-- Migrated widgets to React 19 and Vite 8 (exact-pinned build stack, `@iobroker/types-vis-2` 2.20.1)
-- Requires vis-2 >= 2.15.2 (first version that shares `react/jsx-runtime` with widget sets)
-- Removed dependency `@iobroker/adapter-react-v5`; translations now use the vis-2 host translator
-
 ### 0.1.25 (2026-09-27)
 - RaumKachel: new horizontal row layout (`horizontalLayout`/`rowSeparator`/`rowGap`)
   with a separator between actually-filled rows, empty placeholder rows fully
