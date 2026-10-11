@@ -1,9 +1,5 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { I18n } from '@iobroker/adapter-react-v5';
-import translations from './translations.js';
-
-I18n.extendTranslations(translations);
 
 // ═══════════════════════════════════════════════════════
 //  DIAL GEOMETRY
@@ -651,7 +647,7 @@ class ReglerTemperatur extends window.visRxWidget {
     _fetchHistoryData(range) {
         const { influxInstance, oid_temp_soll, oid_temp_ist, oid_stellmotor } = this.state.rxData;
         if (!influxInstance || !oid_temp_soll) {
-            this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
+            this.setState({ historyLoading: false, historyError: ReglerTemperatur.t('history_error') });
             return;
         }
 
@@ -698,7 +694,7 @@ class ReglerTemperatur extends window.visRxWidget {
                 if (!this._mounted || token !== this._historyFetchToken) return;
                 const soll = this._normalizePoints(sollRaw, start, end);
                 if (!soll.length) {
-                    this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
+                    this.setState({ historyLoading: false, historyError: ReglerTemperatur.t('history_error') });
                     return;
                 }
                 const ist = istRaw ? this._normalizePoints(istRaw, start, end) : null;
@@ -710,7 +706,7 @@ class ReglerTemperatur extends window.visRxWidget {
             })
             .catch(() => {
                 if (!this._mounted || token !== this._historyFetchToken) return;
-                this.setState({ historyLoading: false, historyError: I18n.t('history_error') });
+                this.setState({ historyLoading: false, historyError: ReglerTemperatur.t('history_error') });
             });
     }
 
@@ -743,7 +739,7 @@ class ReglerTemperatur extends window.visRxWidget {
         return createPortal(
             <div
                 onClick={e => { e.stopPropagation(); this._openHistory(); }}
-                title={I18n.t('history_group')}
+                title={ReglerTemperatur.t('history_group')}
                 style={{
                     position: 'fixed',
                     top: rect.top - outset,
@@ -779,7 +775,7 @@ class ReglerTemperatur extends window.visRxWidget {
         } = this.state.rxData;
         const cooling = this._getKuehlmodus();
         const range = this.state.historyRange || '24h';
-        const title = ueberschrift ? `${ueberschrift} – ${I18n.t('history_group')}` : I18n.t('history_group');
+        const title = ueberschrift ? `${ueberschrift} – ${ReglerTemperatur.t('history_group')}` : ReglerTemperatur.t('history_group');
 
         return createPortal(
             <div
@@ -804,10 +800,10 @@ class ReglerTemperatur extends window.visRxWidget {
                         <div style={{ fontSize: 15, fontWeight: 600 }}>{title}</div>
                         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                             <button onClick={() => this._setHistoryRange('24h')} style={rangeButtonStyle(range === '24h', colorAN)}>
-                                {I18n.t('range_24h')}
+                                {ReglerTemperatur.t('range_24h')}
                             </button>
                             <button onClick={() => this._setHistoryRange('7d')} style={rangeButtonStyle(range === '7d', colorAN)}>
-                                {I18n.t('range_7d')}
+                                {ReglerTemperatur.t('range_7d')}
                             </button>
                             <button
                                 onClick={() => this._closeHistory()}
@@ -824,17 +820,17 @@ class ReglerTemperatur extends window.visRxWidget {
                     <div style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 6, fontSize: 11, color: colorAUS }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                             <span style={{ display: 'inline-block', width: 14, height: 2.5, background: colorVerlaufSoll, borderRadius: 1 }} />
-                            {I18n.t('legend_soll')}
+                            {ReglerTemperatur.t('legend_soll')}
                         </div>
                         {this.state.rxData.oid_temp_ist && (
                             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                                 <span style={{ display: 'inline-block', width: 14, height: 2.5, background: colorVerlaufIst, borderRadius: 1 }} />
-                                {I18n.t('legend_ist')}
+                                {ReglerTemperatur.t('legend_ist')}
                             </div>
                         )}
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                             <span style={{ display: 'inline-block', width: 10, height: 10, background: colorVerlaufAktor, opacity: 0.5, borderRadius: 2 }} />
-                            {I18n.t('legend_aktor')}
+                            {ReglerTemperatur.t('legend_aktor')}
                         </div>
                     </div>
                     {this._renderHistoryBody(colorAUS, colorKuehlen, colorVerlaufSoll, colorVerlaufIst, colorVerlaufAktor, cooling)}
@@ -854,7 +850,7 @@ class ReglerTemperatur extends window.visRxWidget {
         if (!historyData) {
             return (
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: colorAUS, fontSize: 13, textAlign: 'center', padding: 12 }}>
-                    {historyError || I18n.t('history_loading')}
+                    {historyError || ReglerTemperatur.t('history_loading')}
                 </div>
             );
         }
@@ -877,7 +873,7 @@ class ReglerTemperatur extends window.visRxWidget {
                         background: 'rgba(0,0,0,0.55)',
                         color: historyError ? '#ff8a80' : colorAUS,
                     }}>
-                        {historyError || I18n.t('history_loading')}
+                        {historyError || ReglerTemperatur.t('history_loading')}
                     </div>
                 )}
             </div>

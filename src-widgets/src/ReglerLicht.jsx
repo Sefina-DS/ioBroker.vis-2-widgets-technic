@@ -1,8 +1,4 @@
 import React from 'react';
-import { I18n } from '@iobroker/adapter-react-v5';
-import translations from './translations.js';
-
-I18n.extendTranslations(translations);
 
 function describeArc(cx, cy, r, startDeg, endDeg) {
     const toRad = d => d * Math.PI / 180;

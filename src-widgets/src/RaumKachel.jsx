@@ -1,8 +1,4 @@
 import React from 'react';
-import { I18n } from '@iobroker/adapter-react-v5';
-import translations from './translations.js';
-
-I18n.extendTranslations(translations);
 
 // Bool-Zeilen bekommen diese Schriftart explizit gesetzt (statt vom vis2-Theme
 // geerbt), damit canvas.measureText() beim Berechnen der festen Wert-Spaltenbreite
