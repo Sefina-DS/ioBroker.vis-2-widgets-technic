@@ -3,7 +3,7 @@ src-widgets/node_modules/
 src-widgets/build/
 .commitinfo
 *.log
-.DS_StoreioBroker.repositories/
+ioBroker.repositories/
 
 # No dot-directories except github/vscode
 .*/
