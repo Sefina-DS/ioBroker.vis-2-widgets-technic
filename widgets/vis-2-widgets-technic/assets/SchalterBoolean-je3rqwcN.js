@@ -1,4 +1,4 @@
-import"./_virtual_mf___mfe_internal__vis2TechnicWidgets__mf_owner__106437333683324__loadShare__react__loadShare__.js-B2PqI_gM.js";import{n as e,r as t}from"./_virtual_mf___mfe_internal__vis2TechnicWidgets__mf_owner__106437333683324__loadShare__react_mf_1_jsx_mf_2_runtime__loadShare__.js-D7qW3pBV.js";var n={"Auswahl-AN":{w:480,h:480,svg:`<g transform="translate(0.000000,480.000000) scale(0.100000,-0.100000)" fill="__CAUS__" stroke="none"><path d="M1499 3616 c-36 -13 -86 -37 -111 -54 -98 -67 -183 -188 -207 -293
+import{a as e,o as t}from"./_virtual_mf___mfe_internal__vis2TechnicWidgets__mf_owner__40264265075242__loadShare__shared-Cj8MeQE8.js";var n={"Auswahl-AN":{w:480,h:480,svg:`<g transform="translate(0.000000,480.000000) scale(0.100000,-0.100000)" fill="__CAUS__" stroke="none"><path d="M1499 3616 c-36 -13 -86 -37 -111 -54 -98 -67 -183 -188 -207 -293
 -7 -28 -11 -345 -11 -854 0 -890 -2 -863 61 -987 37 -73 123 -161 195 -200
 109 -59 95 -58 971 -58 547 0 819 4 855 11 135 28 273 130 328 242 59 121 60
 132 60 919 l0 717 -22 15 c-28 20 -68 20 -94 2 -18 -14 -19 -36 -24 -753 l-5
