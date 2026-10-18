@@ -85,20 +85,29 @@ class RaumKachel extends window.visRxWidget {
                             options: [
                                 { value: 'number', label: 'row_type_number' },
                                 { value: 'bool',   label: 'row_type_bool' },
+                                { value: 'string', label: 'row_type_string' },
                             ],
                             default: 'number',
                         },
                         {
                             name: 'unit', label: 'row_unit', type: 'text', default: '',
-                            hidden: (data, index) => data[`valueType${index}`] !== 'number',
+                            hidden: (data, index) => (data[`valueType${index}`] || 'number') !== 'number',
                         },
                         {
                             name: 'decimals', label: 'row_decimals', type: 'number', default: 1,
-                            hidden: (data, index) => data[`valueType${index}`] !== 'number',
+                            hidden: (data, index) => (data[`valueType${index}`] || 'number') !== 'number',
                         },
                         {
                             name: 'numberColor', label: 'row_number_color', type: 'color', default: '#c8e6e3',
-                            hidden: (data, index) => data[`valueType${index}`] !== 'number',
+                            hidden: (data, index) => data[`valueType${index}`] === 'bool',
+                        },
+                        {
+                            name: 'stringPrefix', label: 'row_string_prefix', type: 'text', default: '',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'string',
+                        },
+                        {
+                            name: 'stringSuffix', label: 'row_string_suffix', type: 'text', default: '',
+                            hidden: (data, index) => data[`valueType${index}`] !== 'string',
                         },
                         {
                             name: 'trueText', label: 'row_true_text', type: 'text', default: '',
@@ -413,7 +422,10 @@ class RaumKachel extends window.visRxWidget {
 
     // Boolean lesen (alle Varianten abdecken, LEARNINGS.md #21)
     _isTrue(val) {
-        return val === true || val === 'true' || val === 1 || val === '1';
+        if (typeof val === 'string') {
+            return ['true', '1', 'on'].includes(val.trim().toLowerCase());
+        }
+        return val === true || val === 1;
     }
 
     // Wiederverwendetes, unsichtbares <canvas>-Element fuer canvas.measureText()
@@ -502,6 +514,11 @@ class RaumKachel extends window.visRxWidget {
                     ? (this.state.rxData[`trueColor${i}`] || '#c8e6e3')
                     : (this.state.rxData[`falseColor${i}`] || '#c8e6e3');
                 valueWidth = this._measureBoolValueWidth(i, trueText, falseText, rowFontSize);
+            } else if (valueType === 'string') {
+                const val = this.state.values[`${oid}.val`];
+                const str = val === null || val === undefined ? '' : String(val);
+                text = `${this.state.rxData[`stringPrefix${i}`] || ''}${str}${this.state.rxData[`stringSuffix${i}`] || ''}`;
+                color = this.state.rxData[`numberColor${i}`] || '#c8e6e3';
             } else {
                 const val = this.state.values[`${oid}.val`];
                 const decimalsRaw = parseInt(this.state.rxData[`decimals${i}`], 10);
